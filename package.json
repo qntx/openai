@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@scure/base": "^2.3.0",
-    "@solana/kit": "^6.10.0",
+    "@solana/kit": "^7.1.1",
     "@types/node": "^26.2.0",
     "@x402/evm": "^2.23.0",
     "@x402/svm": "^2.23.0",
