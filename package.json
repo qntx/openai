@@ -40,18 +40,18 @@
     "prepublishOnly": "vp run build"
   },
   "dependencies": {
-    "@x402/fetch": "^2.22.0",
-    "openai": "^7.4.0"
+    "@x402/fetch": "^2.23.0",
+    "openai": "^7.5.0"
   },
   "devDependencies": {
     "@scure/base": "^2.3.0",
     "@solana/kit": "^6.10.0",
     "@types/node": "^26.2.0",
-    "@x402/evm": "^2.22.0",
-    "@x402/svm": "^2.22.0",
+    "@x402/evm": "^2.23.0",
+    "@x402/svm": "^2.23.0",
     "bumpp": "^11.1.0",
     "typescript": "^7.0.2",
-    "viem": "^2.55.15",
+    "viem": "^2.55.19",
     "vite-plus": "^0.2.9"
   },
   "peerDependencies": {
