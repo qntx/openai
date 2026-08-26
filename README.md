@@ -13,7 +13,7 @@
 
 ---
 
-Wrap the standard `openai.OpenAI` client with a crypto wallet.
+Wrap the standard `openai.OpenAI` client with per-chain private keys.
 When the server responds with **HTTP 402**, the library automatically signs and retries the request — zero code changes needed.
 
 ## Installation
@@ -28,10 +28,9 @@ bun add x402-openai @x402/evm @x402/svm viem @solana/kit @scure/base  # all chai
 
 ```ts
 import { X402OpenAI } from "x402-openai";
-import { EvmWallet } from "x402-openai/wallets";
 
 const client = new X402OpenAI({
-  wallet: new EvmWallet({ privateKey: "0x…" }),
+  evm: "0x…",
 });
 
 const res = await client.chat.completions.create({
@@ -41,7 +40,7 @@ const res = await client.chat.completions.create({
 console.log(res.choices[0]?.message.content);
 ```
 
-Swap `EvmWallet` for `SvmWallet` to pay on Solana — the API is identical.
+Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical.
 
 ## Usage
 
@@ -63,19 +62,10 @@ for await (const chunk of stream) {
 ### Multi-chain
 
 ```ts
-import { EvmWallet, SvmWallet } from "x402-openai/wallets";
-
 const client = new X402OpenAI({
-  wallets: [new EvmWallet({ privateKey: "0x…" }), new SvmWallet({ privateKey: "base58…" })],
+  evm: "0x…",
+  svm: "base58…",
 });
-```
-
-### BIP-39 Mnemonic (EVM)
-
-```ts
-const wallet = new EvmWallet({ mnemonic: "word1 word2 … word12" });
-const wallet2 = new EvmWallet({ mnemonic: "…", accountIndex: 2 }); // m/44'/60'/0'/0/2
-const wallet3 = new EvmWallet({ mnemonic: "…", derivationPath: "m/44'/60'/2'/0/0" }); // custom path
 ```
 
 The protocol selects the right chain automatically based on the server's payment requirements.
@@ -86,10 +76,10 @@ Use policies to control which chain or scheme is preferred when multiple payment
 
 ```ts
 import { X402OpenAI, preferNetwork, preferScheme, maxAmount } from "x402-openai";
-import { EvmWallet, SvmWallet } from "x402-openai/wallets";
 
 const client = new X402OpenAI({
-  wallets: [new EvmWallet({ privateKey: "0x…" }), new SvmWallet({ privateKey: "base58…" })],
+  evm: "0x…",
+  svm: "base58…",
   policies: [
     preferNetwork("eip155:8453"), // Prefer Base mainnet
     preferScheme("exact"), // Prefer exact payment scheme
@@ -102,27 +92,26 @@ const client = new X402OpenAI({
 
 ### `X402OpenAI`
 
-Drop-in replacement for `openai.OpenAI`. Provide **exactly one** credential source:
+Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, or `x402Client`:
 
-| Parameter    | Type              | Description                                            |
-| :----------- | :---------------- | :----------------------------------------------------- |
-| `wallet`     | `Wallet`          | Single wallet adapter                                  |
-| `wallets`    | `Wallet[]`        | Multiple adapters (multi-chain)                        |
-| `policies`   | `PaymentPolicy[]` | Payment policies (chain/scheme preference, amount cap) |
-| `x402Client` | `x402Client`      | Pre-configured x402 client (bypasses `policies`)       |
+| Parameter    | Type                               | Description                                               |
+| :----------- | :--------------------------------- | :-------------------------------------------------------- |
+| `evm`        | `` `0x${string}` `` or `EvmConfig` | EVM secp256k1 private key (`0x` hex)                      |
+| `svm`        | `string` or `SvmConfig`            | Solana base58 secret key                                  |
+| `policies`   | `PaymentPolicy[]`                  | Payment policies (chain/scheme preference, amount cap)    |
+| `x402Client` | `x402Client`                       | Pre-configured x402 client (exclusive with keys/policies) |
+
+`EvmConfig` / `SvmConfig`: `{ privateKey, rpcUrl? }`. Empty keys throw.
 
 All standard OpenAI options (`baseURL`, `timeout`, `maxRetries`, …) are forwarded.
 Default `baseURL`: `https://llm.qntx.org/v1`
 
-### Wallet Adapters
+Install extras:
 
-| Class                          | Chain        | Install extras                      |
-| :----------------------------- | :----------- | :---------------------------------- |
-| `EvmWallet({ privateKey: … })` | EVM          | `@x402/evm viem`                    |
-| `EvmWallet({ mnemonic: … })`   | EVM (BIP-39) | `@x402/evm viem`                    |
-| `SvmWallet({ privateKey: … })` | Solana       | `@x402/svm @solana/kit @scure/base` |
-
-Implement the [`Wallet`](src/wallets/base.ts) interface to add a new chain.
+| Option | Chain  | Install extras                      |
+| :----- | :----- | :---------------------------------- |
+| `evm`  | EVM    | `@x402/evm viem`                    |
+| `svm`  | Solana | `@x402/svm @solana/kit @scure/base` |
 
 ## Examples
 
@@ -132,7 +121,6 @@ See the [`examples/`](examples/) directory. Each script is self-contained:
 EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm.ts
 SOLANA_PRIVATE_KEY="base58…"    bun examples/chat-svm.ts
 EVM_PRIVATE_KEY="0x…"           bun examples/streaming-evm.ts
-MNEMONIC="word1 word2 …"       bun examples/chat-evm-mnemonic.ts
 EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm-policy.ts
 EVM_PRIVATE_KEY="0x…" SOLANA_PRIVATE_KEY="base58…" bun examples/chat-multichain-policy.ts
 ```

@@ -11,7 +11,8 @@
  * import { preferNetwork, preferScheme, maxAmount } from "x402-openai";
  *
  * const client = new X402OpenAI({
- *   wallets: [evmWallet, svmWallet],
+ *   evm: "0x…",
+ *   svm: "base58…",
  *   policies: [
  *     preferNetwork("eip155:8453"),
  *     preferScheme("exact"),

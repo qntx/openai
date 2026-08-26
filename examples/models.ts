@@ -5,12 +5,9 @@
  */
 
 import { X402OpenAI } from "../src/index.ts";
-import { EvmWallet } from "../src/wallets/index.ts";
 
 const client = new X402OpenAI({
-  wallet: new EvmWallet({
-    privateKey: process.env.EVM_PRIVATE_KEY as `0x${string}`,
-  }),
+  evm: process.env.EVM_PRIVATE_KEY as `0x${string}`,
 });
 
 const models = await client.models.list();

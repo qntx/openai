@@ -8,12 +8,9 @@
  */
 
 import { preferNetwork, X402OpenAI } from "../src/index.ts";
-import { EvmWallet } from "../src/wallets/index.ts";
 
 const client = new X402OpenAI({
-  wallet: new EvmWallet({
-    privateKey: process.env.EVM_PRIVATE_KEY as `0x${string}`,
-  }),
+  evm: process.env.EVM_PRIVATE_KEY as `0x${string}`,
   policies: [preferNetwork("eip155:8453")], // Prefer Base mainnet
 });
 

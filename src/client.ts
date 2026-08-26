@@ -4,44 +4,37 @@
  * {@link X402OpenAI} replaces `openai.OpenAI` and transparently handles
  * HTTP 402 Payment Required responses via the x402 protocol.
  *
- * Supports multiple blockchain backends via wallet adapters:
- *
  * @example
  * ```ts
  * import { X402OpenAI } from "x402-openai";
- * import { EvmWallet, SvmWallet } from "x402-openai/wallets";
  *
- * // Single chain
- * const client = new X402OpenAI({ wallet: new EvmWallet({ privateKey: "0x…" }) });
+ * const client = new X402OpenAI({ evm: "0x…" });
  *
- * // Multi-chain
- * const client = new X402OpenAI({
- *   wallets: [
- *     new EvmWallet({ privateKey: "0x…" }),
- *     new SvmWallet({ privateKey: "base58…" }),
- *   ],
+ * const client2 = new X402OpenAI({
+ *   evm: "0x…",
+ *   svm: "base58…",
  * });
  * ```
  */
 
-import { type PaymentPolicy, wrapFetchWithPayment, type x402Client } from "@x402/fetch";
+import { wrapFetchWithPayment, type PaymentPolicy, type x402Client } from "@x402/fetch";
 import type { ClientOptions } from "openai";
 import OpenAI from "openai";
-import { createX402Client } from "./wallet.ts";
-import type { Wallet } from "./wallets/base.ts";
+import type { EvmConfig, SvmConfig } from "./chains/types.ts";
+import { assertPaymentOptions, buildX402Client } from "./payments.ts";
 
 /** Default x402 LLM gateway URL. */
-const DEFAULT_BASE_URL = "https://llm.qntx.fun/v1";
+const DEFAULT_BASE_URL = "https://llm.qntx.org/v1";
 
 /** x402-specific options on top of the standard OpenAI client options. */
 export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
-  /** A single {@link Wallet} adapter (e.g. `EvmWallet`, `SvmWallet`). */
-  wallet?: Wallet;
-  /** List of {@link Wallet} adapters for multi-chain support. */
-  wallets?: Wallet[];
+  /** EVM secp256k1 private key (`0x` hex), or `{ privateKey, rpcUrl? }`. */
+  evm?: `0x${string}` | EvmConfig;
+  /** Solana base58 secret key, or `{ privateKey, rpcUrl? }`. */
+  svm?: string | SvmConfig;
   /**
    * Payment policies to filter or prioritise payment requirements.
-   * Ignored when `x402Client` is provided.
+   * Forbidden when `x402Client` is provided.
    *
    * @example
    * ```ts
@@ -55,31 +48,25 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
    * ```
    */
   policies?: PaymentPolicy[];
-  /** Pre-configured `x402Client` instance. */
+  /** Pre-configured `x402Client`. Exclusive with `evm`, `svm`, and `policies`. */
   x402Client?: x402Client;
 }
 
 /**
  * Drop-in replacement for `openai.OpenAI` with transparent x402 payment.
  *
- * Provide **exactly one** credential source:
+ * Provide at least one of `evm`, `svm`, or `x402Client`.
  *
- * | Parameter    | Description                                        |
- * | ------------ | -------------------------------------------------- |
- * | `wallet`     | A single `Wallet` adapter (e.g. `EvmWallet`)       |
- * | `wallets`    | List of `Wallet` adapters for multi-chain support   |
- * | `x402Client` | Pre-configured `x402Client`                         |
- *
- * Default `baseURL` is `https://llm.qntx.fun/v1`.
+ * Default `baseURL` is `https://llm.qntx.org/v1`.
  * All standard OpenAI constructor options (`baseURL`, `timeout`, `maxRetries`, …)
  * are forwarded transparently.
  *
  * @example
  * ```ts
- * import { preferNetwork } from "x402-openai";
+ * import { preferNetwork, X402OpenAI } from "x402-openai";
  *
  * const client = new X402OpenAI({
- *   wallet: new EvmWallet({ privateKey: "0x…" }),
+ *   evm: "0x…",
  *   policies: [preferNetwork("eip155:8453")],
  * });
  *
@@ -91,17 +78,11 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
  */
 export class X402OpenAI extends OpenAI {
   constructor(options: X402OpenAIOptions) {
-    const { wallet, wallets, policies, x402Client: prebuiltClient, ...openaiOptions } = options;
+    const { evm, svm, policies, x402Client: prebuilt, ...openaiOptions } = options;
+    const payment = { evm, svm, policies, x402Client: prebuilt };
+    assertPaymentOptions(payment);
 
-    // Build a lazy-initialized x402-wrapped fetch function.
-    // Initialization is deferred to the first request so the constructor
-    // remains synchronous (SVM wallet registration is async).
-    const x402Fetch = createLazyX402Fetch({
-      wallet,
-      wallets,
-      policies,
-      x402Client: prebuiltClient,
-    });
+    const x402Fetch = createLazyX402Fetch(payment);
 
     super({
       apiKey: "x402",
@@ -112,27 +93,16 @@ export class X402OpenAI extends OpenAI {
   }
 }
 
-/**
- * Create a fetch function that lazily initializes the x402 client on first use.
- *
- * This allows the constructor to remain synchronous while supporting async
- * wallet registration (e.g. SVM wallets that use Web Crypto API).
- */
 type FetchFn = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
-function createLazyX402Fetch(options: {
-  wallet?: Wallet;
-  wallets?: Wallet[];
-  policies?: PaymentPolicy[];
-  x402Client?: x402Client;
-}): FetchFn {
+function createLazyX402Fetch(options: Parameters<typeof buildX402Client>[0]): FetchFn {
   let clientPromise: Promise<x402Client> | null = null;
   let wrappedFetch: FetchFn | null = null;
 
   return async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
     if (!wrappedFetch) {
       if (!clientPromise) {
-        clientPromise = createX402Client(options);
+        clientPromise = buildX402Client(options);
       }
       const client = await clientPromise;
       wrappedFetch = wrapFetchWithPayment(globalThis.fetch, client) as FetchFn;

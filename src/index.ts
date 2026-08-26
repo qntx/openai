@@ -4,21 +4,13 @@
  * Quick start:
  *
  * ```ts
- * import { X402OpenAI, preferNetwork } from "x402-openai";
- * import { EvmWallet, SvmWallet } from "x402-openai/wallets";
+ * import { preferNetwork, X402OpenAI } from "x402-openai";
  *
- * // EVM
- * const client = new X402OpenAI({ wallet: new EvmWallet({ privateKey: "0x…" }) });
+ * const client = new X402OpenAI({ evm: "0x…" });
  *
- * // SVM (Solana)
- * const client = new X402OpenAI({ wallet: new SvmWallet({ privateKey: "base58…" }) });
- *
- * // Multi-chain with policy
- * const client = new X402OpenAI({
- *   wallets: [
- *     new EvmWallet({ privateKey: "0x…" }),
- *     new SvmWallet({ privateKey: "base58…" }),
- *   ],
+ * const multi = new X402OpenAI({
+ *   evm: "0x…",
+ *   svm: "base58…",
  *   policies: [preferNetwork("eip155:8453")],
  * });
  * ```
@@ -27,19 +19,10 @@
  *
  * - {@link X402OpenAI} — recommended client class.
  * - {@link preferNetwork} / {@link preferScheme} / {@link maxAmount} — payment policies.
- * - {@link EvmWallet} / {@link SvmWallet} — chain-specific wallet adapters.
- * - {@link Wallet} — interface for custom wallet implementations.
  */
 
-export type { PaymentPolicy } from "@x402/fetch";
+export type { PaymentPolicy, x402Client } from "@x402/fetch";
+export type { EvmConfig, SvmConfig } from "./chains/types.ts";
 export type { X402OpenAIOptions } from "./client.ts";
 export { X402OpenAI } from "./client.ts";
 export { maxAmount, preferNetwork, preferScheme } from "./policies.ts";
-export type {
-  EvmWalletMnemonicOptions,
-  EvmWalletOptions,
-  EvmWalletPrivateKeyOptions,
-  SvmWalletOptions,
-  Wallet,
-} from "./wallets/index.ts";
-export { EvmWallet, SvmWallet } from "./wallets/index.ts";
