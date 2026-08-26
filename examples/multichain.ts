@@ -5,15 +5,10 @@
  */
 
 import { X402OpenAI } from "../src/index.ts";
-import { EvmWallet, SvmWallet } from "../src/wallets/index.ts";
 
 const client = new X402OpenAI({
-  wallets: [
-    new EvmWallet({
-      privateKey: process.env.EVM_PRIVATE_KEY as `0x${string}`,
-    }),
-    new SvmWallet({ privateKey: process.env.SOLANA_PRIVATE_KEY ?? "" }),
-  ],
+  evm: process.env.EVM_PRIVATE_KEY as `0x${string}`,
+  svm: process.env.SOLANA_PRIVATE_KEY ?? "",
 });
 
 const response = await client.chat.completions.create({

@@ -1,5 +1,5 @@
 {
-  "name": "x402-openai",
+  "name": "@qntx/openai",
   "version": "0.3.0",
   "description": "Drop-in OpenAI TypeScript client with transparent x402 payment support.",
   "keywords": [
@@ -11,14 +11,13 @@
     "payment",
     "solana",
     "usdc",
-    "wallet",
     "x402"
   ],
   "license": "MIT",
   "author": "QNTX <x@qntx.fun>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qntx/x402-openai-typescript"
+    "url": "https://github.com/qntx/openai"
   },
   "files": [
     "dist"
@@ -26,7 +25,6 @@
   "type": "module",
   "exports": {
     ".": "./dist/index.mjs",
-    "./wallets": "./dist/wallets/index.mjs",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -44,29 +42,91 @@
     "openai": "^7.5.0"
   },
   "devDependencies": {
+    "@concordium/web-sdk": "^12.0.0",
+    "@keetanetwork/keetanet-client": "^0.18.1",
     "@scure/base": "^2.3.0",
     "@solana/kit": "^6.10.0",
+    "@ton/crypto": "^3.3.0",
     "@types/node": "^26.2.0",
+    "@x402/aptos": "^2.23.0",
+    "@x402/avm": "^2.23.0",
+    "@x402/concordium": "^2.23.0",
     "@x402/evm": "^2.23.0",
+    "@x402/hedera": "^2.23.0",
+    "@x402/keeta": "^2.23.0",
+    "@x402/near": "^2.23.0",
+    "@x402/stellar": "^2.23.0",
     "@x402/svm": "^2.23.0",
+    "@x402/tvm": "^2.23.0",
+    "@x402/xrpl": "^2.23.0",
     "bumpp": "^11.1.0",
     "typescript": "^7.0.2",
     "viem": "^2.55.19",
-    "vite-plus": "^0.2.9"
+    "vite-plus": "^0.2.9",
+    "xrpl": "^4.6.0"
   },
   "peerDependencies": {
-    "@scure/base": "^1.0.0",
-    "@solana/kit": "^2.0.0",
-    "@x402/evm": "^2.3.0",
-    "@x402/svm": "^2.3.0",
+    "@concordium/web-sdk": "^12.0.0",
+    "@keetanetwork/keetanet-client": "^0.18.1",
+    "@scure/base": ">=1.2.6",
+    "@solana/kit": ">=5.1.0",
+    "@ton/crypto": "^3.3.0",
+    "@x402/aptos": "^2.23.0",
+    "@x402/avm": "^2.23.0",
+    "@x402/concordium": "^2.23.0",
+    "@x402/evm": "^2.23.0",
+    "@x402/hedera": "^2.23.0",
+    "@x402/keeta": "^2.23.0",
+    "@x402/near": "^2.23.0",
+    "@x402/stellar": "^2.23.0",
+    "@x402/svm": "^2.23.0",
+    "@x402/tvm": "^2.23.0",
+    "@x402/xrpl": "^2.23.0",
     "typescript": "^5.9.3",
-    "viem": "^2.0.0"
+    "viem": "^2.48.11",
+    "xrpl": "^4.6.0"
   },
   "peerDependenciesMeta": {
+    "@concordium/web-sdk": {
+      "optional": true
+    },
+    "@keetanetwork/keetanet-client": {
+      "optional": true
+    },
+    "@ton/crypto": {
+      "optional": true
+    },
+    "@x402/aptos": {
+      "optional": true
+    },
+    "@x402/avm": {
+      "optional": true
+    },
+    "@x402/concordium": {
+      "optional": true
+    },
     "@x402/evm": {
       "optional": true
     },
+    "@x402/hedera": {
+      "optional": true
+    },
+    "@x402/keeta": {
+      "optional": true
+    },
+    "@x402/near": {
+      "optional": true
+    },
+    "@x402/stellar": {
+      "optional": true
+    },
     "@x402/svm": {
+      "optional": true
+    },
+    "@x402/tvm": {
+      "optional": true
+    },
+    "@x402/xrpl": {
       "optional": true
     },
     "viem": {
@@ -76,6 +136,9 @@
       "optional": true
     },
     "@scure/base": {
+      "optional": true
+    },
+    "xrpl": {
       "optional": true
     }
   },

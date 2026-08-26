@@ -1,28 +1,22 @@
 /**
  * Multi-chain chat completion with payment policies.
  *
- * Registers both EVM and SVM wallets, then uses policies to prefer Base
- * mainnet and cap the maximum payment amount.
+ * Registers both EVM and SVM keys, then prefers Base and the `upto` scheme.
+ * Official spend controls stay at `$1` (omit `spendControls`).
  *
  * Usage:
  *   EVM_PRIVATE_KEY="0x..." SOLANA_PRIVATE_KEY="base58..." \
  *     bun examples/chat-multichain-policy.ts
  */
 
-import { maxAmount, preferNetwork, preferScheme, X402OpenAI } from "../src/index.ts";
-import { EvmWallet, SvmWallet } from "../src/wallets/index.ts";
+import { preferNetwork, preferScheme, X402OpenAI } from "../src/index.ts";
 
 const client = new X402OpenAI({
-  wallets: [
-    new EvmWallet({
-      privateKey: process.env.EVM_PRIVATE_KEY as `0x${string}`,
-    }),
-    new SvmWallet({ privateKey: process.env.SOLANA_PRIVATE_KEY ?? "" }),
-  ],
+  evm: process.env.EVM_PRIVATE_KEY as `0x${string}`,
+  svm: process.env.SOLANA_PRIVATE_KEY ?? "",
   policies: [
     preferNetwork("eip155:8453"), // Prefer Base mainnet
-    preferScheme("exact"), // Prefer exact payment scheme
-    maxAmount(1_000_000n), // Cap at 1 USDC (6 decimals)
+    preferScheme("upto"),
   ],
 });
 

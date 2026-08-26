@@ -4,83 +4,152 @@
  * {@link X402OpenAI} replaces `openai.OpenAI` and transparently handles
  * HTTP 402 Payment Required responses via the x402 protocol.
  *
- * Supports multiple blockchain backends via wallet adapters:
- *
  * @example
  * ```ts
- * import { X402OpenAI } from "x402-openai";
- * import { EvmWallet, SvmWallet } from "x402-openai/wallets";
+ * import { X402OpenAI } from "@qntx/openai";
  *
- * // Single chain
- * const client = new X402OpenAI({ wallet: new EvmWallet({ privateKey: "0x…" }) });
+ * const client = new X402OpenAI({ evm: "0x…" });
  *
- * // Multi-chain
- * const client = new X402OpenAI({
- *   wallets: [
- *     new EvmWallet({ privateKey: "0x…" }),
- *     new SvmWallet({ privateKey: "base58…" }),
- *   ],
+ * const client2 = new X402OpenAI({
+ *   evm: "0x…",
+ *   svm: "base58…",
  * });
  * ```
  */
 
-import { type PaymentPolicy, wrapFetchWithPayment, type x402Client } from "@x402/fetch";
+import {
+  wrapFetchWithPayment,
+  type PaymentPolicy,
+  type SelectPaymentRequirements,
+  type x402Client,
+  type x402ClientConfig,
+} from "@x402/fetch";
 import type { ClientOptions } from "openai";
 import OpenAI from "openai";
-import { createX402Client } from "./wallet.ts";
-import type { Wallet } from "./wallets/base.ts";
+import type {
+  AptosConfig,
+  AvmConfig,
+  ConcordiumConfig,
+  EvmConfig,
+  HederaConfig,
+  KeetaConfig,
+  NearConfig,
+  StellarConfig,
+  SvmConfig,
+  TvmConfig,
+  XrplConfig,
+} from "./chains/types.ts";
+import { assertPaymentOptions, buildX402Client, type BuiltClient } from "./payments.ts";
 
 /** Default x402 LLM gateway URL. */
-const DEFAULT_BASE_URL = "https://llm.qntx.fun/v1";
+const DEFAULT_BASE_URL = "https://llm.qntx.org/v1";
+
+/** Official spend-control object (`false` is a separate constructor option). */
+export type SpendControls = Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>;
 
 /** x402-specific options on top of the standard OpenAI client options. */
 export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
-  /** A single {@link Wallet} adapter (e.g. `EvmWallet`, `SvmWallet`). */
-  wallet?: Wallet;
-  /** List of {@link Wallet} adapters for multi-chain support. */
-  wallets?: Wallet[];
+  /** EVM secp256k1 private key (`0x` hex), or `{ privateKey, rpcUrl? }`. Registers `exact` and `upto`. */
+  evm?: `0x${string}` | EvmConfig;
+  /** Solana base58 secret key, or `{ privateKey, rpcUrl? }`. Registers `exact` and `upto`. */
+  svm?: string | SvmConfig;
+  /** Aptos Ed25519 private key (hex or AIP-80), or `{ privateKey, rpcUrl? }`. Registers `exact`. */
+  aptos?: string | AptosConfig;
+  /** Algorand base64 64-byte secret, or `{ privateKey, algodUrl?, algodToken? }`. Registers `exact`. */
+  avm?: string | AvmConfig;
   /**
-   * Payment policies to filter or prioritise payment requirements.
-   * Ignored when `x402Client` is provided.
+   * Stellar `S…` secret, or `{ privateKey, network?, rpcUrl? }`. Registers `exact`.
+   * Default `network` is `stellar:pubnet`. Stellar 402s must set `extra.areFeesSponsored === true`.
+   */
+  stellar?: string | StellarConfig;
+  /**
+   * Hedera `0.0.N` account id plus ECDSA private key. Registers `exact` on the configured
+   * CAIP-2 (`hedera:mainnet` by default). Hedera 402s must set `extra.feePayer`.
+   * Native HBAR (`0.0.0`) is not a default asset — pass `spendControls.allowedAssets` to allow it.
+   */
+  hedera?: HederaConfig;
+  /**
+   * NEAR account id plus `ed25519:…` / `secp256k1:…` secret key. Registers `exact` on the
+   * configured CAIP-2 (`near:mainnet` by default). Optional `rpcUrl` is mapped per network.
+   */
+  near?: NearConfig;
+  /**
+   * XRPL family seed, or `{ seed, network?, wsUrl? }`. Registers `exact` on the configured
+   * CAIP-2 (`xrpl:0` by default). XRPL 402s must set `extra.areFeesSponsored === false`.
+   * Default asset is RLUSD; native XRP needs `spendControls.allowedAssets`.
+   */
+  xrpl?: string | XrplConfig;
+  /**
+   * TON hex/base64 32-byte seed or 64-byte secret, or `{ privateKey, network?, provider?, apiKey?, providerBaseUrl? }`.
+   * Registers `exact` on the configured CAIP-2 (`tvm:-239` by default). TVM 402s must set
+   * `extra.areFeesSponsored === true`. Call `close()` on long-lived clients.
+   */
+  tvm?: string | TvmConfig;
+  /**
+   * Keeta `generateRandomSeed({ asString: true })` output, or `{ seed }`. Not a BIP-39 mnemonic.
+   * Registers `exact` on `keeta:*`. Call `close()` on long-lived clients.
+   */
+  keeta?: string | KeetaConfig;
+  /**
+   * Concordium hex Ed25519 key plus base58 address. No string overload.
+   * Registers `exact` on `ccd:*`. Concordium 402s must set `extra.feePayer`.
+   * Native CCD is not a default asset (USDR is) — pass `spendControls.allowedAssets` to allow it.
+   */
+  concordium?: ConcordiumConfig;
+  /**
+   * Official spend controls (applied before policies).
+   * Omit to keep the `@x402/core` default: default assets only, `$1` per payment.
+   * Pass `false` to disable all spend controls.
+   * Forbidden when `x402Client` is provided.
+   */
+  spendControls?: SpendControls | false;
+  /**
+   * Preference policies (`preferNetwork` / `preferScheme`).
+   * Forbidden when `x402Client` is provided.
    *
    * @example
    * ```ts
-   * import { preferNetwork, preferScheme, maxAmount } from "x402-openai";
+   * import { preferNetwork, preferScheme } from "@qntx/openai";
    *
    * policies: [
    *   preferNetwork("eip155:8453"),
-   *   preferScheme("exact"),
-   *   maxAmount(1_000_000n),
+   *   preferScheme("upto"),
    * ]
    * ```
    */
   policies?: PaymentPolicy[];
-  /** Pre-configured `x402Client` instance. */
+  /**
+   * Selects among remaining payment requirements after spend controls and policies.
+   * Forbidden when `x402Client` is provided.
+   */
+  paymentRequirementsSelector?: SelectPaymentRequirements;
+  /**
+   * Pre-configured `x402Client`. Exclusive with chain keys, `spendControls`,
+   * `policies`, and `paymentRequirementsSelector`.
+   */
   x402Client?: x402Client;
 }
 
 /**
  * Drop-in replacement for `openai.OpenAI` with transparent x402 payment.
  *
- * Provide **exactly one** credential source:
+ * Provide at least one of `evm`, `svm`, `aptos`, `avm`, `stellar`, `hedera`,
+ * `near`, `xrpl`, `tvm`, `keeta`, `concordium`, or `x402Client`.
  *
- * | Parameter    | Description                                        |
- * | ------------ | -------------------------------------------------- |
- * | `wallet`     | A single `Wallet` adapter (e.g. `EvmWallet`)       |
- * | `wallets`    | List of `Wallet` adapters for multi-chain support   |
- * | `x402Client` | Pre-configured `x402Client`                         |
- *
- * Default `baseURL` is `https://llm.qntx.fun/v1`.
+ * Default `baseURL` is `https://llm.qntx.org/v1`.
  * All standard OpenAI constructor options (`baseURL`, `timeout`, `maxRetries`, …)
  * are forwarded transparently.
  *
+ * Call {@link X402OpenAI.close} (or `await using`) to release Keeta/TVM handles.
+ *
  * @example
  * ```ts
- * import { preferNetwork } from "x402-openai";
+ * import { preferScheme, X402OpenAI } from "@qntx/openai";
  *
  * const client = new X402OpenAI({
- *   wallet: new EvmWallet({ privateKey: "0x…" }),
- *   policies: [preferNetwork("eip155:8453")],
+ *   evm: "0x…",
+ *   spendControls: { maxAmountPerPayment: "$0.50" },
+ *   policies: [preferScheme("upto")],
  * });
  *
  * const completion = await client.chat.completions.create({
@@ -90,53 +159,92 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
  * ```
  */
 export class X402OpenAI extends OpenAI {
-  constructor(options: X402OpenAIOptions) {
-    const { wallet, wallets, policies, x402Client: prebuiltClient, ...openaiOptions } = options;
+  readonly close: () => Promise<void>;
 
-    // Build a lazy-initialized x402-wrapped fetch function.
-    // Initialization is deferred to the first request so the constructor
-    // remains synchronous (SVM wallet registration is async).
-    const x402Fetch = createLazyX402Fetch({
-      wallet,
-      wallets,
+  constructor(options: X402OpenAIOptions) {
+    const {
+      evm,
+      svm,
+      aptos,
+      avm,
+      stellar,
+      hedera,
+      near,
+      xrpl,
+      tvm,
+      keeta,
+      concordium,
+      spendControls,
       policies,
-      x402Client: prebuiltClient,
-    });
+      paymentRequirementsSelector,
+      x402Client: prebuilt,
+      ...openaiOptions
+    } = options;
+    const payment = {
+      evm,
+      svm,
+      aptos,
+      avm,
+      stellar,
+      hedera,
+      near,
+      xrpl,
+      tvm,
+      keeta,
+      concordium,
+      spendControls,
+      policies,
+      paymentRequirementsSelector,
+      x402Client: prebuilt,
+    };
+    assertPaymentOptions(payment);
+
+    const lifecycle = createX402Lifecycle(payment);
 
     super({
       apiKey: "x402",
       baseURL: DEFAULT_BASE_URL,
       ...openaiOptions,
-      fetch: x402Fetch,
+      fetch: lifecycle.fetch,
     });
+
+    this.close = lifecycle.close;
+  }
+
+  [Symbol.asyncDispose](): Promise<void> {
+    return this.close();
   }
 }
 
-/**
- * Create a fetch function that lazily initializes the x402 client on first use.
- *
- * This allows the constructor to remain synchronous while supporting async
- * wallet registration (e.g. SVM wallets that use Web Crypto API).
- */
 type FetchFn = (input: string | URL | Request, init?: RequestInit) => Promise<Response>;
 
-function createLazyX402Fetch(options: {
-  wallet?: Wallet;
-  wallets?: Wallet[];
-  policies?: PaymentPolicy[];
-  x402Client?: x402Client;
-}): FetchFn {
-  let clientPromise: Promise<x402Client> | null = null;
-  let wrappedFetch: FetchFn | null = null;
+function createX402Lifecycle(options: Parameters<typeof buildX402Client>[0]): {
+  fetch: FetchFn;
+  close: () => Promise<void>;
+} {
+  let closed = false;
+  let built: Promise<BuiltClient> | undefined;
+  let wrappedFetch: FetchFn | undefined;
 
-  return async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
-    if (!wrappedFetch) {
-      if (!clientPromise) {
-        clientPromise = createX402Client(options);
+  return {
+    fetch: async (input: string | URL | Request, init?: RequestInit): Promise<Response> => {
+      if (closed) {
+        throw new Error("X402OpenAI is closed");
       }
-      const client = await clientPromise;
-      wrappedFetch = wrapFetchWithPayment(globalThis.fetch, client) as FetchFn;
-    }
-    return wrappedFetch(input, init);
+      built ??= buildX402Client(options);
+      const { client } = await built;
+      if (closed) {
+        throw new Error("X402OpenAI is closed");
+      }
+      wrappedFetch ??= wrapFetchWithPayment(globalThis.fetch, client) as FetchFn;
+      return wrappedFetch(input, init);
+    },
+    close: async () => {
+      closed = true;
+      if (built !== undefined) {
+        const { dispose } = await built;
+        await dispose();
+      }
+    },
   };
 }
