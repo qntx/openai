@@ -6,7 +6,7 @@
  *
  * @example
  * ```ts
- * import { X402OpenAI } from "x402-openai";
+ * import { X402OpenAI } from "@qntx/openai";
  *
  * const client = new X402OpenAI({ evm: "0x…" });
  *
@@ -109,7 +109,7 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
    *
    * @example
    * ```ts
-   * import { preferNetwork, preferScheme } from "x402-openai";
+   * import { preferNetwork, preferScheme } from "@qntx/openai";
    *
    * policies: [
    *   preferNetwork("eip155:8453"),
@@ -144,7 +144,7 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
  *
  * @example
  * ```ts
- * import { preferScheme, X402OpenAI } from "x402-openai";
+ * import { preferScheme, X402OpenAI } from "@qntx/openai";
  *
  * const client = new X402OpenAI({
  *   evm: "0x…",

@@ -1,5 +1,5 @@
 {
-  "name": "x402-openai",
+  "name": "@qntx/openai",
   "version": "0.3.0",
   "description": "Drop-in OpenAI TypeScript client with transparent x402 payment support.",
   "keywords": [
@@ -17,7 +17,7 @@
   "author": "QNTX <x@qntx.fun>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/qntx/x402-openai-typescript"
+    "url": "https://github.com/qntx/openai"
   },
   "files": [
     "dist"

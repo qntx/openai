@@ -1,10 +1,10 @@
 /**
- * x402-openai — Drop-in OpenAI TypeScript client with transparent x402 payment.
+ * @qntx/openai — Drop-in OpenAI TypeScript client with transparent x402 payment.
  *
  * Quick start:
  *
  * ```ts
- * import { preferScheme, X402OpenAI } from "x402-openai";
+ * import { preferScheme, X402OpenAI } from "@qntx/openai";
  *
  * const client = new X402OpenAI({ evm: "0x…" });
  *

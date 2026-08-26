@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "x402-openai",
+      "name": "@qntx/openai",
       "dependencies": {
         "@x402/fetch": "^2.23.0",
         "openai": "^7.5.0",

@@ -6,7 +6,7 @@
  *
  * @example
  * ```ts
- * import { preferNetwork, preferScheme } from "x402-openai";
+ * import { preferNetwork, preferScheme } from "@qntx/openai";
  *
  * const client = new X402OpenAI({
  *   evm: "0x…",

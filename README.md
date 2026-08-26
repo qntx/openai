@@ -1,12 +1,12 @@
 <div align="center">
 
-# x402-openai
+# @qntx/openai
 
 **Drop-in OpenAI TypeScript client with transparent [x402](https://www.x402.org/) payment support.**
 
-[![npm](https://img.shields.io/npm/v/x402-openai)](https://www.npmjs.com/package/x402-openai)
+[![npm](https://img.shields.io/npm/v/@qntx/openai)](https://www.npmjs.com/package/@qntx/openai)
 [![TypeScript 5.0+](https://img.shields.io/badge/typescript-5.0+-blue)](https://typescriptlang.org)
-[![CI](https://github.com/qntx/x402-openai-typescript/actions/workflows/ci.yml/badge.svg)](https://github.com/qntx/x402-openai-typescript/actions)
+[![CI](https://github.com/qntx/openai/actions/workflows/ci.yml/badge.svg)](https://github.com/qntx/openai/actions)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 </div>
@@ -21,23 +21,23 @@ Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, 
 ## Installation
 
 ```bash
-bun add x402-openai @x402/evm viem                       # EVM (Ethereum / Base / …)
-bun add x402-openai @x402/svm @solana/kit @scure/base    # Solana
-bun add x402-openai @x402/aptos                          # Aptos
-bun add x402-openai @x402/avm                            # Algorand (AVM)
-bun add x402-openai @x402/stellar                        # Stellar
-bun add x402-openai @x402/hedera                         # Hedera
-bun add x402-openai @x402/near                           # NEAR
-bun add x402-openai @x402/xrpl xrpl                      # XRPL
-bun add x402-openai @x402/tvm @ton/crypto                # TVM (TON)
-bun add x402-openai @x402/keeta @keetanetwork/keetanet-client  # Keeta
-bun add x402-openai @x402/concordium @concordium/web-sdk # Concordium
+bun add @qntx/openai @x402/evm viem                       # EVM (Ethereum / Base / …)
+bun add @qntx/openai @x402/svm @solana/kit @scure/base    # Solana
+bun add @qntx/openai @x402/aptos                          # Aptos
+bun add @qntx/openai @x402/avm                            # Algorand (AVM)
+bun add @qntx/openai @x402/stellar                        # Stellar
+bun add @qntx/openai @x402/hedera                         # Hedera
+bun add @qntx/openai @x402/near                           # NEAR
+bun add @qntx/openai @x402/xrpl xrpl                      # XRPL
+bun add @qntx/openai @x402/tvm @ton/crypto                # TVM (TON)
+bun add @qntx/openai @x402/keeta @keetanetwork/keetanet-client  # Keeta
+bun add @qntx/openai @x402/concordium @concordium/web-sdk # Concordium
 ```
 
 ## Quick Start
 
 ```ts
-import { X402OpenAI } from "x402-openai";
+import { X402OpenAI } from "@qntx/openai";
 
 const client = new X402OpenAI({
   evm: "0x…",
@@ -177,7 +177,7 @@ const client = new X402OpenAI({
 - The 402 `amount` is the **authorized maximum**. The client signs that max; it does not sign a smaller amount. The server chooses the actual charge (`<=` max) at settle. If the ceiling exceeds spend controls, payment creation throws.
 
 ```ts
-import { preferScheme, X402OpenAI } from "x402-openai";
+import { preferScheme, X402OpenAI } from "@qntx/openai";
 
 const client = new X402OpenAI({
   evm: "0x…",
@@ -190,7 +190,7 @@ const client = new X402OpenAI({
 Use policies to prefer a chain or scheme when multiple options remain after spend controls. Policies do not cap spend.
 
 ```ts
-import { X402OpenAI, preferNetwork, preferScheme } from "x402-openai";
+import { X402OpenAI, preferNetwork, preferScheme } from "@qntx/openai";
 
 const client = new X402OpenAI({
   evm: "0x…",
