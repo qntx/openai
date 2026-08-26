@@ -7,10 +7,12 @@ import * as api from "../src/index.ts";
 
 type ForbiddenOptions = Extract<keyof X402OpenAIOptions, "wallet" | "wallets" | "mnemonic">;
 type ForbiddenEvm = Extract<keyof EvmConfig, "mnemonic" | "accountIndex" | "derivationPath">;
+type ForbiddenMaxAmount = Extract<keyof typeof api, "maxAmount">;
 
 function expectNever<_T extends never>(): void {}
 expectNever<ForbiddenOptions>();
 expectNever<ForbiddenEvm>();
+expectNever<ForbiddenMaxAmount>();
 
 describe("X402OpenAI", () => {
   it("defaults baseURL to https://llm.qntx.org/v1", () => {
@@ -47,16 +49,46 @@ describe("X402OpenAI", () => {
     ).toThrow("Cannot combine");
   });
 
+  it("throws when x402Client is combined with spendControls", () => {
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          spendControls: { maxAmountPerPayment: "$5" },
+        }),
+    ).toThrow("Cannot combine");
+  });
+
+  it("throws when x402Client is combined with paymentRequirementsSelector", () => {
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          paymentRequirementsSelector: (_v, reqs) => reqs[0]!,
+        }),
+    ).toThrow("Cannot combine");
+  });
+
   it("accepts a pre-built x402Client alone", () => {
     const client = new X402OpenAI({ x402Client: new x402Client() });
+    expect(client).toBeInstanceOf(X402OpenAI);
+  });
+
+  it("accepts spendControls and paymentRequirementsSelector with keys", () => {
+    const client = new X402OpenAI({
+      evm: "0x1" as `0x${string}`,
+      spendControls: { maxAmountPerPayment: "$5" },
+      paymentRequirementsSelector: (_v, reqs) => reqs[0]!,
+    });
     expect(client).toBeInstanceOf(X402OpenAI);
   });
 });
 
 describe("public API", () => {
-  it("does not export mnemonic wallet types", () => {
+  it("does not export mnemonic wallet types or maxAmount", () => {
     expect(api).not.toHaveProperty("EvmWallet");
     expect(api).not.toHaveProperty("SvmWallet");
     expect(api).not.toHaveProperty("Wallet");
+    expect(api).not.toHaveProperty("maxAmount");
   });
 });

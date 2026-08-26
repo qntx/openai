@@ -16,6 +16,8 @@
 Wrap the standard `openai.OpenAI` client with per-chain private keys.
 When the server responds with **HTTP 402**, the library automatically signs and retries the request — zero code changes needed.
 
+Supplying `evm` or `svm` registers both **`exact` and `upto`**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
+
 ## Installation
 
 ```bash
@@ -70,23 +72,58 @@ const client = new X402OpenAI({
 
 The protocol selects the right chain automatically based on the server's payment requirements.
 
-### Payment Policies
+### Spend controls
 
-Use policies to control which chain or scheme is preferred when multiple payment options are available:
+`new x402Client()` already allows only default (USD-pegged) assets and caps each payment at **`$1`**. This package does not change that default.
+
+Pass `spendControls` to raise the cap, allow extra assets, or disable controls:
 
 ```ts
-import { X402OpenAI, preferNetwork, preferScheme, maxAmount } from "x402-openai";
+const client = new X402OpenAI({
+  evm: "0x…",
+  spendControls: { maxAmountPerPayment: "$5" },
+});
+```
+
+- Omit `spendControls` to keep the official `$1` + default-asset allowlist.
+- `spendControls: false` disables allowlist and caps.
+- Gateway prices above `$1` require the caller to raise `maxAmountPerPayment`.
+
+### `exact` and `upto`
+
+`evm` registers `ExactEvmScheme` and `UptoEvmScheme` on `eip155:*`. `svm` registers `ExactSvmScheme` and `UptoSvmScheme` on `solana:*`. No extra flag; the gateway is not probed.
+
+- **EVM `upto`:** Permit2 (`permitWitnessTransferFrom`). The 402 must include `extra.facilitatorAddress`. Pass `{ rpcUrl }` on `evm` to enable official EIP-2612 / ERC-20 approval sponsoring.
+- **SVM `upto`:** payment-channel `open` that **escrows the full authorized ceiling** until settle/close. The 402 must include `extra.feePayer` and `extra.receiverAuthorizer`.
+- The 402 `amount` is the **authorized maximum**. The client signs that max; it does not sign a smaller amount. The server chooses the actual charge (`<=` max) at settle. If the ceiling exceeds spend controls, payment creation throws.
+
+```ts
+import { preferScheme, X402OpenAI } from "x402-openai";
+
+const client = new X402OpenAI({
+  evm: "0x…",
+  policies: [preferScheme("upto")],
+});
+```
+
+### Payment Policies
+
+Use policies to prefer a chain or scheme when multiple options remain after spend controls. Policies do not cap spend.
+
+```ts
+import { X402OpenAI, preferNetwork, preferScheme } from "x402-openai";
 
 const client = new X402OpenAI({
   evm: "0x…",
   svm: "base58…",
   policies: [
     preferNetwork("eip155:8453"), // Prefer Base mainnet
-    preferScheme("exact"), // Prefer exact payment scheme
-    maxAmount(1_000_000n), // Cap at 1 USDC (6 decimals)
+    preferScheme("upto"),
   ],
 });
 ```
+
+If nothing matches, all remaining options pass through.
 
 ## API Reference
 
@@ -94,14 +131,18 @@ const client = new X402OpenAI({
 
 Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, or `x402Client`:
 
-| Parameter    | Type                               | Description                                               |
-| :----------- | :--------------------------------- | :-------------------------------------------------------- |
-| `evm`        | `` `0x${string}` `` or `EvmConfig` | EVM secp256k1 private key (`0x` hex)                      |
-| `svm`        | `string` or `SvmConfig`            | Solana base58 secret key                                  |
-| `policies`   | `PaymentPolicy[]`                  | Payment policies (chain/scheme preference, amount cap)    |
-| `x402Client` | `x402Client`                       | Pre-configured x402 client (exclusive with keys/policies) |
+| Parameter                     | Type                               | Description                                                                                            |
+| :---------------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| `evm`                         | `` `0x${string}` `` or `EvmConfig` | EVM secp256k1 private key (`0x` hex). Registers `exact` and `upto`.                                    |
+| `svm`                         | `string` or `SvmConfig`            | Solana base58 secret key. Registers `exact` and `upto`.                                                |
+| `spendControls`               | `SpendControls` or `false`         | Official spend controls. Omit for `$1` + default assets.                                               |
+| `policies`                    | `PaymentPolicy[]`                  | Preference policies (`preferNetwork` / `preferScheme`).                                                |
+| `paymentRequirementsSelector` | `SelectPaymentRequirements`        | Picks among remaining requirements after spend controls and policies.                                  |
+| `x402Client`                  | `x402Client`                       | Pre-configured x402 client (exclusive with keys, spendControls, policies, paymentRequirementsSelector) |
 
 `EvmConfig` / `SvmConfig`: `{ privateKey, rpcUrl? }`. Empty keys throw.
+
+`SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 
 All standard OpenAI options (`baseURL`, `timeout`, `maxRetries`, …) are forwarded.
 Default `baseURL`: `https://llm.qntx.org/v1`
@@ -121,6 +162,8 @@ See the [`examples/`](examples/) directory. Each script is self-contained:
 EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm.ts
 SOLANA_PRIVATE_KEY="base58…"    bun examples/chat-svm.ts
 EVM_PRIVATE_KEY="0x…"           bun examples/streaming-evm.ts
+EVM_PRIVATE_KEY="0x…"           bun examples/chat-upto.ts
+EVM_PRIVATE_KEY="0x…"           bun examples/chat-policy.ts
 EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm-policy.ts
 EVM_PRIVATE_KEY="0x…" SOLANA_PRIVATE_KEY="base58…" bun examples/chat-multichain-policy.ts
 ```

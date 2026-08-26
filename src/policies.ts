@@ -1,22 +1,19 @@
 /**
- * Payment policy factory functions for filtering and prioritising
- * payment requirements.
+ * Payment policy factory functions for preferring a network or scheme.
  *
- * Policies are applied in order before the selector chooses the final
- * payment option. Each factory returns a {@link PaymentPolicy} function
- * compatible with `x402Client.registerPolicy()`.
+ * Policies run after spend controls and before the selector. Each factory
+ * returns a {@link PaymentPolicy} compatible with `x402Client.registerPolicy()`.
  *
  * @example
  * ```ts
- * import { preferNetwork, preferScheme, maxAmount } from "x402-openai";
+ * import { preferNetwork, preferScheme } from "x402-openai";
  *
  * const client = new X402OpenAI({
  *   evm: "0x…",
  *   svm: "base58…",
  *   policies: [
  *     preferNetwork("eip155:8453"),
- *     preferScheme("exact"),
- *     maxAmount(1_000_000n),
+ *     preferScheme("upto"),
  *   ],
  * });
  * ```
@@ -54,34 +51,11 @@ export function preferNetwork(network: string): PaymentPolicy {
  * If any requirements match the scheme, only those are kept.
  * If none match, all requirements are passed through unchanged.
  *
- * @param scheme - Payment scheme identifier (e.g. `"exact"`).
+ * @param scheme - Payment scheme identifier (`"exact"`, `"upto"`, or another registered scheme).
  */
-export function preferScheme(scheme: string): PaymentPolicy {
+export function preferScheme(scheme: "exact" | "upto" | (string & {})): PaymentPolicy {
   return (_version: number, reqs: PaymentRequirements[]): PaymentRequirements[] => {
     const matched = reqs.filter((r) => r.scheme === scheme);
-    return matched.length > 0 ? matched : reqs;
-  };
-}
-
-/**
- * Create a policy that filters out requirements exceeding a maximum amount.
- *
- * Compares against the `amount` field (V2) or `maxAmountRequired` field (V1).
- * If all requirements exceed the cap, they are all returned unchanged so that
- * the client can surface a meaningful error instead of silently failing.
- *
- * @param max - Maximum amount as a bigint or number (token base units).
- */
-export function maxAmount(max: bigint | number): PaymentPolicy {
-  const limit = BigInt(max);
-
-  return (_version: number, reqs: PaymentRequirements[]): PaymentRequirements[] => {
-    const matched = reqs.filter((r) => {
-      const value = BigInt(
-        "amount" in r ? r.amount : ((r as Record<string, string>).maxAmountRequired ?? "0"),
-      );
-      return value <= limit;
-    });
     return matched.length > 0 ? matched : reqs;
   };
 }

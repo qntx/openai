@@ -4,17 +4,31 @@ import type { X402OpenAIOptions } from "./client.ts";
 
 export type PaymentSourceOptions = Pick<
   X402OpenAIOptions,
-  "evm" | "svm" | "policies" | "x402Client"
+  "evm" | "svm" | "spendControls" | "policies" | "paymentRequirementsSelector" | "x402Client"
 >;
 
+const PREBUILT_EXCLUSIVE =
+  "Cannot combine 'x402Client' with 'evm', 'svm', 'policies', 'spendControls', or 'paymentRequirementsSelector'. Configure the pre-built client directly.";
+
 export function assertPaymentOptions(options: PaymentSourceOptions): void {
-  const { evm, svm, policies, x402Client: prebuilt } = options;
+  const {
+    evm,
+    svm,
+    spendControls,
+    policies,
+    paymentRequirementsSelector,
+    x402Client: prebuilt,
+  } = options;
 
   if (prebuilt != null) {
-    if (evm !== undefined || svm !== undefined || policies !== undefined) {
-      throw new Error(
-        "Cannot combine 'x402Client' with 'evm', 'svm', or 'policies'. Configure the pre-built client directly.",
-      );
+    if (
+      evm !== undefined ||
+      svm !== undefined ||
+      spendControls !== undefined ||
+      policies !== undefined ||
+      paymentRequirementsSelector !== undefined
+    ) {
+      throw new Error(PREBUILT_EXCLUSIVE);
     }
     return;
   }
@@ -45,7 +59,8 @@ export async function buildX402Client(options: PaymentSourceOptions): Promise<x4
     return options.x402Client;
   }
 
-  const client = new x402Client();
+  const client = new x402Client(options.paymentRequirementsSelector);
+  if (options.spendControls !== undefined) client.setSpendControls(options.spendControls);
   await registerChains(client, options);
   for (const policy of options.policies ?? []) {
     client.registerPolicy(policy);

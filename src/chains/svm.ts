@@ -4,11 +4,13 @@ import type { SvmConfig } from "./types.ts";
 export async function registerSvm(client: x402Client, config: SvmConfig): Promise<void> {
   try {
     const { ExactSvmScheme } = await import("@x402/svm/exact/client");
+    const { UptoSvmScheme } = await import("@x402/svm/upto/client");
     const { createKeyPairSignerFromBytes } = await import("@solana/kit");
     const { base58 } = await import("@scure/base");
     const signer = await createKeyPairSignerFromBytes(base58.decode(config.privateKey));
     const svmOpts = config.rpcUrl ? { rpcUrl: config.rpcUrl } : undefined;
     client.register("solana:*", new ExactSvmScheme(signer, svmOpts));
+    client.register("solana:*", new UptoSvmScheme(signer, svmOpts));
   } catch (error) {
     if (isUnresolvedImport(error)) {
       throw new Error(

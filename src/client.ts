@@ -17,7 +17,13 @@
  * ```
  */
 
-import { wrapFetchWithPayment, type PaymentPolicy, type x402Client } from "@x402/fetch";
+import {
+  wrapFetchWithPayment,
+  type PaymentPolicy,
+  type SelectPaymentRequirements,
+  type x402Client,
+  type x402ClientConfig,
+} from "@x402/fetch";
 import type { ClientOptions } from "openai";
 import OpenAI from "openai";
 import type { EvmConfig, SvmConfig } from "./chains/types.ts";
@@ -26,29 +32,46 @@ import { assertPaymentOptions, buildX402Client } from "./payments.ts";
 /** Default x402 LLM gateway URL. */
 const DEFAULT_BASE_URL = "https://llm.qntx.org/v1";
 
+/** Official spend-control object (`false` is a separate constructor option). */
+export type SpendControls = Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>;
+
 /** x402-specific options on top of the standard OpenAI client options. */
 export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
-  /** EVM secp256k1 private key (`0x` hex), or `{ privateKey, rpcUrl? }`. */
+  /** EVM secp256k1 private key (`0x` hex), or `{ privateKey, rpcUrl? }`. Registers `exact` and `upto`. */
   evm?: `0x${string}` | EvmConfig;
-  /** Solana base58 secret key, or `{ privateKey, rpcUrl? }`. */
+  /** Solana base58 secret key, or `{ privateKey, rpcUrl? }`. Registers `exact` and `upto`. */
   svm?: string | SvmConfig;
   /**
-   * Payment policies to filter or prioritise payment requirements.
+   * Official spend controls (applied before policies).
+   * Omit to keep the `@x402/core` default: default assets only, `$1` per payment.
+   * Pass `false` to disable all spend controls.
+   * Forbidden when `x402Client` is provided.
+   */
+  spendControls?: SpendControls | false;
+  /**
+   * Preference policies (`preferNetwork` / `preferScheme`).
    * Forbidden when `x402Client` is provided.
    *
    * @example
    * ```ts
-   * import { preferNetwork, preferScheme, maxAmount } from "x402-openai";
+   * import { preferNetwork, preferScheme } from "x402-openai";
    *
    * policies: [
    *   preferNetwork("eip155:8453"),
-   *   preferScheme("exact"),
-   *   maxAmount(1_000_000n),
+   *   preferScheme("upto"),
    * ]
    * ```
    */
   policies?: PaymentPolicy[];
-  /** Pre-configured `x402Client`. Exclusive with `evm`, `svm`, and `policies`. */
+  /**
+   * Selects among remaining payment requirements after spend controls and policies.
+   * Forbidden when `x402Client` is provided.
+   */
+  paymentRequirementsSelector?: SelectPaymentRequirements;
+  /**
+   * Pre-configured `x402Client`. Exclusive with `evm`, `svm`, `spendControls`,
+   * `policies`, and `paymentRequirementsSelector`.
+   */
   x402Client?: x402Client;
 }
 
@@ -63,11 +86,12 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
  *
  * @example
  * ```ts
- * import { preferNetwork, X402OpenAI } from "x402-openai";
+ * import { preferScheme, X402OpenAI } from "x402-openai";
  *
  * const client = new X402OpenAI({
  *   evm: "0x…",
- *   policies: [preferNetwork("eip155:8453")],
+ *   spendControls: { maxAmountPerPayment: "$0.50" },
+ *   policies: [preferScheme("upto")],
  * });
  *
  * const completion = await client.chat.completions.create({
@@ -78,8 +102,23 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
  */
 export class X402OpenAI extends OpenAI {
   constructor(options: X402OpenAIOptions) {
-    const { evm, svm, policies, x402Client: prebuilt, ...openaiOptions } = options;
-    const payment = { evm, svm, policies, x402Client: prebuilt };
+    const {
+      evm,
+      svm,
+      spendControls,
+      policies,
+      paymentRequirementsSelector,
+      x402Client: prebuilt,
+      ...openaiOptions
+    } = options;
+    const payment = {
+      evm,
+      svm,
+      spendControls,
+      policies,
+      paymentRequirementsSelector,
+      x402Client: prebuilt,
+    };
     assertPaymentOptions(payment);
 
     const x402Fetch = createLazyX402Fetch(payment);
