@@ -95,7 +95,7 @@ These families register **`exact` only** (`upto` is not implemented in `@x402/*`
 
 - **Aptos** (`aptos:*`): `createClientSigner` from `@x402/aptos`. Optional `rpcUrl`. Optional 402 `extra.feePayer` enables a sponsored tx.
 - **AVM** (`algorand:*`): `toClientAvmSigner` from `@x402/avm`. Optional `algodUrl` / `algodToken`. Do not pass a prebuilt Algorand client here — use the `x402Client` hatch. Optional 402 `extra.feePayer` for a gasless group.
-- **Stellar** (`stellar:*`): `createEd25519Signer` from `@x402/stellar`. Default `network` is **`stellar:pubnet`** (the official factory defaults to `stellar:testnet`). Pass `network: "stellar:testnet"` for testnet. Optional `rpcUrl` is sent as `{ url }` (`RpcConfig`). Pubnet payments need a Soroban RPC URL. The 402 **must** set `extra.areFeesSponsored === true` or the scheme throws.
+- **Stellar** (`stellar:*`): `createEd25519Signer` from `@x402/stellar`. Default `network` is **`stellar:pubnet`** (the official factory defaults to `stellar:testnet`). Pass `network: "stellar:testnet"` for testnet. Optional `rpcUrl` is a Soroban RPC endpoint (required for pubnet payments). The 402 **must** set `extra.areFeesSponsored === true` or the scheme throws.
 
 ### Spend controls
 
@@ -170,7 +170,7 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 
 `EvmConfig` / `SvmConfig` / `AptosConfig`: `{ privateKey, rpcUrl? }`.
 `AvmConfig`: `{ privateKey, algodUrl?, algodToken? }`.
-`StellarConfig`: `{ privateKey, network?, rpcUrl? }` (`rpcUrl` → `{ url }`). Empty keys throw.
+`StellarConfig`: `{ privateKey, network?, rpcUrl? }`. Empty keys throw. `stellar.rpcUrl` is required to pay on pubnet.
 
 `SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 

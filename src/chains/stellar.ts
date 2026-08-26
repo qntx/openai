@@ -6,7 +6,6 @@ export async function registerStellar(client: x402Client, config: StellarConfig)
   try {
     const { createEd25519Signer } = await import("@x402/stellar");
     const { ExactStellarScheme } = await import("@x402/stellar/exact/client");
-    // Official createEd25519Signer defaults to stellar:testnet; this wrapper is a production client.
     const network = config.network ?? "stellar:pubnet";
     const signer = createEd25519Signer(config.privateKey, network);
     const rpc = config.rpcUrl ? { url: config.rpcUrl } : undefined;

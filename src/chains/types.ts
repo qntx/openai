@@ -25,6 +25,6 @@ export interface StellarConfig {
   privateKey: string;
   /** Defaults to `stellar:pubnet`; official `createEd25519Signer` defaults to testnet. */
   network?: "stellar:pubnet" | "stellar:testnet";
-  /** Soroban RPC URL; passed as `RpcConfig.url`. */
+  /** Soroban RPC endpoint. Required for pubnet payments. */
   rpcUrl?: string;
 }
