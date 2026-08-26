@@ -2,9 +2,21 @@ import type { x402Client } from "@x402/fetch";
 import { registerAptos } from "./aptos.ts";
 import { registerAvm } from "./avm.ts";
 import { registerEvm } from "./evm.ts";
+import { registerHedera } from "./hedera.ts";
+import { registerNear } from "./near.ts";
 import { registerStellar } from "./stellar.ts";
 import { registerSvm } from "./svm.ts";
-import type { AptosConfig, AvmConfig, EvmConfig, StellarConfig, SvmConfig } from "./types.ts";
+import { registerXrpl } from "./xrpl.ts";
+import type {
+  AptosConfig,
+  AvmConfig,
+  EvmConfig,
+  HederaConfig,
+  NearConfig,
+  StellarConfig,
+  SvmConfig,
+  XrplConfig,
+} from "./types.ts";
 
 export async function registerChains(
   client: x402Client,
@@ -14,6 +26,9 @@ export async function registerChains(
     aptos?: string | AptosConfig;
     avm?: string | AvmConfig;
     stellar?: string | StellarConfig;
+    hedera?: HederaConfig;
+    near?: NearConfig;
+    xrpl?: string | XrplConfig;
   },
 ): Promise<void> {
   if (options.evm !== undefined) {
@@ -30,6 +45,15 @@ export async function registerChains(
   }
   if (options.stellar !== undefined) {
     await registerStellar(client, normalizeStellar(options.stellar));
+  }
+  if (options.hedera !== undefined) {
+    await registerHedera(client, normalizeHedera(options.hedera));
+  }
+  if (options.near !== undefined) {
+    await registerNear(client, normalizeNear(options.near));
+  }
+  if (options.xrpl !== undefined) {
+    await registerXrpl(client, normalizeXrpl(options.xrpl));
   }
 }
 
@@ -69,6 +93,34 @@ function normalizeStellar(stellar: string | StellarConfig): StellarConfig {
   const config = typeof stellar === "string" ? { privateKey: stellar } : stellar;
   if (!config.privateKey) {
     throw new Error("'stellar' private key must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeHedera(config: HederaConfig): HederaConfig {
+  if (!config.accountId) {
+    throw new Error("'hedera' accountId must be a non-empty string.");
+  }
+  if (!config.privateKey) {
+    throw new Error("'hedera' private key must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeNear(config: NearConfig): NearConfig {
+  if (!config.accountId) {
+    throw new Error("'near' accountId must be a non-empty string.");
+  }
+  if (!config.secretKey) {
+    throw new Error("'near' secretKey must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeXrpl(xrpl: string | XrplConfig): XrplConfig {
+  const config = typeof xrpl === "string" ? { seed: xrpl } : xrpl;
+  if (!config.seed) {
+    throw new Error("'xrpl' seed must be a non-empty string.");
   }
   return config;
 }

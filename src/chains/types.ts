@@ -28,3 +28,28 @@ export interface StellarConfig {
   /** Soroban RPC endpoint. Required for pubnet payments. */
   rpcUrl?: string;
 }
+
+export interface HederaConfig {
+  accountId: string;
+  privateKey: string;
+  /** Defaults to `hedera:mainnet`. */
+  network?: "hedera:mainnet" | "hedera:testnet";
+  nodeUrl?: string;
+}
+
+export interface NearConfig {
+  accountId: string;
+  secretKey: string;
+  /** Defaults to `near:mainnet`. */
+  network?: "near:mainnet" | "near:testnet";
+  /** Mapped to `{ [network]: rpcUrl }` for the official signer. */
+  rpcUrl?: string;
+}
+
+export interface XrplConfig {
+  seed: string;
+  /** Defaults to `xrpl:0`. */
+  network?: "xrpl:0" | "xrpl:1";
+  /** Mapped to `{ [network]: wsUrl }` for the official client. */
+  wsUrl?: string;
+}

@@ -15,7 +15,7 @@ describe("missing peer import rewrite", () => {
     expect(isUnresolvedImport("not-an-error")).toBe(false);
   });
 
-  it("formats Aptos, AVM, and Stellar install hints", () => {
+  it("formats Aptos, AVM, Stellar, Hedera, NEAR, and XRPL install hints", () => {
     expect(missingPeerError("Aptos", "@x402/aptos").message).toBe(
       "Aptos key provided but @x402/aptos is not installed. bun add @x402/aptos",
     );
@@ -24,6 +24,15 @@ describe("missing peer import rewrite", () => {
     );
     expect(missingPeerError("Stellar", "@x402/stellar").message).toBe(
       "Stellar key provided but @x402/stellar is not installed. bun add @x402/stellar",
+    );
+    expect(missingPeerError("Hedera", "@x402/hedera").message).toBe(
+      "Hedera key provided but @x402/hedera is not installed. bun add @x402/hedera",
+    );
+    expect(missingPeerError("NEAR", "@x402/near").message).toBe(
+      "NEAR key provided but @x402/near is not installed. bun add @x402/near",
+    );
+    expect(missingPeerError("XRPL", "@x402/xrpl", "xrpl").message).toBe(
+      "XRPL key provided but @x402/xrpl is not installed. bun add @x402/xrpl xrpl",
     );
   });
 });

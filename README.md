@@ -16,7 +16,7 @@
 Wrap the standard `openai.OpenAI` client with per-chain private keys.
 When the server responds with **HTTP 402**, the library automatically signs and retries the request — zero code changes needed.
 
-Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, and `stellar` register **`exact` only**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
+Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, `stellar`, `hedera`, `near`, and `xrpl` register **`exact` only**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
 
 ## Installation
 
@@ -26,6 +26,9 @@ bun add x402-openai @x402/svm @solana/kit @scure/base    # Solana
 bun add x402-openai @x402/aptos                          # Aptos
 bun add x402-openai @x402/avm                            # Algorand (AVM)
 bun add x402-openai @x402/stellar                        # Stellar
+bun add x402-openai @x402/hedera                         # Hedera
+bun add x402-openai @x402/near                           # NEAR
+bun add x402-openai @x402/xrpl xrpl                      # XRPL
 ```
 
 ## Quick Start
@@ -44,7 +47,7 @@ const res = await client.chat.completions.create({
 console.log(res.choices[0]?.message.content);
 ```
 
-Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical. The same constructor accepts `aptos`, `avm`, and `stellar` keys.
+Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical. The same constructor accepts `aptos`, `avm`, `stellar`, `hedera`, `near`, and `xrpl`.
 
 ## Usage
 
@@ -72,6 +75,9 @@ const client = new X402OpenAI({
   aptos: "0x…",
   avm: "base64…",
   stellar: "S…",
+  hedera: { accountId: "0.0.N", privateKey: "0x…" },
+  near: { accountId: "alice.near", secretKey: "ed25519:…" },
+  xrpl: "sEd…",
 });
 ```
 
@@ -86,8 +92,11 @@ The protocol selects the right chain automatically based on the server's payment
 | `aptos`   | hex or AIP-80 Ed25519 (`ed25519-priv-0x…`)            |
 | `avm`     | base64 64-byte secret (32-byte seed + 32-byte pubkey) |
 | `stellar` | Stellar `S…` secret seed                              |
+| `hedera`  | ECDSA hex/DER **plus** `0.0.N` account id             |
+| `near`    | `ed25519:…` / `secp256k1:…` **plus** account id       |
+| `xrpl`    | XRPL family seed (not BIP-39)                         |
 
-Bare strings become `{ privateKey }`. Empty strings throw.
+Bare `evm` / `svm` / `aptos` / `avm` / `stellar` strings become `{ privateKey }`. Bare `xrpl` strings become `{ seed }`. `hedera` and `near` have no string overload. Empty strings throw.
 
 ### Aptos, AVM, Stellar
 
@@ -96,6 +105,23 @@ These families register **`exact` only** (`upto` is not implemented in `@x402/*`
 - **Aptos** (`aptos:*`): `createClientSigner` from `@x402/aptos`. Optional `rpcUrl`. Optional 402 `extra.feePayer` enables a sponsored tx.
 - **AVM** (`algorand:*`): `toClientAvmSigner` from `@x402/avm`. Optional `algodUrl` / `algodToken`. Do not pass a prebuilt Algorand client here — use the `x402Client` hatch. Optional 402 `extra.feePayer` for a gasless group.
 - **Stellar** (`stellar:*`): `createEd25519Signer` from `@x402/stellar`. Default `network` is **`stellar:pubnet`** (the official factory defaults to `stellar:testnet`). Pass `network: "stellar:testnet"` for testnet. Optional `rpcUrl` is a Soroban RPC endpoint (required for pubnet payments). The 402 **must** set `extra.areFeesSponsored === true` or the scheme throws.
+
+### Hedera, NEAR, XRPL
+
+These families also register **`exact` only**, on a **concrete CAIP-2** (not a wildcard). Default networks are mainnet.
+
+- **Hedera** (`hedera:mainnet` by default, or `hedera:testnet`): `{ accountId, privateKey, network?, nodeUrl? }`. No string overload. The 402 **must** set `extra.feePayer`. Native HBAR (`asset: "0.0.0"`) is not a default asset — pass `spendControls.allowedAssets` to allow it.
+- **NEAR** (`near:mainnet` by default, or `near:testnet`): `{ accountId, secretKey, network?, rpcUrl? }`. No string overload. Optional `rpcUrl` is mapped to `{ [network]: rpcUrl }`.
+- **XRPL** (`xrpl:0` by default, or `xrpl:1`): family seed, or `{ seed, network?, wsUrl? }`. Optional `wsUrl` is mapped to `{ [network]: wsUrl }`. The 402 **must** set `extra.areFeesSponsored === false` (the payer pays the XRPL fee). Default asset is RLUSD; native XRP is not allowed unless you opt in:
+
+```ts
+new X402OpenAI({
+  xrpl: { seed, network: "xrpl:0" },
+  spendControls: {
+    allowedAssets: [{ network: "xrpl:*", asset: "XRP" }],
+  },
+});
+```
 
 ### Spend controls
 
@@ -154,7 +180,7 @@ If nothing matches, all remaining options pass through.
 
 ### `X402OpenAI`
 
-Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, `aptos`, `avm`, `stellar`, or `x402Client`:
+Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, `aptos`, `avm`, `stellar`, `hedera`, `near`, `xrpl`, or `x402Client`:
 
 | Parameter                     | Type                               | Description                                                                                            |
 | :---------------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
@@ -163,6 +189,9 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 | `aptos`                       | `string` or `AptosConfig`          | Aptos hex or AIP-80 Ed25519 key. Registers `exact`.                                                    |
 | `avm`                         | `string` or `AvmConfig`            | Algorand base64 64-byte secret. Registers `exact`.                                                     |
 | `stellar`                     | `string` or `StellarConfig`        | Stellar `S…` secret. Registers `exact`. Default network `stellar:pubnet`.                              |
+| `hedera`                      | `HederaConfig`                     | Hedera account id + ECDSA key. Registers `exact` on `hedera:mainnet` by default.                       |
+| `near`                        | `NearConfig`                       | NEAR account id + secret key. Registers `exact` on `near:mainnet` by default.                          |
+| `xrpl`                        | `string` or `XrplConfig`           | XRPL family seed. Registers `exact` on `xrpl:0` by default.                                            |
 | `spendControls`               | `SpendControls` or `false`         | Official spend controls. Omit for `$1` + default assets.                                               |
 | `policies`                    | `PaymentPolicy[]`                  | Preference policies (`preferNetwork` / `preferScheme`).                                                |
 | `paymentRequirementsSelector` | `SelectPaymentRequirements`        | Picks among remaining requirements after spend controls and policies.                                  |
@@ -170,7 +199,10 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 
 `EvmConfig` / `SvmConfig` / `AptosConfig`: `{ privateKey, rpcUrl? }`.
 `AvmConfig`: `{ privateKey, algodUrl?, algodToken? }`.
-`StellarConfig`: `{ privateKey, network?, rpcUrl? }`. Empty keys throw. `stellar.rpcUrl` is required to pay on pubnet.
+`StellarConfig`: `{ privateKey, network?, rpcUrl? }`.
+`HederaConfig`: `{ accountId, privateKey, network?, nodeUrl? }`.
+`NearConfig`: `{ accountId, secretKey, network?, rpcUrl? }` (`rpcUrl` → `{ [network]: rpcUrl }`).
+`XrplConfig`: `{ seed, network?, wsUrl? }` (`wsUrl` → `{ [network]: wsUrl }`). Empty keys throw. `stellar.rpcUrl` is required to pay on pubnet.
 
 `SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 
@@ -186,6 +218,9 @@ Install extras:
 | `aptos`   | Aptos    | `@x402/aptos`                       |
 | `avm`     | Algorand | `@x402/avm`                         |
 | `stellar` | Stellar  | `@x402/stellar`                     |
+| `hedera`  | Hedera   | `@x402/hedera`                      |
+| `near`    | NEAR     | `@x402/near`                        |
+| `xrpl`    | XRPL     | `@x402/xrpl xrpl`                   |
 
 ## Examples
 

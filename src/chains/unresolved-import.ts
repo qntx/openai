@@ -9,6 +9,7 @@ export function isUnresolvedImport(error: unknown): boolean {
   return error instanceof Error && /cannot find (?:package|module)/i.test(error.message);
 }
 
-export function missingPeerError(label: string, pkg: string): Error {
-  return new Error(`${label} key provided but ${pkg} is not installed. bun add ${pkg}`);
+export function missingPeerError(label: string, pkg: string, ...alsoInstall: string[]): Error {
+  const install = [pkg, ...alsoInstall].join(" ");
+  return new Error(`${label} key provided but ${pkg} is not installed. bun add ${install}`);
 }

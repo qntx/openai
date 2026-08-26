@@ -8,12 +8,16 @@ import * as api from "../src/index.ts";
 type ForbiddenOptions = Extract<keyof X402OpenAIOptions, "wallet" | "wallets" | "mnemonic">;
 type ForbiddenEvm = Extract<keyof EvmConfig, "mnemonic" | "accountIndex" | "derivationPath">;
 type ForbiddenAvm = Extract<keyof AvmConfig, "algorandClient">;
+type ForbiddenHederaBare = Extract<X402OpenAIOptions["hedera"], string>;
+type ForbiddenNearBare = Extract<X402OpenAIOptions["near"], string>;
 type ForbiddenMaxAmount = Extract<keyof typeof api, "maxAmount">;
 
 function expectNever<_T extends never>(): void {}
 expectNever<ForbiddenOptions>();
 expectNever<ForbiddenEvm>();
 expectNever<ForbiddenAvm>();
+expectNever<ForbiddenHederaBare>();
+expectNever<ForbiddenNearBare>();
 expectNever<ForbiddenMaxAmount>();
 
 describe("X402OpenAI", () => {
@@ -32,18 +36,39 @@ describe("X402OpenAI", () => {
     expect(() => new X402OpenAI({ aptos: "" })).toThrow("non-empty");
     expect(() => new X402OpenAI({ avm: "" })).toThrow("non-empty");
     expect(() => new X402OpenAI({ stellar: "" })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ xrpl: "" })).toThrow("non-empty");
   });
 
   it("throws on empty privateKey objects", () => {
     expect(() => new X402OpenAI({ aptos: { privateKey: "" } })).toThrow("non-empty");
     expect(() => new X402OpenAI({ avm: { privateKey: "" } })).toThrow("non-empty");
     expect(() => new X402OpenAI({ stellar: { privateKey: "" } })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ xrpl: { seed: "" } })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ hedera: { accountId: "", privateKey: "0x1" } })).toThrow(
+      "non-empty",
+    );
+    expect(() => new X402OpenAI({ hedera: { accountId: "0.0.1", privateKey: "" } })).toThrow(
+      "non-empty",
+    );
+    expect(() => new X402OpenAI({ near: { accountId: "", secretKey: "ed25519:x" } })).toThrow(
+      "non-empty",
+    );
+    expect(() => new X402OpenAI({ near: { accountId: "alice.near", secretKey: "" } })).toThrow(
+      "non-empty",
+    );
   });
 
-  it("accepts aptos, avm, or stellar without evm/svm", () => {
+  it("accepts aptos, avm, stellar, hedera, near, or xrpl without evm/svm", () => {
     expect(new X402OpenAI({ aptos: "0x1" })).toBeInstanceOf(X402OpenAI);
     expect(new X402OpenAI({ avm: "key" })).toBeInstanceOf(X402OpenAI);
     expect(new X402OpenAI({ stellar: "S…" })).toBeInstanceOf(X402OpenAI);
+    expect(new X402OpenAI({ hedera: { accountId: "0.0.1", privateKey: "0x1" } })).toBeInstanceOf(
+      X402OpenAI,
+    );
+    expect(
+      new X402OpenAI({ near: { accountId: "alice.near", secretKey: "ed25519:x" } }),
+    ).toBeInstanceOf(X402OpenAI);
+    expect(new X402OpenAI({ xrpl: "sEd…" })).toBeInstanceOf(X402OpenAI);
   });
 
   it("throws when x402Client is combined with keys", () => {
@@ -73,6 +98,27 @@ describe("X402OpenAI", () => {
         new X402OpenAI({
           x402Client: new x402Client(),
           stellar: "S…",
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          hedera: { accountId: "0.0.1", privateKey: "0x1" },
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          near: { accountId: "alice.near", secretKey: "ed25519:x" },
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          xrpl: "sEd…",
         }),
     ).toThrow("Cannot combine");
   });

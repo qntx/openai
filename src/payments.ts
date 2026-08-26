@@ -9,6 +9,9 @@ export type PaymentSourceOptions = Pick<
   | "aptos"
   | "avm"
   | "stellar"
+  | "hedera"
+  | "near"
+  | "xrpl"
   | "spendControls"
   | "policies"
   | "paymentRequirementsSelector"
@@ -16,7 +19,7 @@ export type PaymentSourceOptions = Pick<
 >;
 
 const PREBUILT_EXCLUSIVE =
-  "Cannot combine 'x402Client' with 'evm', 'svm', 'aptos', 'avm', 'stellar', 'policies', 'spendControls', or 'paymentRequirementsSelector'. Configure the pre-built client directly.";
+  "Cannot combine 'x402Client' with 'evm', 'svm', 'aptos', 'avm', 'stellar', 'hedera', 'near', 'xrpl', 'policies', 'spendControls', or 'paymentRequirementsSelector'. Configure the pre-built client directly.";
 
 export function assertPaymentOptions(options: PaymentSourceOptions): void {
   const {
@@ -25,6 +28,9 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
     aptos,
     avm,
     stellar,
+    hedera,
+    near,
+    xrpl,
     spendControls,
     policies,
     paymentRequirementsSelector,
@@ -38,6 +44,9 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
       aptos !== undefined ||
       avm !== undefined ||
       stellar !== undefined ||
+      hedera !== undefined ||
+      near !== undefined ||
+      xrpl !== undefined ||
       spendControls !== undefined ||
       policies !== undefined ||
       paymentRequirementsSelector !== undefined
@@ -52,10 +61,13 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
     svm === undefined &&
     aptos === undefined &&
     avm === undefined &&
-    stellar === undefined
+    stellar === undefined &&
+    hedera === undefined &&
+    near === undefined &&
+    xrpl === undefined
   ) {
     throw new Error(
-      "Provide at least one of 'evm', 'svm', 'aptos', 'avm', 'stellar', or 'x402Client'.",
+      "Provide at least one of 'evm', 'svm', 'aptos', 'avm', 'stellar', 'hedera', 'near', 'xrpl', or 'x402Client'.",
     );
   }
 
@@ -64,6 +76,9 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
   assertNonEmptyPrivateKey("aptos", aptos);
   assertNonEmptyPrivateKey("avm", avm);
   assertNonEmptyPrivateKey("stellar", stellar);
+  assertNonEmptyHedera(hedera);
+  assertNonEmptyNear(near);
+  assertNonEmptySeed("xrpl", xrpl);
 }
 
 function assertNonEmptyPrivateKey(
@@ -76,6 +91,40 @@ function assertNonEmptyPrivateKey(
   const key = typeof value === "string" ? value : value.privateKey;
   if (!key) {
     throw new Error(`'${field}' private key must be a non-empty string.`);
+  }
+}
+
+function assertNonEmptyHedera(value: PaymentSourceOptions["hedera"]): void {
+  if (value === undefined) {
+    return;
+  }
+  if (!value.accountId) {
+    throw new Error("'hedera' accountId must be a non-empty string.");
+  }
+  if (!value.privateKey) {
+    throw new Error("'hedera' private key must be a non-empty string.");
+  }
+}
+
+function assertNonEmptyNear(value: PaymentSourceOptions["near"]): void {
+  if (value === undefined) {
+    return;
+  }
+  if (!value.accountId) {
+    throw new Error("'near' accountId must be a non-empty string.");
+  }
+  if (!value.secretKey) {
+    throw new Error("'near' secretKey must be a non-empty string.");
+  }
+}
+
+function assertNonEmptySeed(field: string, value: string | { seed: string } | undefined): void {
+  if (value === undefined) {
+    return;
+  }
+  const seed = typeof value === "string" ? value : value.seed;
+  if (!seed) {
+    throw new Error(`'${field}' seed must be a non-empty string.`);
   }
 }
 

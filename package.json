@@ -48,12 +48,16 @@
     "@x402/aptos": "^2.23.0",
     "@x402/avm": "^2.23.0",
     "@x402/evm": "^2.23.0",
+    "@x402/hedera": "^2.23.0",
+    "@x402/near": "^2.23.0",
     "@x402/stellar": "^2.23.0",
     "@x402/svm": "^2.23.0",
+    "@x402/xrpl": "^2.23.0",
     "bumpp": "^11.1.0",
     "typescript": "^7.0.2",
     "viem": "^2.55.19",
-    "vite-plus": "^0.2.9"
+    "vite-plus": "^0.2.9",
+    "xrpl": "^4.6.0"
   },
   "peerDependencies": {
     "@scure/base": ">=1.2.6",
@@ -61,10 +65,14 @@
     "@x402/aptos": "^2.23.0",
     "@x402/avm": "^2.23.0",
     "@x402/evm": "^2.23.0",
+    "@x402/hedera": "^2.23.0",
+    "@x402/near": "^2.23.0",
     "@x402/stellar": "^2.23.0",
     "@x402/svm": "^2.23.0",
+    "@x402/xrpl": "^2.23.0",
     "typescript": "^5.9.3",
-    "viem": "^2.48.11"
+    "viem": "^2.48.11",
+    "xrpl": "^4.6.0"
   },
   "peerDependenciesMeta": {
     "@x402/aptos": {
@@ -76,10 +84,19 @@
     "@x402/evm": {
       "optional": true
     },
+    "@x402/hedera": {
+      "optional": true
+    },
+    "@x402/near": {
+      "optional": true
+    },
     "@x402/stellar": {
       "optional": true
     },
     "@x402/svm": {
+      "optional": true
+    },
+    "@x402/xrpl": {
       "optional": true
     },
     "viem": {
@@ -89,6 +106,9 @@
       "optional": true
     },
     "@scure/base": {
+      "optional": true
+    },
+    "xrpl": {
       "optional": true
     }
   },

@@ -30,8 +30,11 @@ import type {
   AptosConfig,
   AvmConfig,
   EvmConfig,
+  HederaConfig,
+  NearConfig,
   StellarConfig,
   SvmConfig,
+  XrplConfig,
 } from "./chains/types.ts";
 import { assertPaymentOptions, buildX402Client } from "./payments.ts";
 
@@ -56,6 +59,23 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
    * Default `network` is `stellar:pubnet`. Stellar 402s must set `extra.areFeesSponsored === true`.
    */
   stellar?: string | StellarConfig;
+  /**
+   * Hedera `0.0.N` account id plus ECDSA private key. Registers `exact` on the configured
+   * CAIP-2 (`hedera:mainnet` by default). Hedera 402s must set `extra.feePayer`.
+   * Native HBAR (`0.0.0`) is not a default asset — pass `spendControls.allowedAssets` to allow it.
+   */
+  hedera?: HederaConfig;
+  /**
+   * NEAR account id plus `ed25519:…` / `secp256k1:…` secret key. Registers `exact` on the
+   * configured CAIP-2 (`near:mainnet` by default). Optional `rpcUrl` is mapped per network.
+   */
+  near?: NearConfig;
+  /**
+   * XRPL family seed, or `{ seed, network?, wsUrl? }`. Registers `exact` on the configured
+   * CAIP-2 (`xrpl:0` by default). XRPL 402s must set `extra.areFeesSponsored === false`.
+   * Default asset is RLUSD; native XRP needs `spendControls.allowedAssets`.
+   */
+  xrpl?: string | XrplConfig;
   /**
    * Official spend controls (applied before policies).
    * Omit to keep the `@x402/core` default: default assets only, `$1` per payment.
@@ -93,7 +113,8 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
 /**
  * Drop-in replacement for `openai.OpenAI` with transparent x402 payment.
  *
- * Provide at least one of `evm`, `svm`, `aptos`, `avm`, `stellar`, or `x402Client`.
+ * Provide at least one of `evm`, `svm`, `aptos`, `avm`, `stellar`, `hedera`,
+ * `near`, `xrpl`, or `x402Client`.
  *
  * Default `baseURL` is `https://llm.qntx.org/v1`.
  * All standard OpenAI constructor options (`baseURL`, `timeout`, `maxRetries`, …)
@@ -123,6 +144,9 @@ export class X402OpenAI extends OpenAI {
       aptos,
       avm,
       stellar,
+      hedera,
+      near,
+      xrpl,
       spendControls,
       policies,
       paymentRequirementsSelector,
@@ -135,6 +159,9 @@ export class X402OpenAI extends OpenAI {
       aptos,
       avm,
       stellar,
+      hedera,
+      near,
+      xrpl,
       spendControls,
       policies,
       paymentRequirementsSelector,

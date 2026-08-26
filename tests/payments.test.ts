@@ -28,10 +28,26 @@ describe("buildX402Client", () => {
     await expect(buildX402Client({ svm: "" })).rejects.toThrow("non-empty");
   });
 
-  it("throws on empty aptos, avm, and stellar strings", async () => {
+  it("throws on empty aptos, avm, stellar, and xrpl strings", async () => {
     await expect(buildX402Client({ aptos: "" })).rejects.toThrow("non-empty");
     await expect(buildX402Client({ avm: "" })).rejects.toThrow("non-empty");
     await expect(buildX402Client({ stellar: "" })).rejects.toThrow("non-empty");
+    await expect(buildX402Client({ xrpl: "" })).rejects.toThrow("non-empty");
+  });
+
+  it("throws on empty hedera and near fields", async () => {
+    await expect(buildX402Client({ hedera: { accountId: "", privateKey: "0x1" } })).rejects.toThrow(
+      "non-empty",
+    );
+    await expect(
+      buildX402Client({ hedera: { accountId: "0.0.1", privateKey: "" } }),
+    ).rejects.toThrow("non-empty");
+    await expect(
+      buildX402Client({ near: { accountId: "", secretKey: "ed25519:x" } }),
+    ).rejects.toThrow("non-empty");
+    await expect(
+      buildX402Client({ near: { accountId: "alice.near", secretKey: "" } }),
+    ).rejects.toThrow("non-empty");
   });
 
   it("throws on empty evm privateKey object", async () => {
@@ -52,6 +68,21 @@ describe("buildX402Client", () => {
       "Cannot combine",
     );
     await expect(buildX402Client({ x402Client: prebuilt, stellar: "S…" })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(
+      buildX402Client({
+        x402Client: prebuilt,
+        hedera: { accountId: "0.0.1", privateKey: "0x1" },
+      }),
+    ).rejects.toThrow("Cannot combine");
+    await expect(
+      buildX402Client({
+        x402Client: prebuilt,
+        near: { accountId: "alice.near", secretKey: "ed25519:x" },
+      }),
+    ).rejects.toThrow("Cannot combine");
+    await expect(buildX402Client({ x402Client: prebuilt, xrpl: "sEd…" })).rejects.toThrow(
       "Cannot combine",
     );
   });

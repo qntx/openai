@@ -28,8 +28,11 @@ export type {
   AptosConfig,
   AvmConfig,
   EvmConfig,
+  HederaConfig,
+  NearConfig,
   StellarConfig,
   SvmConfig,
+  XrplConfig,
 } from "./chains/types.ts";
 export type { SpendControls, X402OpenAIOptions } from "./client.ts";
 export { X402OpenAI } from "./client.ts";
