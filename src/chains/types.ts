@@ -9,3 +9,22 @@ export interface SvmConfig {
   /** JSON-RPC endpoint for Solana reads (mint metadata, blockhash). */
   rpcUrl?: string;
 }
+
+export interface AptosConfig {
+  privateKey: string;
+  rpcUrl?: string;
+}
+
+export interface AvmConfig {
+  privateKey: string;
+  algodUrl?: string;
+  algodToken?: string;
+}
+
+export interface StellarConfig {
+  privateKey: string;
+  /** Defaults to `stellar:pubnet`; official `createEd25519Signer` defaults to testnet. */
+  network?: "stellar:pubnet" | "stellar:testnet";
+  /** Soroban RPC URL; passed as `RpcConfig.url`. */
+  rpcUrl?: string;
+}

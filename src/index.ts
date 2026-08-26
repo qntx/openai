@@ -24,7 +24,13 @@
  */
 
 export type { PaymentPolicy, x402Client } from "@x402/fetch";
-export type { EvmConfig, SvmConfig } from "./chains/types.ts";
+export type {
+  AptosConfig,
+  AvmConfig,
+  EvmConfig,
+  StellarConfig,
+  SvmConfig,
+} from "./chains/types.ts";
 export type { SpendControls, X402OpenAIOptions } from "./client.ts";
 export { X402OpenAI } from "./client.ts";
 export { preferNetwork, preferScheme } from "./policies.ts";

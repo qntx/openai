@@ -1,17 +1,35 @@
 import type { x402Client } from "@x402/fetch";
+import { registerAptos } from "./aptos.ts";
+import { registerAvm } from "./avm.ts";
 import { registerEvm } from "./evm.ts";
+import { registerStellar } from "./stellar.ts";
 import { registerSvm } from "./svm.ts";
-import type { EvmConfig, SvmConfig } from "./types.ts";
+import type { AptosConfig, AvmConfig, EvmConfig, StellarConfig, SvmConfig } from "./types.ts";
 
 export async function registerChains(
   client: x402Client,
-  options: { evm?: `0x${string}` | EvmConfig; svm?: string | SvmConfig },
+  options: {
+    evm?: `0x${string}` | EvmConfig;
+    svm?: string | SvmConfig;
+    aptos?: string | AptosConfig;
+    avm?: string | AvmConfig;
+    stellar?: string | StellarConfig;
+  },
 ): Promise<void> {
   if (options.evm !== undefined) {
     await registerEvm(client, normalizeEvm(options.evm));
   }
   if (options.svm !== undefined) {
     await registerSvm(client, normalizeSvm(options.svm));
+  }
+  if (options.aptos !== undefined) {
+    await registerAptos(client, normalizeAptos(options.aptos));
+  }
+  if (options.avm !== undefined) {
+    await registerAvm(client, normalizeAvm(options.avm));
+  }
+  if (options.stellar !== undefined) {
+    await registerStellar(client, normalizeStellar(options.stellar));
   }
 }
 
@@ -27,6 +45,30 @@ function normalizeSvm(svm: string | SvmConfig): SvmConfig {
   const config = typeof svm === "string" ? { privateKey: svm } : svm;
   if (!config.privateKey) {
     throw new Error("'svm' private key must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeAptos(aptos: string | AptosConfig): AptosConfig {
+  const config = typeof aptos === "string" ? { privateKey: aptos } : aptos;
+  if (!config.privateKey) {
+    throw new Error("'aptos' private key must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeAvm(avm: string | AvmConfig): AvmConfig {
+  const config = typeof avm === "string" ? { privateKey: avm } : avm;
+  if (!config.privateKey) {
+    throw new Error("'avm' private key must be a non-empty string.");
+  }
+  return config;
+}
+
+function normalizeStellar(stellar: string | StellarConfig): StellarConfig {
+  const config = typeof stellar === "string" ? { privateKey: stellar } : stellar;
+  if (!config.privateKey) {
+    throw new Error("'stellar' private key must be a non-empty string.");
   }
   return config;
 }

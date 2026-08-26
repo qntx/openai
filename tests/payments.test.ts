@@ -28,6 +28,12 @@ describe("buildX402Client", () => {
     await expect(buildX402Client({ svm: "" })).rejects.toThrow("non-empty");
   });
 
+  it("throws on empty aptos, avm, and stellar strings", async () => {
+    await expect(buildX402Client({ aptos: "" })).rejects.toThrow("non-empty");
+    await expect(buildX402Client({ avm: "" })).rejects.toThrow("non-empty");
+    await expect(buildX402Client({ stellar: "" })).rejects.toThrow("non-empty");
+  });
+
   it("throws on empty evm privateKey object", async () => {
     await expect(buildX402Client({ evm: { privateKey: "" as `0x${string}` } })).rejects.toThrow(
       "non-empty",
@@ -37,6 +43,15 @@ describe("buildX402Client", () => {
   it("throws when x402Client is combined with keys", async () => {
     const prebuilt = new x402Client();
     await expect(buildX402Client({ x402Client: prebuilt, evm: EVM_KEY })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(buildX402Client({ x402Client: prebuilt, aptos: "0x1" })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(buildX402Client({ x402Client: prebuilt, avm: "key" })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(buildX402Client({ x402Client: prebuilt, stellar: "S…" })).rejects.toThrow(
       "Cannot combine",
     );
   });

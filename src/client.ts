@@ -26,7 +26,13 @@ import {
 } from "@x402/fetch";
 import type { ClientOptions } from "openai";
 import OpenAI from "openai";
-import type { EvmConfig, SvmConfig } from "./chains/types.ts";
+import type {
+  AptosConfig,
+  AvmConfig,
+  EvmConfig,
+  StellarConfig,
+  SvmConfig,
+} from "./chains/types.ts";
 import { assertPaymentOptions, buildX402Client } from "./payments.ts";
 
 /** Default x402 LLM gateway URL. */
@@ -41,6 +47,15 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
   evm?: `0x${string}` | EvmConfig;
   /** Solana base58 secret key, or `{ privateKey, rpcUrl? }`. Registers `exact` and `upto`. */
   svm?: string | SvmConfig;
+  /** Aptos Ed25519 private key (hex or AIP-80), or `{ privateKey, rpcUrl? }`. Registers `exact`. */
+  aptos?: string | AptosConfig;
+  /** Algorand base64 64-byte secret, or `{ privateKey, algodUrl?, algodToken? }`. Registers `exact`. */
+  avm?: string | AvmConfig;
+  /**
+   * Stellar `S…` secret, or `{ privateKey, network?, rpcUrl? }`. Registers `exact`.
+   * Default `network` is `stellar:pubnet`. Stellar 402s must set `extra.areFeesSponsored === true`.
+   */
+  stellar?: string | StellarConfig;
   /**
    * Official spend controls (applied before policies).
    * Omit to keep the `@x402/core` default: default assets only, `$1` per payment.
@@ -69,7 +84,7 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
    */
   paymentRequirementsSelector?: SelectPaymentRequirements;
   /**
-   * Pre-configured `x402Client`. Exclusive with `evm`, `svm`, `spendControls`,
+   * Pre-configured `x402Client`. Exclusive with chain keys, `spendControls`,
    * `policies`, and `paymentRequirementsSelector`.
    */
   x402Client?: x402Client;
@@ -78,7 +93,7 @@ export interface X402OpenAIOptions extends Omit<ClientOptions, "fetch"> {
 /**
  * Drop-in replacement for `openai.OpenAI` with transparent x402 payment.
  *
- * Provide at least one of `evm`, `svm`, or `x402Client`.
+ * Provide at least one of `evm`, `svm`, `aptos`, `avm`, `stellar`, or `x402Client`.
  *
  * Default `baseURL` is `https://llm.qntx.org/v1`.
  * All standard OpenAI constructor options (`baseURL`, `timeout`, `maxRetries`, …)
@@ -105,6 +120,9 @@ export class X402OpenAI extends OpenAI {
     const {
       evm,
       svm,
+      aptos,
+      avm,
+      stellar,
       spendControls,
       policies,
       paymentRequirementsSelector,
@@ -114,6 +132,9 @@ export class X402OpenAI extends OpenAI {
     const payment = {
       evm,
       svm,
+      aptos,
+      avm,
+      stellar,
       spendControls,
       policies,
       paymentRequirementsSelector,

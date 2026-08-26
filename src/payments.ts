@@ -4,16 +4,27 @@ import type { X402OpenAIOptions } from "./client.ts";
 
 export type PaymentSourceOptions = Pick<
   X402OpenAIOptions,
-  "evm" | "svm" | "spendControls" | "policies" | "paymentRequirementsSelector" | "x402Client"
+  | "evm"
+  | "svm"
+  | "aptos"
+  | "avm"
+  | "stellar"
+  | "spendControls"
+  | "policies"
+  | "paymentRequirementsSelector"
+  | "x402Client"
 >;
 
 const PREBUILT_EXCLUSIVE =
-  "Cannot combine 'x402Client' with 'evm', 'svm', 'policies', 'spendControls', or 'paymentRequirementsSelector'. Configure the pre-built client directly.";
+  "Cannot combine 'x402Client' with 'evm', 'svm', 'aptos', 'avm', 'stellar', 'policies', 'spendControls', or 'paymentRequirementsSelector'. Configure the pre-built client directly.";
 
 export function assertPaymentOptions(options: PaymentSourceOptions): void {
   const {
     evm,
     svm,
+    aptos,
+    avm,
+    stellar,
     spendControls,
     policies,
     paymentRequirementsSelector,
@@ -24,6 +35,9 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
     if (
       evm !== undefined ||
       svm !== undefined ||
+      aptos !== undefined ||
+      avm !== undefined ||
+      stellar !== undefined ||
       spendControls !== undefined ||
       policies !== undefined ||
       paymentRequirementsSelector !== undefined
@@ -33,22 +47,35 @@ export function assertPaymentOptions(options: PaymentSourceOptions): void {
     return;
   }
 
-  if (evm === undefined && svm === undefined) {
-    throw new Error("Provide at least one of 'evm', 'svm', or 'x402Client'.");
+  if (
+    evm === undefined &&
+    svm === undefined &&
+    aptos === undefined &&
+    avm === undefined &&
+    stellar === undefined
+  ) {
+    throw new Error(
+      "Provide at least one of 'evm', 'svm', 'aptos', 'avm', 'stellar', or 'x402Client'.",
+    );
   }
 
-  if (evm !== undefined) {
-    const key = typeof evm === "string" ? evm : evm.privateKey;
-    if (!key) {
-      throw new Error("'evm' private key must be a non-empty string.");
-    }
-  }
+  assertNonEmptyPrivateKey("evm", evm);
+  assertNonEmptyPrivateKey("svm", svm);
+  assertNonEmptyPrivateKey("aptos", aptos);
+  assertNonEmptyPrivateKey("avm", avm);
+  assertNonEmptyPrivateKey("stellar", stellar);
+}
 
-  if (svm !== undefined) {
-    const key = typeof svm === "string" ? svm : svm.privateKey;
-    if (!key) {
-      throw new Error("'svm' private key must be a non-empty string.");
-    }
+function assertNonEmptyPrivateKey(
+  field: string,
+  value: string | { privateKey: string } | undefined,
+): void {
+  if (value === undefined) {
+    return;
+  }
+  const key = typeof value === "string" ? value : value.privateKey;
+  if (!key) {
+    throw new Error(`'${field}' private key must be a non-empty string.`);
   }
 }
 

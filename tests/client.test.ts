@@ -1,17 +1,19 @@
 import { x402Client } from "@x402/fetch";
 import { describe, expect, it } from "vite-plus/test";
-import type { EvmConfig } from "../src/chains/types.ts";
+import type { AvmConfig, EvmConfig } from "../src/chains/types.ts";
 import type { X402OpenAIOptions } from "../src/client.ts";
 import { X402OpenAI } from "../src/client.ts";
 import * as api from "../src/index.ts";
 
 type ForbiddenOptions = Extract<keyof X402OpenAIOptions, "wallet" | "wallets" | "mnemonic">;
 type ForbiddenEvm = Extract<keyof EvmConfig, "mnemonic" | "accountIndex" | "derivationPath">;
+type ForbiddenAvm = Extract<keyof AvmConfig, "algorandClient">;
 type ForbiddenMaxAmount = Extract<keyof typeof api, "maxAmount">;
 
 function expectNever<_T extends never>(): void {}
 expectNever<ForbiddenOptions>();
 expectNever<ForbiddenEvm>();
+expectNever<ForbiddenAvm>();
 expectNever<ForbiddenMaxAmount>();
 
 describe("X402OpenAI", () => {
@@ -27,6 +29,21 @@ describe("X402OpenAI", () => {
   it("throws on empty keys", () => {
     expect(() => new X402OpenAI({ evm: "" as `0x${string}` })).toThrow("non-empty");
     expect(() => new X402OpenAI({ svm: "" })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ aptos: "" })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ avm: "" })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ stellar: "" })).toThrow("non-empty");
+  });
+
+  it("throws on empty privateKey objects", () => {
+    expect(() => new X402OpenAI({ aptos: { privateKey: "" } })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ avm: { privateKey: "" } })).toThrow("non-empty");
+    expect(() => new X402OpenAI({ stellar: { privateKey: "" } })).toThrow("non-empty");
+  });
+
+  it("accepts aptos, avm, or stellar without evm/svm", () => {
+    expect(new X402OpenAI({ aptos: "0x1" })).toBeInstanceOf(X402OpenAI);
+    expect(new X402OpenAI({ avm: "key" })).toBeInstanceOf(X402OpenAI);
+    expect(new X402OpenAI({ stellar: "S…" })).toBeInstanceOf(X402OpenAI);
   });
 
   it("throws when x402Client is combined with keys", () => {
@@ -35,6 +52,27 @@ describe("X402OpenAI", () => {
         new X402OpenAI({
           x402Client: new x402Client(),
           evm: "0x1" as `0x${string}`,
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          aptos: "0x1",
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          avm: "key",
+        }),
+    ).toThrow("Cannot combine");
+    expect(
+      () =>
+        new X402OpenAI({
+          x402Client: new x402Client(),
+          stellar: "S…",
         }),
     ).toThrow("Cannot combine");
   });

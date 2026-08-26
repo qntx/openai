@@ -16,14 +16,16 @@
 Wrap the standard `openai.OpenAI` client with per-chain private keys.
 When the server responds with **HTTP 402**, the library automatically signs and retries the request — zero code changes needed.
 
-Supplying `evm` or `svm` registers both **`exact` and `upto`**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
+Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, and `stellar` register **`exact` only**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
 
 ## Installation
 
 ```bash
 bun add x402-openai @x402/evm viem                       # EVM (Ethereum / Base / …)
 bun add x402-openai @x402/svm @solana/kit @scure/base    # Solana
-bun add x402-openai @x402/evm @x402/svm viem @solana/kit @scure/base  # all chains
+bun add x402-openai @x402/aptos                          # Aptos
+bun add x402-openai @x402/avm                            # Algorand (AVM)
+bun add x402-openai @x402/stellar                        # Stellar
 ```
 
 ## Quick Start
@@ -42,7 +44,7 @@ const res = await client.chat.completions.create({
 console.log(res.choices[0]?.message.content);
 ```
 
-Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical.
+Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical. The same constructor accepts `aptos`, `avm`, and `stellar` keys.
 
 ## Usage
 
@@ -67,10 +69,33 @@ for await (const chunk of stream) {
 const client = new X402OpenAI({
   evm: "0x…",
   svm: "base58…",
+  aptos: "0x…",
+  avm: "base64…",
+  stellar: "S…",
 });
 ```
 
 The protocol selects the right chain automatically based on the server's payment requirements.
+
+### Key formats
+
+| Option    | Key material                                          |
+| :-------- | :---------------------------------------------------- |
+| `evm`     | `0x` hex secp256k1                                    |
+| `svm`     | base58 64-byte secret                                 |
+| `aptos`   | hex or AIP-80 Ed25519 (`ed25519-priv-0x…`)            |
+| `avm`     | base64 64-byte secret (32-byte seed + 32-byte pubkey) |
+| `stellar` | Stellar `S…` secret seed                              |
+
+Bare strings become `{ privateKey }`. Empty strings throw.
+
+### Aptos, AVM, Stellar
+
+These families register **`exact` only** (`upto` is not implemented in `@x402/*` for them).
+
+- **Aptos** (`aptos:*`): `createClientSigner` from `@x402/aptos`. Optional `rpcUrl`. Optional 402 `extra.feePayer` enables a sponsored tx.
+- **AVM** (`algorand:*`): `toClientAvmSigner` from `@x402/avm`. Optional `algodUrl` / `algodToken`. Do not pass a prebuilt Algorand client here — use the `x402Client` hatch. Optional 402 `extra.feePayer` for a gasless group.
+- **Stellar** (`stellar:*`): `createEd25519Signer` from `@x402/stellar`. Default `network` is **`stellar:pubnet`** (the official factory defaults to `stellar:testnet`). Pass `network: "stellar:testnet"` for testnet. Optional `rpcUrl` is sent as `{ url }` (`RpcConfig`). Pubnet payments need a Soroban RPC URL. The 402 **must** set `extra.areFeesSponsored === true` or the scheme throws.
 
 ### Spend controls
 
@@ -129,18 +154,23 @@ If nothing matches, all remaining options pass through.
 
 ### `X402OpenAI`
 
-Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, or `x402Client`:
+Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, `aptos`, `avm`, `stellar`, or `x402Client`:
 
 | Parameter                     | Type                               | Description                                                                                            |
 | :---------------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
 | `evm`                         | `` `0x${string}` `` or `EvmConfig` | EVM secp256k1 private key (`0x` hex). Registers `exact` and `upto`.                                    |
 | `svm`                         | `string` or `SvmConfig`            | Solana base58 secret key. Registers `exact` and `upto`.                                                |
+| `aptos`                       | `string` or `AptosConfig`          | Aptos hex or AIP-80 Ed25519 key. Registers `exact`.                                                    |
+| `avm`                         | `string` or `AvmConfig`            | Algorand base64 64-byte secret. Registers `exact`.                                                     |
+| `stellar`                     | `string` or `StellarConfig`        | Stellar `S…` secret. Registers `exact`. Default network `stellar:pubnet`.                              |
 | `spendControls`               | `SpendControls` or `false`         | Official spend controls. Omit for `$1` + default assets.                                               |
 | `policies`                    | `PaymentPolicy[]`                  | Preference policies (`preferNetwork` / `preferScheme`).                                                |
 | `paymentRequirementsSelector` | `SelectPaymentRequirements`        | Picks among remaining requirements after spend controls and policies.                                  |
 | `x402Client`                  | `x402Client`                       | Pre-configured x402 client (exclusive with keys, spendControls, policies, paymentRequirementsSelector) |
 
-`EvmConfig` / `SvmConfig`: `{ privateKey, rpcUrl? }`. Empty keys throw.
+`EvmConfig` / `SvmConfig` / `AptosConfig`: `{ privateKey, rpcUrl? }`.
+`AvmConfig`: `{ privateKey, algodUrl?, algodToken? }`.
+`StellarConfig`: `{ privateKey, network?, rpcUrl? }` (`rpcUrl` → `{ url }`). Empty keys throw.
 
 `SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 
@@ -149,10 +179,13 @@ Default `baseURL`: `https://llm.qntx.org/v1`
 
 Install extras:
 
-| Option | Chain  | Install extras                      |
-| :----- | :----- | :---------------------------------- |
-| `evm`  | EVM    | `@x402/evm viem`                    |
-| `svm`  | Solana | `@x402/svm @solana/kit @scure/base` |
+| Option    | Chain    | Install extras                      |
+| :-------- | :------- | :---------------------------------- |
+| `evm`     | EVM      | `@x402/evm viem`                    |
+| `svm`     | Solana   | `@x402/svm @solana/kit @scure/base` |
+| `aptos`   | Aptos    | `@x402/aptos`                       |
+| `avm`     | Algorand | `@x402/avm`                         |
+| `stellar` | Stellar  | `@x402/stellar`                     |
 
 ## Examples
 

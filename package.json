@@ -45,7 +45,10 @@
     "@scure/base": "^2.3.0",
     "@solana/kit": "^6.10.0",
     "@types/node": "^26.2.0",
+    "@x402/aptos": "^2.23.0",
+    "@x402/avm": "^2.23.0",
     "@x402/evm": "^2.23.0",
+    "@x402/stellar": "^2.23.0",
     "@x402/svm": "^2.23.0",
     "bumpp": "^11.1.0",
     "typescript": "^7.0.2",
@@ -55,13 +58,25 @@
   "peerDependencies": {
     "@scure/base": ">=1.2.6",
     "@solana/kit": ">=5.1.0",
+    "@x402/aptos": "^2.23.0",
+    "@x402/avm": "^2.23.0",
     "@x402/evm": "^2.23.0",
+    "@x402/stellar": "^2.23.0",
     "@x402/svm": "^2.23.0",
     "typescript": "^5.9.3",
     "viem": "^2.48.11"
   },
   "peerDependenciesMeta": {
+    "@x402/aptos": {
+      "optional": true
+    },
+    "@x402/avm": {
+      "optional": true
+    },
     "@x402/evm": {
+      "optional": true
+    },
+    "@x402/stellar": {
       "optional": true
     },
     "@x402/svm": {
