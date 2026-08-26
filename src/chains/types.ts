@@ -53,3 +53,24 @@ export interface XrplConfig {
   /** Mapped to `{ [network]: wsUrl }` for the official client. */
   wsUrl?: string;
 }
+
+export interface TvmConfig {
+  privateKey: string;
+  /** Defaults to `tvm:-239`. */
+  network?: "tvm:-239" | "tvm:-3";
+  provider?: string;
+  apiKey?: string;
+  providerBaseUrl?: string;
+}
+
+export interface KeetaConfig {
+  seed: string;
+}
+
+export interface ConcordiumConfig {
+  privateKey: string;
+  address: string;
+  grpcUrl?: string;
+  /** Official default is `true` when omitted. */
+  useTls?: boolean;
+}

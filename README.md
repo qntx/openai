@@ -16,7 +16,7 @@
 Wrap the standard `openai.OpenAI` client with per-chain private keys.
 When the server responds with **HTTP 402**, the library automatically signs and retries the request — zero code changes needed.
 
-Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, `stellar`, `hedera`, `near`, and `xrpl` register **`exact` only**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
+Supplying `evm` or `svm` registers both **`exact` and `upto`**. `aptos`, `avm`, `stellar`, `hedera`, `near`, `xrpl`, `tvm`, `keeta`, and `concordium` register **`exact` only**. Default spend controls from `@x402/core` cap each payment at **`$1`** of a recognized default asset.
 
 ## Installation
 
@@ -29,6 +29,9 @@ bun add x402-openai @x402/stellar                        # Stellar
 bun add x402-openai @x402/hedera                         # Hedera
 bun add x402-openai @x402/near                           # NEAR
 bun add x402-openai @x402/xrpl xrpl                      # XRPL
+bun add x402-openai @x402/tvm @ton/crypto                # TVM (TON)
+bun add x402-openai @x402/keeta @keetanetwork/keetanet-client  # Keeta
+bun add x402-openai @x402/concordium @concordium/web-sdk # Concordium
 ```
 
 ## Quick Start
@@ -47,7 +50,7 @@ const res = await client.chat.completions.create({
 console.log(res.choices[0]?.message.content);
 ```
 
-Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical. The same constructor accepts `aptos`, `avm`, `stellar`, `hedera`, `near`, and `xrpl`.
+Pass `svm: "base58…"` instead of `evm` to pay on Solana — the rest of the API is identical. The same constructor accepts `aptos`, `avm`, `stellar`, `hedera`, `near`, `xrpl`, `tvm`, `keeta`, and `concordium`.
 
 ## Usage
 
@@ -78,6 +81,9 @@ const client = new X402OpenAI({
   hedera: { accountId: "0.0.N", privateKey: "0x…" },
   near: { accountId: "alice.near", secretKey: "ed25519:…" },
   xrpl: "sEd…",
+  tvm: "hex-or-base64…",
+  keeta: process.env.KEETA_SEED,
+  concordium: { privateKey: "hex…", address: "base58…" },
 });
 ```
 
@@ -85,18 +91,21 @@ The protocol selects the right chain automatically based on the server's payment
 
 ### Key formats
 
-| Option    | Key material                                          |
-| :-------- | :---------------------------------------------------- |
-| `evm`     | `0x` hex secp256k1                                    |
-| `svm`     | base58 64-byte secret                                 |
-| `aptos`   | hex or AIP-80 Ed25519 (`ed25519-priv-0x…`)            |
-| `avm`     | base64 64-byte secret (32-byte seed + 32-byte pubkey) |
-| `stellar` | Stellar `S…` secret seed                              |
-| `hedera`  | ECDSA hex/DER **plus** `0.0.N` account id             |
-| `near`    | `ed25519:…` / `secp256k1:…` **plus** account id       |
-| `xrpl`    | XRPL family seed (not BIP-39)                         |
+| Option       | Key material                                                |
+| :----------- | :---------------------------------------------------------- |
+| `evm`        | `0x` hex secp256k1                                          |
+| `svm`        | base58 64-byte secret                                       |
+| `aptos`      | hex or AIP-80 Ed25519 (`ed25519-priv-0x…`)                  |
+| `avm`        | base64 64-byte secret (32-byte seed + 32-byte pubkey)       |
+| `stellar`    | Stellar `S…` secret seed                                    |
+| `hedera`     | ECDSA hex/DER **plus** `0.0.N` account id                   |
+| `near`       | `ed25519:…` / `secp256k1:…` **plus** account id             |
+| `xrpl`       | XRPL family seed (not BIP-39)                               |
+| `tvm`        | hex/base64 32-byte seed or 64-byte secret                   |
+| `keeta`      | `generateRandomSeed({ asString: true })` output, not BIP-39 |
+| `concordium` | hex Ed25519 **plus** base58 address                         |
 
-Bare `evm` / `svm` / `aptos` / `avm` / `stellar` strings become `{ privateKey }`. Bare `xrpl` strings become `{ seed }`. `hedera` and `near` have no string overload. Empty strings throw.
+Bare `evm` / `svm` / `aptos` / `avm` / `stellar` / `tvm` strings become `{ privateKey }`. Bare `xrpl` / `keeta` strings become `{ seed }`. `hedera`, `near`, and `concordium` have no string overload. Empty strings throw. Keeta 12/24-word BIP-39 strings throw.
 
 ### Aptos, AVM, Stellar
 
@@ -122,6 +131,25 @@ new X402OpenAI({
   },
 });
 ```
+
+### TVM, Keeta, Concordium
+
+These families also register **`exact` only**. TVM uses a concrete CAIP-2; Keeta and Concordium use wildcards.
+
+- **TVM** (`tvm:-239` by default, or `tvm:-3`): hex/base64 32-byte seed or 64-byte secret, or `{ privateKey, network?, provider?, apiKey?, providerBaseUrl? }`. The 402 **must** set `extra.areFeesSponsored === true`. Do not register `tvm:*` — the signer is bound to one network.
+- **Keeta** (`keeta:*`): `generateRandomSeed({ asString: true })` output, or `{ seed }`. Not a BIP-39 mnemonic (12/24-word strings throw). This package never calls `seedFromPassphrase`.
+- **Concordium** (`ccd:*`): `{ privateKey, address, grpcUrl?, useTls? }`. No string overload (`address` is required). Official `useTls` default is `true`. The 402 **must** set `extra.feePayer`. Default asset is USDR; native CCD is not allowed unless you opt in:
+
+```ts
+new X402OpenAI({
+  concordium: { privateKey, address },
+  spendControls: {
+    allowedAssets: [{ network: "ccd:*", asset: "CCD" }],
+  },
+});
+```
+
+Long-lived TVM and Keeta clients hold HTTP / UserClient handles. Call `await client.close()` (or `await using`) when finished. `close()` before the first request is a no-op. Fetch after `close()` throws `X402OpenAI is closed` and does not rebuild.
 
 ### Spend controls
 
@@ -180,7 +208,7 @@ If nothing matches, all remaining options pass through.
 
 ### `X402OpenAI`
 
-Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, `aptos`, `avm`, `stellar`, `hedera`, `near`, `xrpl`, or `x402Client`:
+Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm`, `aptos`, `avm`, `stellar`, `hedera`, `near`, `xrpl`, `tvm`, `keeta`, `concordium`, or `x402Client`:
 
 | Parameter                     | Type                               | Description                                                                                            |
 | :---------------------------- | :--------------------------------- | :----------------------------------------------------------------------------------------------------- |
@@ -192,6 +220,9 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 | `hedera`                      | `HederaConfig`                     | Hedera account id + ECDSA key. Registers `exact` on `hedera:mainnet` by default.                       |
 | `near`                        | `NearConfig`                       | NEAR account id + secret key. Registers `exact` on `near:mainnet` by default.                          |
 | `xrpl`                        | `string` or `XrplConfig`           | XRPL family seed. Registers `exact` on `xrpl:0` by default.                                            |
+| `tvm`                         | `string` or `TvmConfig`            | TON seed/secret. Registers `exact` on `tvm:-239` by default.                                           |
+| `keeta`                       | `string` or `KeetaConfig`          | Keeta seed (not BIP-39). Registers `exact` on `keeta:*`.                                               |
+| `concordium`                  | `ConcordiumConfig`                 | Concordium key + address. Registers `exact` on `ccd:*`.                                                |
 | `spendControls`               | `SpendControls` or `false`         | Official spend controls. Omit for `$1` + default assets.                                               |
 | `policies`                    | `PaymentPolicy[]`                  | Preference policies (`preferNetwork` / `preferScheme`).                                                |
 | `paymentRequirementsSelector` | `SelectPaymentRequirements`        | Picks among remaining requirements after spend controls and policies.                                  |
@@ -202,7 +233,12 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 `StellarConfig`: `{ privateKey, network?, rpcUrl? }`. `stellar.rpcUrl` is required to pay on pubnet.
 `HederaConfig`: `{ accountId, privateKey, network?, nodeUrl? }`.
 `NearConfig`: `{ accountId, secretKey, network?, rpcUrl? }` (`rpcUrl` → `{ [network]: rpcUrl }`).
-`XrplConfig`: `{ seed, network?, wsUrl? }` (`wsUrl` → `{ [network]: wsUrl }`). Empty keys throw.
+`XrplConfig`: `{ seed, network?, wsUrl? }` (`wsUrl` → `{ [network]: wsUrl }`).
+`TvmConfig`: `{ privateKey, network?, provider?, apiKey?, providerBaseUrl? }`.
+`KeetaConfig`: `{ seed }`.
+`ConcordiumConfig`: `{ privateKey, address, grpcUrl?, useTls? }`. Empty keys throw.
+
+`close(): Promise<void>` (also `[Symbol.asyncDispose]`) releases Keeta/TVM handles. Close before the first request is a no-op. Fetch after close throws `X402OpenAI is closed` and does not rebuild.
 
 `SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 
@@ -211,16 +247,19 @@ Default `baseURL`: `https://llm.qntx.org/v1`
 
 Install extras:
 
-| Option    | Chain    | Install extras                      |
-| :-------- | :------- | :---------------------------------- |
-| `evm`     | EVM      | `@x402/evm viem`                    |
-| `svm`     | Solana   | `@x402/svm @solana/kit @scure/base` |
-| `aptos`   | Aptos    | `@x402/aptos`                       |
-| `avm`     | Algorand | `@x402/avm`                         |
-| `stellar` | Stellar  | `@x402/stellar`                     |
-| `hedera`  | Hedera   | `@x402/hedera`                      |
-| `near`    | NEAR     | `@x402/near`                        |
-| `xrpl`    | XRPL     | `@x402/xrpl xrpl`                   |
+| Option       | Chain      | Install extras                              |
+| :----------- | :--------- | :------------------------------------------ |
+| `evm`        | EVM        | `@x402/evm viem`                            |
+| `svm`        | Solana     | `@x402/svm @solana/kit @scure/base`         |
+| `aptos`      | Aptos      | `@x402/aptos`                               |
+| `avm`        | Algorand   | `@x402/avm`                                 |
+| `stellar`    | Stellar    | `@x402/stellar`                             |
+| `hedera`     | Hedera     | `@x402/hedera`                              |
+| `near`       | NEAR       | `@x402/near`                                |
+| `xrpl`       | XRPL       | `@x402/xrpl xrpl`                           |
+| `tvm`        | TVM        | `@x402/tvm @ton/crypto`                     |
+| `keeta`      | Keeta      | `@x402/keeta @keetanetwork/keetanet-client` |
+| `concordium` | Concordium | `@x402/concordium @concordium/web-sdk`      |
 
 ## Examples
 

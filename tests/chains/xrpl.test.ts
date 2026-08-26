@@ -49,13 +49,13 @@ describe("registerXrpl", () => {
 
 describe("buildX402Client xrpl", () => {
   it("normalizes a bare string to ExactXrplScheme on xrpl:0, not xrpl:*", async () => {
-    const client = await buildX402Client({ xrpl: XRPL_SEED });
+    const { client } = await buildX402Client({ xrpl: XRPL_SEED });
     expect(registeredScheme(client, "xrpl:0", "exact")).toBeInstanceOf(ExactXrplScheme);
     expect(registeredScheme(client, "xrpl:*", "exact")).toBeUndefined();
   });
 
   it("normalizes an xrpl config object", async () => {
-    const client = await buildX402Client({ xrpl: { seed: XRPL_SEED } });
+    const { client } = await buildX402Client({ xrpl: { seed: XRPL_SEED } });
     expect(registeredScheme(client, "xrpl:0", "exact")).toBeInstanceOf(ExactXrplScheme);
   });
 });

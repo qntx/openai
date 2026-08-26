@@ -33,6 +33,8 @@ describe("buildX402Client", () => {
     await expect(buildX402Client({ avm: "" })).rejects.toThrow("non-empty");
     await expect(buildX402Client({ stellar: "" })).rejects.toThrow("non-empty");
     await expect(buildX402Client({ xrpl: "" })).rejects.toThrow("non-empty");
+    await expect(buildX402Client({ tvm: "" })).rejects.toThrow("non-empty");
+    await expect(buildX402Client({ keeta: "" })).rejects.toThrow("non-empty");
   });
 
   it("throws on empty hedera and near fields", async () => {
@@ -47,6 +49,12 @@ describe("buildX402Client", () => {
     ).rejects.toThrow("non-empty");
     await expect(
       buildX402Client({ near: { accountId: "alice.near", secretKey: "" } }),
+    ).rejects.toThrow("non-empty");
+    await expect(
+      buildX402Client({ concordium: { address: "", privateKey: "00" } }),
+    ).rejects.toThrow("non-empty");
+    await expect(
+      buildX402Client({ concordium: { address: "addr", privateKey: "" } }),
     ).rejects.toThrow("non-empty");
   });
 
@@ -70,6 +78,18 @@ describe("buildX402Client", () => {
     await expect(buildX402Client({ x402Client: prebuilt, stellar: "S…" })).rejects.toThrow(
       "Cannot combine",
     );
+    await expect(buildX402Client({ x402Client: prebuilt, tvm: "00" })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(buildX402Client({ x402Client: prebuilt, keeta: "seed" })).rejects.toThrow(
+      "Cannot combine",
+    );
+    await expect(
+      buildX402Client({
+        x402Client: prebuilt,
+        concordium: { privateKey: "00", address: "addr" },
+      }),
+    ).rejects.toThrow("Cannot combine");
     await expect(
       buildX402Client({
         x402Client: prebuilt,
@@ -121,33 +141,39 @@ describe("buildX402Client", () => {
   it("returns a pre-built client as-is", async () => {
     const prebuilt = new x402Client();
     const result = await buildX402Client({ x402Client: prebuilt });
-    expect(result).toBe(prebuilt);
+    expect(result.client).toBe(prebuilt);
+    await expect(result.dispose()).resolves.toBeUndefined();
   });
 
   it("registers ExactEvmScheme and UptoEvmScheme on eip155:* for a single evm key", async () => {
-    const client = await buildX402Client({ evm: EVM_KEY });
+    const { client } = await buildX402Client({ evm: EVM_KEY });
     expect(client).toBeInstanceOf(x402Client);
     expect(registeredScheme(client, "eip155:*", "exact")).toBeInstanceOf(ExactEvmScheme);
     expect(registeredScheme(client, "eip155:*", "upto")).toBeInstanceOf(UptoEvmScheme);
   });
 
   it("normalizes an evm config object", async () => {
-    const client = await buildX402Client({ evm: { privateKey: EVM_KEY } });
+    const { client } = await buildX402Client({ evm: { privateKey: EVM_KEY } });
     expect(registeredScheme(client, "eip155:*", "exact")).toBeInstanceOf(ExactEvmScheme);
     expect(registeredScheme(client, "eip155:*", "upto")).toBeInstanceOf(UptoEvmScheme);
   });
 
   it("registers ExactSvmScheme and UptoSvmScheme on solana:* for a single svm key", async () => {
-    const client = await buildX402Client({ svm: SVM_KEY });
+    const { client } = await buildX402Client({ svm: SVM_KEY });
     expect(client).toBeInstanceOf(x402Client);
     expect(registeredScheme(client, "solana:*", "exact")).toBeInstanceOf(ExactSvmScheme);
     expect(registeredScheme(client, "solana:*", "upto")).toBeInstanceOf(UptoSvmScheme);
   });
 
   it("normalizes an svm config object", async () => {
-    const client = await buildX402Client({ svm: { privateKey: SVM_KEY } });
+    const { client } = await buildX402Client({ svm: { privateKey: SVM_KEY } });
     expect(registeredScheme(client, "solana:*", "exact")).toBeInstanceOf(ExactSvmScheme);
     expect(registeredScheme(client, "solana:*", "upto")).toBeInstanceOf(UptoSvmScheme);
+  });
+
+  it("dispose is a no-op when neither Keeta nor TVM was registered", async () => {
+    const { dispose } = await buildX402Client({ evm: EVM_KEY });
+    await expect(dispose()).resolves.toBeUndefined();
   });
 });
 
@@ -189,7 +215,7 @@ describe("registerSvm", () => {
 
 describe("spendControls", () => {
   it("rejects $2 USDC-6 against the omitted official $1 default", async () => {
-    const client = await buildX402Client({ evm: EVM_KEY });
+    const { client } = await buildX402Client({ evm: EVM_KEY });
     client.register("eip155:8453", stubUsdcScheme("exact"));
     await expect(client.createPaymentPayload(usdcRequired("2000000"))).rejects.toThrow(
       /maxAmountPerPayment/,
@@ -197,7 +223,7 @@ describe("spendControls", () => {
   });
 
   it("rejects $2 USDC-6 against an explicit $1 cap", async () => {
-    const client = await buildX402Client({
+    const { client } = await buildX402Client({
       evm: EVM_KEY,
       spendControls: { maxAmountPerPayment: "$1" },
     });
@@ -208,7 +234,7 @@ describe("spendControls", () => {
   });
 
   it("allows $2 USDC-6 when maxAmountPerPayment is $5", async () => {
-    const client = await buildX402Client({
+    const { client } = await buildX402Client({
       evm: EVM_KEY,
       spendControls: { maxAmountPerPayment: "$5" },
     });
@@ -218,14 +244,14 @@ describe("spendControls", () => {
   });
 
   it("allows $2 USDC-6 when spendControls is false", async () => {
-    const client = await buildX402Client({ evm: EVM_KEY, spendControls: false });
+    const { client } = await buildX402Client({ evm: EVM_KEY, spendControls: false });
     client.register("eip155:8453", stubUsdcScheme("exact"));
     const payload = await client.createPaymentPayload(usdcRequired("2000000"));
     expect(payload.payload).toEqual({ stub: "exact" });
   });
 
   it("forwards paymentRequirementsSelector after spend controls", async () => {
-    const client = await buildX402Client({
+    const { client } = await buildX402Client({
       evm: EVM_KEY,
       spendControls: false,
       paymentRequirementsSelector: (_version, reqs) => reqs[1]!,

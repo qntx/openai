@@ -50,7 +50,7 @@ describe("registerStellar", () => {
 
 describe("buildX402Client stellar", () => {
   it("normalizes a bare string to ExactStellarScheme on stellar:*", async () => {
-    const client = await buildX402Client({ stellar: STELLAR_KEY });
+    const { client } = await buildX402Client({ stellar: STELLAR_KEY });
     expect(registeredScheme(client, "stellar:*", "exact")).toBeInstanceOf(ExactStellarScheme);
   });
 });

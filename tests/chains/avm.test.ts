@@ -50,7 +50,7 @@ describe("registerAvm", () => {
 
 describe("buildX402Client avm", () => {
   it("normalizes a bare string to ExactAvmScheme on algorand:*", async () => {
-    const client = await buildX402Client({ avm: AVM_KEY });
+    const { client } = await buildX402Client({ avm: AVM_KEY });
     expect(registeredScheme(client, "algorand:*", "exact")).toBeInstanceOf(ExactAvmScheme);
   });
 });

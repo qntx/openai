@@ -55,7 +55,7 @@ describe("registerHedera", () => {
 
 describe("buildX402Client hedera", () => {
   it("registers ExactHederaScheme on hedera:mainnet, not hedera:*", async () => {
-    const client = await buildX402Client({
+    const { client } = await buildX402Client({
       hedera: { accountId: HEDERA_ACCOUNT, privateKey: HEDERA_KEY },
     });
     expect(registeredScheme(client, "hedera:mainnet", "exact")).toBeInstanceOf(ExactHederaScheme);

@@ -15,7 +15,7 @@ describe("missing peer import rewrite", () => {
     expect(isUnresolvedImport("not-an-error")).toBe(false);
   });
 
-  it("formats Aptos, AVM, Stellar, Hedera, NEAR, and XRPL install hints", () => {
+  it("formats Aptos, AVM, Stellar, Hedera, NEAR, XRPL, TVM, Keeta, and Concordium install hints", () => {
     expect(missingPeerError("Aptos", "@x402/aptos").message).toBe(
       "Aptos key provided but @x402/aptos is not installed. bun add @x402/aptos",
     );
@@ -33,6 +33,15 @@ describe("missing peer import rewrite", () => {
     );
     expect(missingPeerError("XRPL", "@x402/xrpl", "xrpl").message).toBe(
       "XRPL key provided but @x402/xrpl is not installed. bun add @x402/xrpl xrpl",
+    );
+    expect(missingPeerError("TVM", "@x402/tvm", "@ton/crypto").message).toBe(
+      "TVM key provided but @x402/tvm is not installed. bun add @x402/tvm @ton/crypto",
+    );
+    expect(missingPeerError("Keeta", "@x402/keeta", "@keetanetwork/keetanet-client").message).toBe(
+      "Keeta key provided but @x402/keeta is not installed. bun add @x402/keeta @keetanetwork/keetanet-client",
+    );
+    expect(missingPeerError("Concordium", "@x402/concordium", "@concordium/web-sdk").message).toBe(
+      "Concordium key provided but @x402/concordium is not installed. bun add @x402/concordium @concordium/web-sdk",
     );
   });
 });

@@ -56,7 +56,7 @@ describe("registerNear", () => {
 
 describe("buildX402Client near", () => {
   it("registers ExactNearScheme on near:mainnet, not near:*", async () => {
-    const client = await buildX402Client({
+    const { client } = await buildX402Client({
       near: { accountId: NEAR_ACCOUNT, secretKey: NEAR_SECRET },
     });
     expect(registeredScheme(client, "near:mainnet", "exact")).toBeInstanceOf(ExactNearScheme);

@@ -27,11 +27,14 @@ export type { PaymentPolicy, x402Client } from "@x402/fetch";
 export type {
   AptosConfig,
   AvmConfig,
+  ConcordiumConfig,
   EvmConfig,
   HederaConfig,
+  KeetaConfig,
   NearConfig,
   StellarConfig,
   SvmConfig,
+  TvmConfig,
   XrplConfig,
 } from "./chains/types.ts";
 export type { SpendControls, X402OpenAIOptions } from "./client.ts";

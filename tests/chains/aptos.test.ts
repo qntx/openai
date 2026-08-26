@@ -33,12 +33,12 @@ describe("registerAptos", () => {
 
 describe("buildX402Client aptos", () => {
   it("normalizes a bare string to ExactAptosScheme on aptos:*", async () => {
-    const client = await buildX402Client({ aptos: APTOS_KEY });
+    const { client } = await buildX402Client({ aptos: APTOS_KEY });
     expect(registeredScheme(client, "aptos:*", "exact")).toBeInstanceOf(ExactAptosScheme);
   });
 
   it("normalizes an aptos config object", async () => {
-    const client = await buildX402Client({ aptos: { privateKey: APTOS_KEY } });
+    const { client } = await buildX402Client({ aptos: { privateKey: APTOS_KEY } });
     expect(registeredScheme(client, "aptos:*", "exact")).toBeInstanceOf(ExactAptosScheme);
   });
 });
