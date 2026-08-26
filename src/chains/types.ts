@@ -6,6 +6,6 @@ export interface EvmConfig {
 
 export interface SvmConfig {
   privateKey: string;
-  /** JSON-RPC URL passed through to ExactSvmScheme. */
+  /** JSON-RPC endpoint for Solana reads (mint metadata, blockhash). */
   rpcUrl?: string;
 }

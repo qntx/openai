@@ -1,10 +1,14 @@
 import { ExactEvmScheme } from "@x402/evm/exact/client";
 import { x402Client } from "@x402/fetch";
+import { ExactSvmScheme } from "@x402/svm/exact/client";
 import { describe, expect, it } from "vite-plus/test";
 import { registerEvm } from "../src/chains/evm.ts";
+import { registerSvm } from "../src/chains/svm.ts";
 import { buildX402Client } from "../src/payments.ts";
 
 const EVM_KEY = "0xac0974dac38f24671676c33098b7abf185c4d7b8d04844c06a56a24126c6dcbd" as const;
+/** 64-byte Ed25519 secret (seed + pubkey), base58. Seed is 31 zero bytes + 0x01. */
+const SVM_KEY = "1111111111111111111111111111111PPm2a2NNZH2EFJ5UkEjkH9Fcxn8cvjTmZDKQQisyLDmA";
 
 describe("buildX402Client", () => {
   it("throws when no credentials provided", async () => {
@@ -56,6 +60,17 @@ describe("buildX402Client", () => {
     const client = await buildX402Client({ evm: { privateKey: EVM_KEY } });
     expect(registeredScheme(client, "eip155:*", "exact")).toBeInstanceOf(ExactEvmScheme);
   });
+
+  it("registers ExactSvmScheme on solana:* for a single svm key", async () => {
+    const client = await buildX402Client({ svm: SVM_KEY });
+    expect(client).toBeInstanceOf(x402Client);
+    expect(registeredScheme(client, "solana:*", "exact")).toBeInstanceOf(ExactSvmScheme);
+  });
+
+  it("normalizes an svm config object", async () => {
+    const client = await buildX402Client({ svm: { privateKey: SVM_KEY } });
+    expect(registeredScheme(client, "solana:*", "exact")).toBeInstanceOf(ExactSvmScheme);
+  });
 });
 
 describe("registerEvm", () => {
@@ -71,6 +86,22 @@ describe("registerEvm", () => {
     expect(calls).toHaveLength(1);
     expect(calls[0]?.network).toBe("eip155:*");
     expect(calls[0]?.scheme).toBeInstanceOf(ExactEvmScheme);
+  });
+});
+
+describe("registerSvm", () => {
+  it("registers exact on solana:*", async () => {
+    const calls: { network: string; scheme: unknown }[] = [];
+    const client = {
+      register(network: string, scheme: unknown) {
+        calls.push({ network, scheme });
+      },
+    } as unknown as x402Client;
+
+    await registerSvm(client, { privateKey: SVM_KEY });
+    expect(calls).toHaveLength(1);
+    expect(calls[0]?.network).toBe("solana:*");
+    expect(calls[0]?.scheme).toBeInstanceOf(ExactSvmScheme);
   });
 });
 
