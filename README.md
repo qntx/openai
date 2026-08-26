@@ -199,10 +199,10 @@ Drop-in replacement for `openai.OpenAI`. Provide **at least one** of `evm`, `svm
 
 `EvmConfig` / `SvmConfig` / `AptosConfig`: `{ privateKey, rpcUrl? }`.
 `AvmConfig`: `{ privateKey, algodUrl?, algodToken? }`.
-`StellarConfig`: `{ privateKey, network?, rpcUrl? }`.
+`StellarConfig`: `{ privateKey, network?, rpcUrl? }`. `stellar.rpcUrl` is required to pay on pubnet.
 `HederaConfig`: `{ accountId, privateKey, network?, nodeUrl? }`.
 `NearConfig`: `{ accountId, secretKey, network?, rpcUrl? }` (`rpcUrl` → `{ [network]: rpcUrl }`).
-`XrplConfig`: `{ seed, network?, wsUrl? }` (`wsUrl` → `{ [network]: wsUrl }`). Empty keys throw. `stellar.rpcUrl` is required to pay on pubnet.
+`XrplConfig`: `{ seed, network?, wsUrl? }` (`wsUrl` → `{ [network]: wsUrl }`). Empty keys throw.
 
 `SpendControls` is `Exclude<NonNullable<x402ClientConfig["spendControls"]>, false>` from `@x402/fetch`.
 
