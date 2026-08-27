@@ -16,5 +16,7 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
-  }
+  },
+  "include": ["src", "tests", "examples", "vite.config.ts"],
+  "exclude": ["node_modules", "dist", "3rdparty"]
 }
