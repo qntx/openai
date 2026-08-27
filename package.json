@@ -39,15 +39,15 @@
   },
   "dependencies": {
     "@x402/fetch": "^2.23.0",
-    "openai": "^7.5.0"
+    "openai": "^7.7.0"
   },
   "devDependencies": {
-    "@concordium/web-sdk": "^12.0.0",
-    "@keetanetwork/keetanet-client": "^0.18.1",
+    "@concordium/web-sdk": "^12.0.2",
+    "@keetanetwork/keetanet-client": "^0.18.4",
     "@scure/base": "^2.3.0",
-    "@solana/kit": "^6.10.0",
+    "@solana/kit": "^8.0.0",
     "@ton/crypto": "^3.3.0",
-    "@types/node": "^26.2.0",
+    "@types/node": "^26.4.0",
     "@x402/aptos": "^2.23.0",
     "@x402/avm": "^2.23.0",
     "@x402/concordium": "^2.23.0",
@@ -59,15 +59,15 @@
     "@x402/svm": "^2.23.0",
     "@x402/tvm": "^2.23.0",
     "@x402/xrpl": "^2.23.0",
-    "bumpp": "^11.1.0",
+    "bumpp": "^12.2.2",
     "typescript": "^7.0.2",
-    "viem": "^2.55.19",
-    "vite-plus": "^0.2.9",
-    "xrpl": "^4.6.0"
+    "viem": "^2.56.0",
+    "vite-plus": "^0.3.0",
+    "xrpl": "^5.1.0"
   },
   "peerDependencies": {
-    "@concordium/web-sdk": "^12.0.0",
-    "@keetanetwork/keetanet-client": "^0.18.1",
+    "@concordium/web-sdk": "^12.0.2",
+    "@keetanetwork/keetanet-client": "^0.18.4",
     "@scure/base": ">=1.2.6",
     "@solana/kit": ">=5.1.0",
     "@ton/crypto": "^3.3.0",
@@ -82,9 +82,9 @@
     "@x402/svm": "^2.23.0",
     "@x402/tvm": "^2.23.0",
     "@x402/xrpl": "^2.23.0",
-    "typescript": "^5.9.3",
+    "typescript": "^7.0.2",
     "viem": "^2.48.11",
-    "xrpl": "^4.6.0"
+    "xrpl": "^5.1.0"
   },
   "peerDependenciesMeta": {
     "@concordium/web-sdk": {
@@ -145,7 +145,7 @@
   "devEngines": {
     "packageManager": {
       "name": "bun",
-      "version": "1.3.14",
+      "version": "1.4.0",
       "onFail": "download"
     }
   }
