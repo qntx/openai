@@ -4,6 +4,15 @@ on:
   push:
     tags: ["v*.*.*"]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
-    uses: qntx/workflows/.github/workflows/publish-npm-bun.yml@main
+    uses: qntx/workflows/.github/workflows/publish-npm.yml@v2.0.0
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      package-manager: bun
