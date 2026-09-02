@@ -262,20 +262,6 @@ All standard OpenAI options (`baseURL`, `timeout`, `maxRetries`, …) are forwar
 | `keeta`      | Keeta      | `@x402/keeta @keetanetwork/keetanet-client` |
 | `concordium` | Concordium | `@x402/concordium @concordium/web-sdk`      |
 
-## Examples
-
-See the [`examples/`](examples/) directory. Each script is self-contained:
-
-```bash
-EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm.ts
-SOLANA_PRIVATE_KEY="base58…"    bun examples/chat-svm.ts
-EVM_PRIVATE_KEY="0x…"           bun examples/streaming-evm.ts
-EVM_PRIVATE_KEY="0x…"           bun examples/chat-upto.ts
-EVM_PRIVATE_KEY="0x…"           bun examples/chat-policy.ts
-EVM_PRIVATE_KEY="0x…"           bun examples/chat-evm-policy.ts
-EVM_PRIVATE_KEY="0x…" SOLANA_PRIVATE_KEY="base58…" bun examples/chat-multichain-policy.ts
-```
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
