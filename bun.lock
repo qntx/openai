@@ -626,7 +626,7 @@
 
     "@x402/fetch": ["@x402/fetch@2.23.0", "https://registry.npmmirror.com/@x402/fetch/-/fetch-2.23.0.tgz", { "dependencies": { "@x402/core": "~2.23.0" } }, "sha512-iyUfmnX6eAQa+GxyhC2M/vDP49EuoB/KHCXeOAFJgfL9lhtsyomLfYAMZlF+0xYHgpk/G96QZSp8iyhVlems/A=="],
 
-    "@x402/hedera": ["@x402/hedera@2.23.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.23.0" } }, "sha512-yvfiUGD567+zcBPkqUkHJ1R/rTBy8RCjt2G/oxSiWFx4vZ0J0gzUvK3glFbbBi1moih/GCZI64fLnmL8cbMjlA=="],
+    "@x402/hedera": ["@x402/hedera@2.24.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.24.0" } }, "sha512-taK6AVZU66cVIk8hW3HXgRdzXRWfRei+q2eI7swib0BLgdvF+OWdMqBGE2ZU7+7/11MLNZeSj7Nhh861I3RvWA=="],
 
     "@x402/keeta": ["@x402/keeta@2.23.0", "", { "dependencies": { "@keetanetwork/anchor": "^0.0.77", "@keetanetwork/keetanet-client": "^0.18.1", "@x402/core": "~2.23.0" } }, "sha512-cTBZZxmY3XOXiGNc16/1vmm4t7eZL3YxLi5//jdRrBAueRxo/5gosLOm2W05lrelVBbkF/6KFQ+E0tEmGlplzg=="],
 
@@ -1635,6 +1635,8 @@
     "@stellar/stellar-sdk/commander": ["commander@14.0.3", "", {}, "sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw=="],
 
     "@types/request/form-data": ["form-data@2.5.6", "", { "dependencies": { "asynckit": "^0.4.0", "combined-stream": "^1.0.8", "es-set-tostringtag": "^2.1.0", "hasown": "^2.0.4", "mime-types": "^2.1.35", "safe-buffer": "^5.2.1" } }, "sha512-Ogz/E85h9tlfJzpI6TuFpGcHZFhLrb9Gw8wq9v40CxSCPnv7ahKr6Xgtkn0KYCDQJ8DNn5VoMO8EXr9V5PadyA=="],
+
+    "@x402/hedera/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/xrpl/xrpl": ["xrpl@4.6.0", "", { "dependencies": { "@scure/bip32": "^1.3.1", "@scure/bip39": "^1.2.1", "@xrplf/isomorphic": "^1.0.1", "@xrplf/secret-numbers": "^2.0.0", "bignumber.js": "^9.0.0", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.0", "ripple-binary-codec": "^2.7.0", "ripple-keypairs": "^2.0.0" } }, "sha512-0nXZfqDHRJ6bsDv1WtA9MdCYalMtXuxVa9mtLdqT3xypRKf2LwT5DbuGL/kHcVfuqk3B+ly+SFARlrnX+LHtRQ=="],
 
