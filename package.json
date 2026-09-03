@@ -1,6 +1,6 @@
 {
   "name": "@qntx/openai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Drop-in OpenAI TypeScript client with transparent x402 payment support.",
   "keywords": [
     "ai",
