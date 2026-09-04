@@ -630,7 +630,7 @@
 
     "@x402/keeta": ["@x402/keeta@2.23.0", "", { "dependencies": { "@keetanetwork/anchor": "^0.0.77", "@keetanetwork/keetanet-client": "^0.18.1", "@x402/core": "~2.23.0" } }, "sha512-cTBZZxmY3XOXiGNc16/1vmm4t7eZL3YxLi5//jdRrBAueRxo/5gosLOm2W05lrelVBbkF/6KFQ+E0tEmGlplzg=="],
 
-    "@x402/near": ["@x402/near@2.23.0", "", { "dependencies": { "@near-js/crypto": "^2.5.1", "@near-js/providers": "^2.5.1", "@near-js/signers": "^2.5.1", "@near-js/transactions": "^2.5.1", "@near-js/utils": "^2.5.1", "@noble/hashes": "^1.8.0", "@x402/core": "~2.23.0", "borsh": "1.0.0" } }, "sha512-4DkwcRXKJs5tgOZKIctzEHLBjsk3DqH9sKFybTBaNKo5fUr2/BkJU0IhfbPyZPOKCeUfg1mXoXvntLf9aHT6aQ=="],
+    "@x402/near": ["@x402/near@2.24.0", "", { "dependencies": { "@near-js/crypto": "^2.5.1", "@near-js/providers": "^2.5.1", "@near-js/signers": "^2.5.1", "@near-js/transactions": "^2.5.1", "@near-js/utils": "^2.5.1", "@noble/hashes": "^1.8.0", "@x402/core": "~2.24.0", "borsh": "1.0.0" } }, "sha512-DdCtbPJoQjf1W5xO7ZjY48PPvFa9Ui2tppieDO2NGK9Ll2CCAjKfuVFX5Y7bzEiXKLUyI+LxEghJ6iVFl+GAVA=="],
 
     "@x402/stellar": ["@x402/stellar@2.23.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.0.1", "@x402/core": "~2.23.0" } }, "sha512-WMhiTN3k0O2lO4T7g0DcUVF9Sh/YIzY4NMNFqyiRRN2bP3zEZZUmJBx4haH1H6HjgKON6V5ALeBwRDq6E+JLOw=="],
 
@@ -1639,6 +1639,8 @@
     "@x402/concordium/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/hedera/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+
+    "@x402/near/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/xrpl/xrpl": ["xrpl@4.6.0", "", { "dependencies": { "@scure/bip32": "^1.3.1", "@scure/bip39": "^1.2.1", "@xrplf/isomorphic": "^1.0.1", "@xrplf/secret-numbers": "^2.0.0", "bignumber.js": "^9.0.0", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.0", "ripple-binary-codec": "^2.7.0", "ripple-keypairs": "^2.0.0" } }, "sha512-0nXZfqDHRJ6bsDv1WtA9MdCYalMtXuxVa9mtLdqT3xypRKf2LwT5DbuGL/kHcVfuqk3B+ly+SFARlrnX+LHtRQ=="],
 
