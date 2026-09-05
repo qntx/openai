@@ -632,7 +632,7 @@
 
     "@x402/near": ["@x402/near@2.24.0", "", { "dependencies": { "@near-js/crypto": "^2.5.1", "@near-js/providers": "^2.5.1", "@near-js/signers": "^2.5.1", "@near-js/transactions": "^2.5.1", "@near-js/utils": "^2.5.1", "@noble/hashes": "^1.8.0", "@x402/core": "~2.24.0", "borsh": "1.0.0" } }, "sha512-DdCtbPJoQjf1W5xO7ZjY48PPvFa9Ui2tppieDO2NGK9Ll2CCAjKfuVFX5Y7bzEiXKLUyI+LxEghJ6iVFl+GAVA=="],
 
-    "@x402/stellar": ["@x402/stellar@2.23.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.0.1", "@x402/core": "~2.23.0" } }, "sha512-WMhiTN3k0O2lO4T7g0DcUVF9Sh/YIzY4NMNFqyiRRN2bP3zEZZUmJBx4haH1H6HjgKON6V5ALeBwRDq6E+JLOw=="],
+    "@x402/stellar": ["@x402/stellar@2.24.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.0.1", "@x402/core": "~2.24.0" } }, "sha512-d/FFkgimprqhPbHMK9SAw3qOPZhh7/3ikxOD/TfFkPYpsxtQ+Mzpj0T63N8AATxqh6PT5d1vt9OBzpDIG5bCgw=="],
 
     "@x402/svm": ["@x402/svm@2.24.0", "", { "dependencies": { "@solana-program/compute-budget": "^0.11.0", "@solana-program/token": "^0.9.0", "@solana-program/token-2022": "^0.6.1", "@x402/core": "~2.24.0" }, "peerDependencies": { "@solana/kit": ">=5.1.0" } }, "sha512-j/2ARlUaDipqGyMuQOCbxSr+Pr7sANsksL1HXMCqYmTnNhX8BqZGIYTXNxbkNON47QKaojSdRckXwHwX0oIVrg=="],
 
@@ -1641,6 +1641,8 @@
     "@x402/hedera/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/near/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+
+    "@x402/stellar/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/svm/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
