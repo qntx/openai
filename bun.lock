@@ -638,7 +638,7 @@
 
     "@x402/tvm": ["@x402/tvm@2.23.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.23.0" } }, "sha512-zKU9rdweQ2ctKSxgjQRrcNlp76diV+YSRnBqaITRDt5kpk7k+JkvgsvMIHGciYWznW+TGi0J4OM7KXA91xtd9A=="],
 
-    "@x402/xrpl": ["@x402/xrpl@2.23.0", "", { "dependencies": { "@x402/core": "~2.23.0", "xrpl": "^4.6.0" } }, "sha512-mdb/YoSTBwXZFuCJrMoWtzryXYzkAWgQnKfrQdhDc1fdgX01d2e0NAH9t5RGOETu5RNyeD0saHEnBq3Ob8fTvg=="],
+    "@x402/xrpl": ["@x402/xrpl@2.25.0", "", { "dependencies": { "@x402/core": "~2.25.0", "xrpl": "^4.6.0" } }, "sha512-9njNmQQcjBD3ah34iMaUk889xoo46tmLeEUXAwrkG5U++r8Flt598gesQxDYWOQVQ0LfT03Qi5nhtqF4s8+89g=="],
 
     "@xrplf/isomorphic": ["@xrplf/isomorphic@1.0.2", "", { "dependencies": { "@noble/hashes": "^2.0.1", "eventemitter3": "5.0.1", "ws": "^8.20.0" } }, "sha512-ncZUdMXr6VlSXtdoiDi0jTH+gBrgGxwVeEidhoegII3PmyErbQsyj6e+j7acmR4LW/lvBkPkzb9QzRfJH0n3rA=="],
 
@@ -1645,6 +1645,8 @@
     "@x402/stellar/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/svm/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+
+    "@x402/xrpl/@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
     "@x402/xrpl/xrpl": ["xrpl@4.6.0", "", { "dependencies": { "@scure/bip32": "^1.3.1", "@scure/bip39": "^1.2.1", "@xrplf/isomorphic": "^1.0.1", "@xrplf/secret-numbers": "^2.0.0", "bignumber.js": "^9.0.0", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.0", "ripple-binary-codec": "^2.7.0", "ripple-keypairs": "^2.0.0" } }, "sha512-0nXZfqDHRJ6bsDv1WtA9MdCYalMtXuxVa9mtLdqT3xypRKf2LwT5DbuGL/kHcVfuqk3B+ly+SFARlrnX+LHtRQ=="],
 
