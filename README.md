@@ -4,6 +4,8 @@
 
 Drop-in OpenAI TypeScript client with transparent [x402](https://www.x402.org/) payment support.
 
+See [docs/](docs/).
+
 ## License
 
 Licensed under the MIT License ([LICENSE](LICENSE) or <https://opensource.org/licenses/MIT>).
