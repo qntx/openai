@@ -636,7 +636,7 @@
 
     "@x402/svm": ["@x402/svm@2.24.0", "", { "dependencies": { "@solana-program/compute-budget": "^0.11.0", "@solana-program/token": "^0.9.0", "@solana-program/token-2022": "^0.6.1", "@x402/core": "~2.24.0" }, "peerDependencies": { "@solana/kit": ">=5.1.0" } }, "sha512-j/2ARlUaDipqGyMuQOCbxSr+Pr7sANsksL1HXMCqYmTnNhX8BqZGIYTXNxbkNON47QKaojSdRckXwHwX0oIVrg=="],
 
-    "@x402/tvm": ["@x402/tvm@2.23.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.23.0" } }, "sha512-zKU9rdweQ2ctKSxgjQRrcNlp76diV+YSRnBqaITRDt5kpk7k+JkvgsvMIHGciYWznW+TGi0J4OM7KXA91xtd9A=="],
+    "@x402/tvm": ["@x402/tvm@2.25.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.25.0" } }, "sha512-hcvFnKxKY2bF+6qRa0RZ9LUxTksmk7nwvBlo2hGZQoXs6lAtNCUxNKdojueXk7essNaXboq9AlBw+IKU6TNsOQ=="],
 
     "@x402/xrpl": ["@x402/xrpl@2.25.0", "", { "dependencies": { "@x402/core": "~2.25.0", "xrpl": "^4.6.0" } }, "sha512-9njNmQQcjBD3ah34iMaUk889xoo46tmLeEUXAwrkG5U++r8Flt598gesQxDYWOQVQ0LfT03Qi5nhtqF4s8+89g=="],
 
@@ -1647,6 +1647,8 @@
     "@x402/stellar/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/svm/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+
+    "@x402/tvm/@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
     "@x402/xrpl/@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
