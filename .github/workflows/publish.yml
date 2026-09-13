@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   publish:
-    uses: qntx/workflows/.github/workflows/publish-npm.yml@v2.0.0
+    uses: qntx/workflows/.github/workflows/publish-npm.yml@v2
     permissions:
       contents: read
       id-token: write

@@ -65,7 +65,7 @@ describe("buildX402Client concordium", () => {
 
 describe("CCD allowedAssets docs", () => {
   it("docs document CCD allowedAssets", () => {
-    const docs = readFileSync(new URL("../../docs/ccd.md", import.meta.url), "utf8");
+    const docs = readFileSync(new URL("../../notes/ccd.md", import.meta.url), "utf8");
     expect(docs).toMatch(/network:\s*"ccd:\*"/);
     expect(docs).toMatch(/asset:\s*"CCD"/);
   });
