@@ -624,7 +624,7 @@
 
     "@x402/evm": ["@x402/evm@2.23.0", "https://registry.npmmirror.com/@x402/evm/-/evm-2.23.0.tgz", { "dependencies": { "@x402/core": "~2.23.0", "viem": "^2.48.11", "zod": "^3.24.2" } }, "sha512-Ikaya5c0/qV/pdFRGfGSdlUX3ELZaUgrddsmmXZHPANtIAQ5uFH15+O+9Bt4PqdAXqCuS43WskJ7HgiLn/uW2g=="],
 
-    "@x402/fetch": ["@x402/fetch@2.23.0", "https://registry.npmmirror.com/@x402/fetch/-/fetch-2.23.0.tgz", { "dependencies": { "@x402/core": "~2.23.0" } }, "sha512-iyUfmnX6eAQa+GxyhC2M/vDP49EuoB/KHCXeOAFJgfL9lhtsyomLfYAMZlF+0xYHgpk/G96QZSp8iyhVlems/A=="],
+    "@x402/fetch": ["@x402/fetch@2.25.0", "", { "dependencies": { "@x402/core": "~2.25.0" } }, "sha512-kpmxnMTjxZJD5r4yVhRDtCrBVfGhum+XwrUUUdffi3Y91eAm9ZiWCDNHLtahOS2kmuzTR2NPbbIoohZQJmQsxg=="],
 
     "@x402/hedera": ["@x402/hedera@2.24.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.24.0" } }, "sha512-taK6AVZU66cVIk8hW3HXgRdzXRWfRei+q2eI7swib0BLgdvF+OWdMqBGE2ZU7+7/11MLNZeSj7Nhh861I3RvWA=="],
 
@@ -1639,6 +1639,8 @@
     "@x402/concordium/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
     "@x402/evm/viem": ["viem@2.56.0", "", { "dependencies": { "@noble/curves": "1.9.1", "@noble/hashes": "1.8.0", "@scure/bip32": "1.7.0", "@scure/bip39": "1.6.0", "abitype": "1.2.3", "isows": "1.0.7", "ox": "0.14.34", "ws": "8.21.0" }, "peerDependencies": { "typescript": ">=5.0.4" }, "optionalPeers": ["typescript"] }, "sha512-JmkgIk4jN+im4oguLxwPv19pwSaGH9kcGSq25Ilm55106ULBBMNR3eWKKA0wZoeyLPSHIiOwZ4sGceEYEIq7LA=="],
+
+    "@x402/fetch/@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
     "@x402/hedera/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
