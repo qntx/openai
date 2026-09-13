@@ -4,7 +4,7 @@
 
 Drop-in OpenAI TypeScript client with transparent [x402](https://www.x402.org/) payment support.
 
-See [docs/](docs/).
+See [notes/](notes/).
 
 ## License
 
