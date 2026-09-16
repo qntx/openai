@@ -14,7 +14,7 @@
     "x402"
   ],
   "license": "MIT",
-  "author": "QNTX <x@qntx.fun>",
+  "author": "QNTX <x@qntx.org>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/qntx/openai.git"
