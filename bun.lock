@@ -634,7 +634,7 @@
 
     "@x402/stellar": ["@x402/stellar@2.24.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.0.1", "@x402/core": "~2.24.0" } }, "sha512-d/FFkgimprqhPbHMK9SAw3qOPZhh7/3ikxOD/TfFkPYpsxtQ+Mzpj0T63N8AATxqh6PT5d1vt9OBzpDIG5bCgw=="],
 
-    "@x402/svm": ["@x402/svm@2.24.0", "", { "dependencies": { "@solana-program/compute-budget": "^0.11.0", "@solana-program/token": "^0.9.0", "@solana-program/token-2022": "^0.6.1", "@x402/core": "~2.24.0" }, "peerDependencies": { "@solana/kit": ">=5.1.0" } }, "sha512-j/2ARlUaDipqGyMuQOCbxSr+Pr7sANsksL1HXMCqYmTnNhX8BqZGIYTXNxbkNON47QKaojSdRckXwHwX0oIVrg=="],
+    "@x402/svm": ["@x402/svm@2.26.0", "", { "dependencies": { "@noble/hashes": "^1.8.0", "@solana-program/compute-budget": "^0.11.0", "@solana-program/token": "^0.9.0", "@solana-program/token-2022": "^0.6.1", "@x402/core": "~2.26.0" }, "peerDependencies": { "@solana/kit": ">=5.1.0" } }, "sha512-mQGqErpM9D0Z0CMH3JLiFlsFQymwwO8Y7ykCTujpI3jatO3d1Xp5RdO6m55gwoYkGqZb+xdr/hSQTb0sSa8PPQ=="],
 
     "@x402/tvm": ["@x402/tvm@2.25.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.25.0" } }, "sha512-hcvFnKxKY2bF+6qRa0RZ9LUxTksmk7nwvBlo2hGZQoXs6lAtNCUxNKdojueXk7essNaXboq9AlBw+IKU6TNsOQ=="],
 
@@ -1646,7 +1646,7 @@
 
     "@x402/stellar/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
-    "@x402/svm/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+    "@x402/svm/@x402/core": ["@x402/core@2.26.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-8dlXip9u0JjyELzzFz48vntuMajvUjA8IYpitfaW423m53bR49amZDIn3n4gXRYoNEKzGB9Rtn8at35WHz61cA=="],
 
     "@x402/xrpl/xrpl": ["xrpl@4.6.0", "", { "dependencies": { "@scure/bip32": "^1.3.1", "@scure/bip39": "^1.2.1", "@xrplf/isomorphic": "^1.0.1", "@xrplf/secret-numbers": "^2.0.0", "bignumber.js": "^9.0.0", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.0", "ripple-binary-codec": "^2.7.0", "ripple-keypairs": "^2.0.0" } }, "sha512-0nXZfqDHRJ6bsDv1WtA9MdCYalMtXuxVa9mtLdqT3xypRKf2LwT5DbuGL/kHcVfuqk3B+ly+SFARlrnX+LHtRQ=="],
 
