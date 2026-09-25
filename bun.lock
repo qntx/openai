@@ -616,7 +616,7 @@
 
     "@x402/aptos": ["@x402/aptos@2.25.0", "", { "dependencies": { "@aptos-labs/ts-sdk": "^5.2.1", "@x402/core": "~2.25.0" } }, "sha512-xPZcmXImIXA37Hm2e7f3QfTaooHD0wPKgC0oAWd/7O1vL1B53AwjsAHGgRPVjzLtLrpfmOe9TsV0t03/MSXkaQ=="],
 
-    "@x402/avm": ["@x402/avm@2.23.0", "", { "dependencies": { "@algorandfoundation/algokit-utils": "10.0.0-alpha.46", "@x402/core": "~2.23.0" } }, "sha512-t11PVU0U1lhXDYTjaCKL8X1DiXF8zjHJd+6Qc16fUwtDxIl7Y/ExKYwhyJuuOZiTIPJGaH1glEShEbOwCTqlOg=="],
+    "@x402/avm": ["@x402/avm@2.26.0", "", { "dependencies": { "@algorandfoundation/algokit-utils": "10.0.0-alpha.46", "@x402/core": "~2.26.0" } }, "sha512-jnBAIziOc3MQ7h/DmaVrE61gWI0ZJemkMP8hp4i+n4q0hnFm/Khaxn2qf42gtiFDQQAij076qp3z6SbP/fy09w=="],
 
     "@x402/concordium": ["@x402/concordium@2.24.0", "", { "dependencies": { "@concordium/web-sdk": "^12.0.0", "@x402/core": "~2.24.0" } }, "sha512-GCyR5nu//dL170pdDUL5wn5WXCuSPknF0rmwC6iX/AA3pZVGFbyzr+2nDPoWbJgkHgevRg7HhAKb0LCrDeKefw=="],
 
@@ -1648,7 +1648,7 @@
 
     "@types/responselike/@types/node": ["@types/node@26.4.0", "", { "dependencies": { "undici-types": "~8.3.0" } }, "sha512-faiGnoIrLH/V8cibOMEAZ8pMw6oXqSukl29ra4mN8GdaB2ZewzeaLj+INpV5N+Z1eKWzY+IzaIZH2EIR6YZRNQ=="],
 
-    "@x402/avm/@x402/core": ["@x402/core@2.23.0", "https://registry.npmmirror.com/@x402/core/-/core-2.23.0.tgz", { "dependencies": { "zod": "^3.24.2" } }, "sha512-EFeV0nXbTPPe5FXaD6y9vMgqc+k/ujLXCrUPrQXkmHjHyjC3Ir5tTL1e2FPSkx2+GUGzfpt1wVZb36639ygkWw=="],
+    "@x402/avm/@x402/core": ["@x402/core@2.26.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-8dlXip9u0JjyELzzFz48vntuMajvUjA8IYpitfaW423m53bR49amZDIn3n4gXRYoNEKzGB9Rtn8at35WHz61cA=="],
 
     "@x402/concordium/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
