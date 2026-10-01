@@ -378,7 +378,7 @@
 
     "@samchon/openapi": ["@samchon/openapi@4.7.2", "", {}, "sha512-yj6kGWHtKK85wfJXrSmWqLWjfCd98SAvCTsVDlej2s7OfXXHqA4hmgPRNrAPIQRVi00xn26qL1PChjq1MhzlRQ=="],
 
-    "@scure/base": ["@scure/base@2.3.0", "https://registry.npmmirror.com/@scure/base/-/base-2.3.0.tgz", {}, "sha512-NsG6Y03tY6R5BUis4FdVtHVkur0U6FOzskgs9ZXNl78CUc9fkZ78HmENUle1nSOkCasDmbubmWD9qwB7mm4PZA=="],
+    "@scure/base": ["@scure/base@2.4.0", "", {}, "sha512-thZ1TuJwFwBblOhgsjDKvvGirBxNp+wSvY/DR6tJBJOTDhdAAcHJ8Vbr2eFnqaxeca4+t0i9KBf+uHYGWwZORg=="],
 
     "@scure/bip32": ["@scure/bip32@1.7.0", "https://registry.npmmirror.com/@scure/bip32/-/bip32-1.7.0.tgz", { "dependencies": { "@noble/curves": "~1.9.0", "@noble/hashes": "~1.8.0", "@scure/base": "~1.2.5" } }, "sha512-E4FFX/N3f4B80AKWp5dP6ow+flD1LQZo/w8UnLGYZO674jS6YnYeepycOOksv+vLPSpgN35wgKgy+ybfTb2SMw=="],
 
@@ -1798,6 +1798,8 @@
 
     "react-native/ws": ["ws@7.5.13", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": "^5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-rsKI6xDBFVf4r/x8XyChGK04QR/XHroxs/jUcoWvtEZM8TPU/X/uIY9B1CsSzYws9ZJb/6bbBu7dPhFW00CAoA=="],
 
+    "ripple-address-codec/@scure/base": ["@scure/base@2.3.0", "https://registry.npmmirror.com/@scure/base/-/base-2.3.0.tgz", {}, "sha512-NsG6Y03tY6R5BUis4FdVtHVkur0U6FOzskgs9ZXNl78CUc9fkZ78HmENUle1nSOkCasDmbubmWD9qwB7mm4PZA=="],
+
     "ripple-keypairs/@noble/curves": ["@noble/curves@2.3.0", "", { "dependencies": { "@noble/hashes": "2.3.0" } }, "sha512-v7cY+4oWYPQszRj6ZFGzTVL7uP2TaLo1xMhWHzYC5wj0ZhOXQ5x+sBre8rF3hi8cAoi0bh1qXoovoOkdFtvqEg=="],
 
     "rolldown/@oxc-project/types": ["@oxc-project/types@0.143.0", "https://registry.npmmirror.com/@oxc-project/types/-/types-0.143.0.tgz", {}, "sha512-u6JZdLBTLotrNC9Vd6vPssINdzcCzleKAH6EJKImQb7GtYvX5keN2dxkoK44stCc4tffE6QQRtZTXVSzsLUlWA=="],
@@ -1961,6 +1963,8 @@
     "xrpl/@scure/bip32/@noble/curves": ["@noble/curves@2.3.0", "", { "dependencies": { "@noble/hashes": "2.3.0" } }, "sha512-v7cY+4oWYPQszRj6ZFGzTVL7uP2TaLo1xMhWHzYC5wj0ZhOXQ5x+sBre8rF3hi8cAoi0bh1qXoovoOkdFtvqEg=="],
 
     "xrpl/@scure/bip32/@noble/hashes": ["@noble/hashes@2.3.0", "", {}, "sha512-oN+QwyX7VSHotibwubG3kpzbwKrfnyR6OOO+3Nk/53ADL7FmgHHz4TgrbaYKvvOw09u6QTx0oiH1cNCIOuN0CQ=="],
+
+    "xrpl/@scure/bip32/@scure/base": ["@scure/base@2.3.0", "https://registry.npmmirror.com/@scure/base/-/base-2.3.0.tgz", {}, "sha512-NsG6Y03tY6R5BUis4FdVtHVkur0U6FOzskgs9ZXNl78CUc9fkZ78HmENUle1nSOkCasDmbubmWD9qwB7mm4PZA=="],
 
     "xrpl/@scure/bip39/@noble/hashes": ["@noble/hashes@2.3.0", "", {}, "sha512-oN+QwyX7VSHotibwubG3kpzbwKrfnyR6OOO+3Nk/53ADL7FmgHHz4TgrbaYKvvOw09u6QTx0oiH1cNCIOuN0CQ=="],
 
