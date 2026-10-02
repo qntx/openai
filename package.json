@@ -62,7 +62,7 @@
     "bumpp": "^12.2.2",
     "typescript": "^7.0.2",
     "viem": "^2.56.0",
-    "vite-plus": "^0.3.0",
+    "vite-plus": "^1.0.0",
     "xrpl": "^5.1.0"
   },
   "peerDependencies": {
