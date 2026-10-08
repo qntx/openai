@@ -1508,7 +1508,7 @@
 
     "verkit": ["verkit@0.3.2", "", {}, "sha512-zj/ob3UsvJGN0whEAKFp53REA5X66hvffVqoCtVQAakJKnKlH+/PcOfMoFwIG/o4rElqLv/ycAFlx8ZlXUorCg=="],
 
-    "viem": ["viem@2.56.9", "", { "dependencies": { "@noble/curves": "1.9.1", "@noble/hashes": "1.8.0", "@scure/bip32": "1.7.0", "@scure/bip39": "1.6.0", "abitype": "1.2.3", "isows": "1.0.7", "ox": "0.14.45", "ws": "8.21.0" }, "peerDependencies": { "typescript": ">=5.0.4" }, "optionalPeers": ["typescript"] }, "sha512-UC1G0Qz+RbPKqwl6yRrp3dH6ltrOmUcFJMTcOyE1Mg0nO5lxrEBTONh/8OFWPnALGuN/O7LkNcz/IsSj83Svqw=="],
+    "viem": ["viem@2.57.2", "", { "dependencies": { "@noble/curves": "1.9.1", "@noble/hashes": "1.8.0", "@scure/bip32": "1.7.0", "@scure/bip39": "1.6.0", "abitype": "1.2.3", "isows": "1.0.7", "ox": "0.14.45", "ws": "8.21.0" }, "peerDependencies": { "typescript": ">=5.0.4" }, "optionalPeers": ["typescript"] }, "sha512-ZbPvu+5fvRsbFh+OymDz0GyEySsSco8GWrEAiHM4ckhEY1vJTPy0tcLVkn0cs70dPiUOjLxkQBnfVyt9YkJ7cA=="],
 
     "vite": ["vite@8.2.1", "https://registry.npmmirror.com/vite/-/vite-8.2.1.tgz", { "dependencies": { "lightningcss": "^1.33.0", "picomatch": "^4.0.5", "postcss": "^8.5.25", "rolldown": "~1.2.1", "tinyglobby": "^0.2.17" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^20.19.0 || >=22.12.0", "@vitejs/devtools": "^0.4.0", "esbuild": "^0.27.0 || ^0.28.0", "jiti": ">=1.21.0", "less": "^4.0.0", "sass": "^1.70.0", "sass-embedded": "^1.70.0", "stylus": ">=0.54.8", "sugarss": "^5.0.0", "terser": "^5.16.0", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["@types/node", "@vitejs/devtools", "esbuild", "jiti", "less", "sass", "sass-embedded", "stylus", "sugarss", "terser", "tsx", "yaml"], "bin": { "vite": "bin/vite.js" } }, "sha512-EU/eS7BH3XROHh2YnBefjM6DBKA6ZeMZEYQbj7NLWg5wHYlhB8B/Mayd5XsgWq+NFYccDOTemRpdETWR6Ka/lw=="],
 
@@ -1623,8 +1623,6 @@
     "@scure/bip32/@scure/base": ["@scure/base@1.2.6", "https://registry.npmmirror.com/@scure/base/-/base-1.2.6.tgz", {}, "sha512-g/nm5FgUa//MCj1gV09zTJTaM6KBAHqLN907YVQqf7zC49+DcO4B1so4ZX07Ef10Twr6nuqYEH9GEggFXA4Fmg=="],
 
     "@scure/bip39/@scure/base": ["@scure/base@1.2.6", "https://registry.npmmirror.com/@scure/base/-/base-1.2.6.tgz", {}, "sha512-g/nm5FgUa//MCj1gV09zTJTaM6KBAHqLN907YVQqf7zC49+DcO4B1so4ZX07Ef10Twr6nuqYEH9GEggFXA4Fmg=="],
-
-    "@solana-program/token-2022/@solana/sysvars": ["@solana/sysvars@6.10.0", "https://registry.npmmirror.com/@solana/sysvars/-/sysvars-6.10.0.tgz", { "dependencies": { "@solana/accounts": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/codecs-data-structures": "6.10.0", "@solana/codecs-numbers": "6.10.0", "@solana/errors": "6.10.0", "@solana/rpc-types": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-cG13p1+onxz+20iWjwWQr1Z1jQwPm0fnjoW75fqZq7p4rVCie3L2sXvaJsYPjWKrUvpOzOIEHnqZGkG05rCpjg=="],
 
     "@solana/rpc-subscriptions-channel-websocket/ws": ["ws@8.21.3", "", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw=="],
 
@@ -1850,18 +1848,6 @@
 
     "@near-js/crypto/@noble/curves/@noble/hashes": ["@noble/hashes@1.7.1", "", {}, "sha512-B8XBPsn4vT/KJAGqDzbwztd+6Yte3P4V7iafm24bxgDe/mlRuK6xmWPuCNrKt2vDafZ8MfJLlchDG/vYafQEjQ=="],
 
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts": ["@solana/accounts@6.10.0", "https://registry.npmmirror.com/@solana/accounts/-/accounts-6.10.0.tgz", { "dependencies": { "@solana/addresses": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/codecs-strings": "6.10.0", "@solana/errors": "6.10.0", "@solana/rpc-spec": "6.10.0", "@solana/rpc-types": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-+FxfDOrnifoPlBkF+fr8eeQdgM6xtIgAg9xKMu3WnIz60oZd4Xnry6+ff6t+ePPoZZp397FSg9ZJet68VCWm5Q=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/codecs-core": ["@solana/codecs-core@6.10.0", "https://registry.npmmirror.com/@solana/codecs-core/-/codecs-core-6.10.0.tgz", { "dependencies": { "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-nfAl9OMGo4HanIMxGsQoVB7BxMoqBCYEUxl8oEAZZ09pDxnaXQZkTRXEwPPccag37XfW1ciPd1vWPKwB2b0HHQ=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/codecs-data-structures": ["@solana/codecs-data-structures@6.10.0", "https://registry.npmmirror.com/@solana/codecs-data-structures/-/codecs-data-structures-6.10.0.tgz", { "dependencies": { "@solana/codecs-core": "6.10.0", "@solana/codecs-numbers": "6.10.0", "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-CNasJW3bq5u+632Zt5aJ8rOjAjv2HyenpV8o9kAIqdmV4CBpjCCoBnKn8LkuR/sbeREZxJYfhKTXO/9ruAkw7A=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/codecs-numbers": ["@solana/codecs-numbers@6.10.0", "https://registry.npmmirror.com/@solana/codecs-numbers/-/codecs-numbers-6.10.0.tgz", { "dependencies": { "@solana/codecs-core": "6.10.0", "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-CcM+wX4zOiA9zkh8A7t1787A0Ehgmu5+6Z2tKoHew6cNw/dkaUTPa8JnNHbvfsLC8dfHC1BhAEJl86sKmRsfkQ=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/errors": ["@solana/errors@6.10.0", "https://registry.npmmirror.com/@solana/errors/-/errors-6.10.0.tgz", { "dependencies": { "chalk": "5.6.2", "commander": "15.0.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"], "bin": { "errors": "bin/cli.mjs" } }, "sha512-KBLAxCtAXr357JNhCyIDQXWbuSj5vN6w+28FSfcYY6OOSiphmXLAV3V58jgV0C6iNbIzFJFi6yatFyDTdeJsNg=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types": ["@solana/rpc-types@6.10.0", "https://registry.npmmirror.com/@solana/rpc-types/-/rpc-types-6.10.0.tgz", { "dependencies": { "@solana/addresses": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/codecs-numbers": "6.10.0", "@solana/codecs-strings": "6.10.0", "@solana/errors": "6.10.0", "@solana/fixed-points": "6.10.0", "@solana/nominal-types": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-zaSecTfCPvz/vcoAmKD6XoRstGHTr1EKJBD8T9UcpEFFB6CtF6DxerDB+wrzkamuT6msmnR2DWXMrYOGDAsgIg=="],
-
     "@types/cacheable-request/@types/node/undici-types": ["undici-types@8.3.0", "https://registry.npmmirror.com/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 
     "@types/keyv/@types/node/undici-types": ["undici-types@8.3.0", "https://registry.npmmirror.com/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
@@ -1978,20 +1964,6 @@
 
     "@hiero-ledger/sdk/@grpc/grpc-js/@grpc/proto-loader/protobufjs": ["protobufjs@7.6.5", "", { "dependencies": { "@protobufjs/aspromise": "^1.1.2", "@protobufjs/base64": "^1.1.2", "@protobufjs/codegen": "^2.0.5", "@protobufjs/eventemitter": "^1.1.1", "@protobufjs/fetch": "^1.1.1", "@protobufjs/float": "^1.0.2", "@protobufjs/path": "^1.1.2", "@protobufjs/pool": "^1.1.0", "@protobufjs/utf8": "^1.1.1", "@types/node": ">=13.7.0", "long": "^5.3.2" } }, "sha512-/FPD0nUc9jH6rfFjji9IBqOz4pcSE3CsT1m7Ep6Mdb0LxSUMj8hgl6GomOvZzpNpAqqGaXA0P3VSrZLFzIhQrw=="],
 
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/addresses": ["@solana/addresses@6.10.0", "https://registry.npmmirror.com/@solana/addresses/-/addresses-6.10.0.tgz", { "dependencies": { "@solana/assertions": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/codecs-strings": "6.10.0", "@solana/errors": "6.10.0", "@solana/nominal-types": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-vEoCGBTxG0HCERAn84KXkrJjl+pDaNzOpZ0qbgcPS98fYxP5yzbKB8SNOY2bzrbkRUmmw5Q3hqTRERemUN2Gcw=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/codecs-strings": ["@solana/codecs-strings@6.10.0", "https://registry.npmmirror.com/@solana/codecs-strings/-/codecs-strings-6.10.0.tgz", { "dependencies": { "@solana/codecs-core": "6.10.0", "@solana/codecs-numbers": "6.10.0", "@solana/errors": "6.10.0" }, "peerDependencies": { "fastestsmallesttextencoderdecoder": "^1.0.22", "typescript": ">=5.4.0" }, "optionalPeers": ["fastestsmallesttextencoderdecoder", "typescript"] }, "sha512-zlaqkg7K6F6IN4V/Ec8TWkTn054gxv7ZLagvGkuEyAdPQ6BzzsehOm2TqCuyXgJJTCGPLY1bEk6yH9NxANe0kA=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/rpc-spec": ["@solana/rpc-spec@6.10.0", "https://registry.npmmirror.com/@solana/rpc-spec/-/rpc-spec-6.10.0.tgz", { "dependencies": { "@solana/errors": "6.10.0", "@solana/rpc-spec-types": "6.10.0", "@solana/subscribable": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-yQdbWw5mZEWrwsunHR9NHkuhMXIB9sPOObwm18D53v5tAJnxTB0IcHvO647XqFDLTK/yQ4AdDtlYD1vsY07AMQ=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types/@solana/addresses": ["@solana/addresses@6.10.0", "https://registry.npmmirror.com/@solana/addresses/-/addresses-6.10.0.tgz", { "dependencies": { "@solana/assertions": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/codecs-strings": "6.10.0", "@solana/errors": "6.10.0", "@solana/nominal-types": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-vEoCGBTxG0HCERAn84KXkrJjl+pDaNzOpZ0qbgcPS98fYxP5yzbKB8SNOY2bzrbkRUmmw5Q3hqTRERemUN2Gcw=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types/@solana/codecs-strings": ["@solana/codecs-strings@6.10.0", "https://registry.npmmirror.com/@solana/codecs-strings/-/codecs-strings-6.10.0.tgz", { "dependencies": { "@solana/codecs-core": "6.10.0", "@solana/codecs-numbers": "6.10.0", "@solana/errors": "6.10.0" }, "peerDependencies": { "fastestsmallesttextencoderdecoder": "^1.0.22", "typescript": ">=5.4.0" }, "optionalPeers": ["fastestsmallesttextencoderdecoder", "typescript"] }, "sha512-zlaqkg7K6F6IN4V/Ec8TWkTn054gxv7ZLagvGkuEyAdPQ6BzzsehOm2TqCuyXgJJTCGPLY1bEk6yH9NxANe0kA=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types/@solana/fixed-points": ["@solana/fixed-points@6.10.0", "https://registry.npmmirror.com/@solana/fixed-points/-/fixed-points-6.10.0.tgz", { "dependencies": { "@solana/codecs-core": "6.10.0", "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-ZkKL0alXH3L7/wMiVG8YUuG8qBKunlM810+YBD7nUPRhifiGsX1zwADViHLYNqLr/jUk0mTYFUcKznTpB/K+Gg=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types/@solana/nominal-types": ["@solana/nominal-types@6.10.0", "https://registry.npmmirror.com/@solana/nominal-types/-/nominal-types-6.10.0.tgz", { "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-9ykyBBvnkInH7fCacjJi7zu2PJyd+OCt+VTjIISv070fHzKIMFqZqJJ/dJ0SRH2aHwfB3n86iVsmtBtuxi4KKA=="],
-
     "@x402/xrpl/xrpl/ripple-binary-codec/bignumber.js": ["bignumber.js@10.0.2", "", {}, "sha512-E8Wp9O06QA6lneJ4aRUXKYf/1GIomqUEmUMwtIOMtDxf1U52ffJY+y7JBk/8wRafA8qOIqLnXQGqonYXZdBnFQ=="],
 
     "@xrplf/secret-numbers/ripple-keypairs/@noble/curves/@noble/hashes": ["@noble/hashes@2.3.0", "", {}, "sha512-oN+QwyX7VSHotibwubG3kpzbwKrfnyR6OOO+3Nk/53ADL7FmgHHz4TgrbaYKvvOw09u6QTx0oiH1cNCIOuN0CQ=="],
@@ -2004,18 +1976,6 @@
 
     "@hiero-ledger/sdk/@grpc/grpc-js/@grpc/proto-loader/protobufjs/long": ["long@5.3.2", "", {}, "sha512-mNAgZ1GmyNhD7AuqnTG3/VQ26o760+ZYBPKjPvugO8+nLbYfX6TVpJPseBvopbdY+qpZ/lKUnmEc1LeZYS3QAA=="],
 
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/addresses/@solana/assertions": ["@solana/assertions@6.10.0", "https://registry.npmmirror.com/@solana/assertions/-/assertions-6.10.0.tgz", { "dependencies": { "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-lKSAdVo+P/6Lp4vs6shstXmFOpvxrABwn4o1462tb7sKkNapk6o9pPFVPGw4DUgPS3WqWRs1j2tmpuVjhQRntg=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/addresses/@solana/nominal-types": ["@solana/nominal-types@6.10.0", "https://registry.npmmirror.com/@solana/nominal-types/-/nominal-types-6.10.0.tgz", { "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-9ykyBBvnkInH7fCacjJi7zu2PJyd+OCt+VTjIISv070fHzKIMFqZqJJ/dJ0SRH2aHwfB3n86iVsmtBtuxi4KKA=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/rpc-spec/@solana/rpc-spec-types": ["@solana/rpc-spec-types@6.10.0", "https://registry.npmmirror.com/@solana/rpc-spec-types/-/rpc-spec-types-6.10.0.tgz", { "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-NDZrKyZrJk4HaMFhTE/lAiMB824cWAodKqDHyKi0UteHU9pyRmil3BN1jt7e+j08mwMWwfklSgyrTaq52g6DIQ=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/rpc-spec/@solana/subscribable": ["@solana/subscribable@6.10.0", "https://registry.npmmirror.com/@solana/subscribable/-/subscribable-6.10.0.tgz", { "dependencies": { "@solana/errors": "6.10.0", "@solana/promises": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-VsR6XMwkiDBkZJUcoGkEOhf397pOV75gKCL9Bx8bpi2T3Bbs0CxUpMn4yaUgAnRba3eXmjbXMNCXjttfa6sKbw=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/rpc-types/@solana/addresses/@solana/assertions": ["@solana/assertions@6.10.0", "https://registry.npmmirror.com/@solana/assertions/-/assertions-6.10.0.tgz", { "dependencies": { "@solana/errors": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-lKSAdVo+P/6Lp4vs6shstXmFOpvxrABwn4o1462tb7sKkNapk6o9pPFVPGw4DUgPS3WqWRs1j2tmpuVjhQRntg=="],
-
     "@hiero-ledger/sdk/@grpc/grpc-js/@grpc/proto-loader/protobufjs/@types/node/undici-types": ["undici-types@8.3.0", "https://registry.npmmirror.com/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
-
-    "@solana-program/token-2022/@solana/sysvars/@solana/accounts/@solana/rpc-spec/@solana/subscribable/@solana/promises": ["@solana/promises@6.10.0", "https://registry.npmmirror.com/@solana/promises/-/promises-6.10.0.tgz", { "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-oJSIn+VBBMWDo8oqw7RV3tI6Jih+Ieup6FcQLYLDUriaeo7+8l1Zdezl8zh7SIfeU4lOfAbRg6mR0huaS/Lltg=="],
   }
 }
