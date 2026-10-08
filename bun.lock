@@ -618,7 +618,7 @@
 
     "@x402/avm": ["@x402/avm@2.26.0", "", { "dependencies": { "@algorandfoundation/algokit-utils": "10.0.0-alpha.46", "@x402/core": "~2.26.0" } }, "sha512-jnBAIziOc3MQ7h/DmaVrE61gWI0ZJemkMP8hp4i+n4q0hnFm/Khaxn2qf42gtiFDQQAij076qp3z6SbP/fy09w=="],
 
-    "@x402/concordium": ["@x402/concordium@2.24.0", "", { "dependencies": { "@concordium/web-sdk": "^12.0.0", "@x402/core": "~2.24.0" } }, "sha512-GCyR5nu//dL170pdDUL5wn5WXCuSPknF0rmwC6iX/AA3pZVGFbyzr+2nDPoWbJgkHgevRg7HhAKb0LCrDeKefw=="],
+    "@x402/concordium": ["@x402/concordium@2.28.0", "", { "dependencies": { "@concordium/web-sdk": "^12.0.0", "@x402/core": "~2.28.0" } }, "sha512-EF2Rnu0hbkF698rpcW5+5FpglM34XxD8dCAN/uoF6vvtZDeBGCac5vuw2q4h4BUKS5C/BvIYl52lWiFn3NkLLw=="],
 
     "@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
@@ -1648,7 +1648,7 @@
 
     "@x402/avm/@x402/core": ["@x402/core@2.26.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-8dlXip9u0JjyELzzFz48vntuMajvUjA8IYpitfaW423m53bR49amZDIn3n4gXRYoNEKzGB9Rtn8at35WHz61cA=="],
 
-    "@x402/concordium/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+    "@x402/concordium/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
     "@x402/evm/viem": ["viem@2.56.5", "", { "dependencies": { "@noble/curves": "1.9.1", "@noble/hashes": "1.8.0", "@scure/bip32": "1.7.0", "@scure/bip39": "1.6.0", "abitype": "1.2.3", "isows": "1.0.7", "ox": "0.14.44", "ws": "8.21.0" }, "peerDependencies": { "typescript": ">=5.0.4" }, "optionalPeers": ["typescript"] }, "sha512-GuEf/oee0PHgy4D6JIA8u0rY1g+sM5nF+p7HyMHO3vjlHC5G/ljfrgnUOnrES9m5Ny/P3RwWCHjDuN2T6HUWzQ=="],
 
