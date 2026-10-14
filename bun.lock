@@ -172,11 +172,11 @@
 
     "@keetanetwork/anchor": ["@keetanetwork/anchor@0.0.77", "", { "dependencies": { "@keetanetwork/currency-info": "1.2.5", "@keetanetwork/keetanet-client": "0.18.1", "typia": "9.5.0" } }, "sha512-ca8LSoSLxdiEoI1vNF6HVlDXJdaUJvWcfU78RiT3+T/0//qPPHKEoQo6n4HJJAq4XgkY5sct2FZhTMnu1KDhlw=="],
 
-    "@keetanetwork/asn1-napi-rs": ["@keetanetwork/asn1-napi-rs@1.2.2", "", {}, "sha512-kwxPBWHJv/VYKYpElhwWTbAlxAxFIQzyJmDxOEApKtqf2r4Lpiuq2RXd2lDkojGPLYVZfXrGTalm4e0b4DaYzA=="],
+    "@keetanetwork/asn1-napi-rs": ["@keetanetwork/asn1-napi-rs@1.2.3", "", {}, "sha512-3Uao9FFrzAl6SEMHMiTTF2IGqd1c7N9ZAkKECV0g9jrrqxg75yDYsFhbO2X/uYsZaAuGp0cYVoC6JJCTvp/z4A=="],
 
     "@keetanetwork/currency-info": ["@keetanetwork/currency-info@1.2.5", "", {}, "sha512-3IJz864AY46ng3Di84gSxqGV/DzzQzjJwOkm4BPefWkMYpA61/7411p5xCjzkFsC8mfR9ChXfI01m4xRgrKskw=="],
 
-    "@keetanetwork/keetanet-client": ["@keetanetwork/keetanet-client@0.18.4", "", { "dependencies": { "secp256k1": "5.0.1" }, "optionalDependencies": { "@google-cloud/logging": "11.2.0", "@keetanetwork/asn1-napi-rs": "1.2.3" } }, "sha512-hernGUR24Hr34IixaHOmezWrSV/7MXLpbfWRo7zXCCgc3avnLA2jKmZwvXD7s4Q2tPypAIibcuV6qgUoxjzYEQ=="],
+    "@keetanetwork/keetanet-client": ["@keetanetwork/keetanet-client@0.18.7", "", { "dependencies": { "secp256k1": "5.0.1" }, "optionalDependencies": { "@google-cloud/logging": "11.2.0", "@keetanetwork/asn1-napi-rs": "1.2.3" } }, "sha512-JXiFaI8l/J2iYXyfWw0RoJXrvA2iVoKz7y+OO9IVH7FmqssL5u3oPZm2jGUDZ2Z5hYl4qIqiSb1XwU89si6H9w=="],
 
     "@near-js/crypto": ["@near-js/crypto@2.5.1", "", { "dependencies": { "@near-js/types": "2.5.1", "@near-js/utils": "2.5.1", "@noble/curves": "1.8.1", "@noble/hashes": "^1.7.1", "borsh": "1.0.0", "secp256k1": "5.0.1" } }, "sha512-Kb+bbnUrfvuzzed9hpLRpcIlCMOaQlw/7BxlZPCq8DggVaK1m0nKR1DHQs2cV0Q0WSKSk2UrFJho1dxeKL5alg=="],
 
@@ -1849,6 +1849,8 @@
     "@jest/types/chalk/ansi-styles": ["ansi-styles@4.3.0", "", { "dependencies": { "color-convert": "^2.0.1" } }, "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="],
 
     "@jest/types/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
+
+    "@keetanetwork/anchor/@keetanetwork/keetanet-client/@keetanetwork/asn1-napi-rs": ["@keetanetwork/asn1-napi-rs@1.2.2", "", {}, "sha512-kwxPBWHJv/VYKYpElhwWTbAlxAxFIQzyJmDxOEApKtqf2r4Lpiuq2RXd2lDkojGPLYVZfXrGTalm4e0b4DaYzA=="],
 
     "@near-js/crypto/@noble/curves/@noble/hashes": ["@noble/hashes@1.7.1", "", {}, "sha512-B8XBPsn4vT/KJAGqDzbwztd+6Yte3P4V7iafm24bxgDe/mlRuK6xmWPuCNrKt2vDafZ8MfJLlchDG/vYafQEjQ=="],
 
