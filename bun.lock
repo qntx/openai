@@ -626,7 +626,7 @@
 
     "@x402/fetch": ["@x402/fetch@2.25.0", "", { "dependencies": { "@x402/core": "~2.25.0" } }, "sha512-kpmxnMTjxZJD5r4yVhRDtCrBVfGhum+XwrUUUdffi3Y91eAm9ZiWCDNHLtahOS2kmuzTR2NPbbIoohZQJmQsxg=="],
 
-    "@x402/hedera": ["@x402/hedera@2.27.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.27.0" } }, "sha512-1z9pajjbW5cEDONfjvwwJDROW/1JctYtjHIJJPudbtYYGz5U5M15wCq5SClnNHXZe+lPrRSmk9s8KjGbqYHX7g=="],
+    "@x402/hedera": ["@x402/hedera@2.28.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.28.0" } }, "sha512-zHLBxc961sF6GweL9FFdhrj98faPwdNLv3Ifp5PkVZxu/SaSa+J4slinzPu3GMHxRlYRhVMHFdfv8QmS9l9M+Q=="],
 
     "@x402/keeta": ["@x402/keeta@2.23.0", "", { "dependencies": { "@keetanetwork/anchor": "^0.0.77", "@keetanetwork/keetanet-client": "^0.18.1", "@x402/core": "~2.23.0" } }, "sha512-cTBZZxmY3XOXiGNc16/1vmm4t7eZL3YxLi5//jdRrBAueRxo/5gosLOm2W05lrelVBbkF/6KFQ+E0tEmGlplzg=="],
 
@@ -1652,7 +1652,7 @@
 
     "@x402/evm/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
-    "@x402/hedera/@x402/core": ["@x402/core@2.27.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-UbxCKnoTsg5nQX9fYER3g9tt5l80jHm1IZOmDczQRqE0cwskls5r+VAAj0iUQfHVshnpv0qo/rLFI7UntqL96g=="],
+    "@x402/hedera/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
     "@x402/keeta/@x402/core": ["@x402/core@2.23.0", "https://registry.npmmirror.com/@x402/core/-/core-2.23.0.tgz", { "dependencies": { "zod": "^3.24.2" } }, "sha512-EFeV0nXbTPPe5FXaD6y9vMgqc+k/ujLXCrUPrQXkmHjHyjC3Ir5tTL1e2FPSkx2+GUGzfpt1wVZb36639ygkWw=="],
 
