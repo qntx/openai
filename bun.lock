@@ -484,7 +484,7 @@
 
     "@stellar/js-xdr": ["@stellar/js-xdr@4.0.0", "", {}, "sha512-+NmNa7Tk5BI5XFdy/6xGTqAN4J9a9KgCrCGhj2uEUTCBhLkch0M+QbKzNH8zEnejWe0p8w+0q5hUVX6L3OzoVA=="],
 
-    "@stellar/stellar-sdk": ["@stellar/stellar-sdk@16.2.0", "", { "dependencies": { "@noble/ed25519": "^3.1.0", "@noble/hashes": "^2.2.0", "@stellar/js-xdr": "4.0.0", "axios": "1.18.0", "base32.js": "^0.1.0", "bignumber.js": "^11.1.4", "buffer": "^6.0.3", "commander": "^14.0.3", "eventsource": "^4.1.0", "feaxios": "^0.0.23", "smol-toml": "^1.6.1", "uint8array-extras": "^1.5.0" }, "bin": { "stellar-js": "bin/stellar-js" } }, "sha512-FV/Rm11QvrFzR5X9fIfb6Pg30KyYyrRkNezELGFmYDAYrzoPTjqo7vklnEPd2HEontzjJmZizWk8CjyIh5vp0w=="],
+    "@stellar/stellar-sdk": ["@stellar/stellar-sdk@16.3.1", "", { "dependencies": { "@noble/ed25519": "^3.1.0", "@noble/hashes": "^2.2.0", "@stellar/js-xdr": "4.0.0", "axios": "1.18.0", "base32.js": "^0.1.0", "bignumber.js": "^11.1.4", "buffer": "^6.0.3", "commander": "^14.0.3", "eventsource": "^4.1.0", "feaxios": "^0.0.23", "smol-toml": "^1.6.1", "uint8array-extras": "^1.5.0" }, "bin": { "stellar-js": "bin/stellar-js" } }, "sha512-PPM1JA51NChSPyMkh+T9sHxJtP/v9e9Gcyc2BMNvnGvbZwqoKJclRSdPgmalLDAmTnTewGs7VMM9nRxDeCzzgQ=="],
 
     "@szmarczak/http-timer": ["@szmarczak/http-timer@4.0.6", "", { "dependencies": { "defer-to-connect": "^2.0.0" } }, "sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w=="],
 
@@ -632,7 +632,7 @@
 
     "@x402/near": ["@x402/near@2.24.0", "", { "dependencies": { "@near-js/crypto": "^2.5.1", "@near-js/providers": "^2.5.1", "@near-js/signers": "^2.5.1", "@near-js/transactions": "^2.5.1", "@near-js/utils": "^2.5.1", "@noble/hashes": "^1.8.0", "@x402/core": "~2.24.0", "borsh": "1.0.0" } }, "sha512-DdCtbPJoQjf1W5xO7ZjY48PPvFa9Ui2tppieDO2NGK9Ll2CCAjKfuVFX5Y7bzEiXKLUyI+LxEghJ6iVFl+GAVA=="],
 
-    "@x402/stellar": ["@x402/stellar@2.24.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.0.1", "@x402/core": "~2.24.0" } }, "sha512-d/FFkgimprqhPbHMK9SAw3qOPZhh7/3ikxOD/TfFkPYpsxtQ+Mzpj0T63N8AATxqh6PT5d1vt9OBzpDIG5bCgw=="],
+    "@x402/stellar": ["@x402/stellar@2.28.0", "", { "dependencies": { "@stellar/stellar-sdk": "^16.3.0", "@x402/core": "~2.28.0" } }, "sha512-H/P46YVVEvJmnXlss8fJBNGgjaLkp3pWJ6PH2uOJY+jVemugUoQPArwtQKNovEV2BnF0gnJ+sdaRg+4Gucu6jQ=="],
 
     "@x402/svm": ["@x402/svm@2.28.0", "", { "dependencies": { "@noble/hashes": "^1.8.0", "@solana-program/compute-budget": "^0.11.0", "@solana-program/token": "^0.9.0", "@solana-program/token-2022": "^0.6.1", "@solana/program-client-core": "^6.1.0", "@x402/core": "~2.28.0" }, "peerDependencies": { "@solana/kit": ">=5.1.0" } }, "sha512-D6+MSi7GG9LP7Lld1/i+A+Rk9ZyET5MmZAZqAyxmIda42tW3mVZjn/RJjGQbQmTKe+lYk8KiKWbeaxoK/x/ArA=="],
 
@@ -1658,7 +1658,7 @@
 
     "@x402/near/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
-    "@x402/stellar/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
+    "@x402/stellar/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
     "@x402/svm/@solana/program-client-core": ["@solana/program-client-core@6.10.0", "", { "dependencies": { "@solana/accounts": "6.10.0", "@solana/addresses": "6.10.0", "@solana/codecs-core": "6.10.0", "@solana/errors": "6.10.0", "@solana/instruction-plans": "6.10.0", "@solana/instructions": "6.10.0", "@solana/plugin-interfaces": "6.10.0", "@solana/rpc-api": "6.10.0", "@solana/signers": "6.10.0" }, "peerDependencies": { "typescript": ">=5.4.0" }, "optionalPeers": ["typescript"] }, "sha512-4PPbTLdC1ylHIuvhOFDP8RnSkXPCFjNFWGslzc+UFKnoR4ajzBcByX94jmaruDMk5ncxgj7tr9pzJTvfGHIaMA=="],
 
