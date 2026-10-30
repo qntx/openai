@@ -176,7 +176,7 @@
 
     "@keetanetwork/currency-info": ["@keetanetwork/currency-info@1.2.5", "", {}, "sha512-3IJz864AY46ng3Di84gSxqGV/DzzQzjJwOkm4BPefWkMYpA61/7411p5xCjzkFsC8mfR9ChXfI01m4xRgrKskw=="],
 
-    "@keetanetwork/keetanet-client": ["@keetanetwork/keetanet-client@0.18.7", "", { "dependencies": { "secp256k1": "5.0.1" }, "optionalDependencies": { "@google-cloud/logging": "11.2.0", "@keetanetwork/asn1-napi-rs": "1.2.3" } }, "sha512-JXiFaI8l/J2iYXyfWw0RoJXrvA2iVoKz7y+OO9IVH7FmqssL5u3oPZm2jGUDZ2Z5hYl4qIqiSb1XwU89si6H9w=="],
+    "@keetanetwork/keetanet-client": ["@keetanetwork/keetanet-client@0.18.8", "", { "dependencies": { "secp256k1": "5.0.1" }, "optionalDependencies": { "@google-cloud/logging": "11.2.0", "@keetanetwork/asn1-napi-rs": "1.2.3" } }, "sha512-HeLwaB2+NC96sz5y7Hf8cdJHoLfmXR4up5NTedsOjNHxYftlQHtbW0uWOQ3UisnDViM+0S6sp9ZQjqjEZz5Guw=="],
 
     "@near-js/crypto": ["@near-js/crypto@2.5.1", "", { "dependencies": { "@near-js/types": "2.5.1", "@near-js/utils": "2.5.1", "@noble/curves": "1.8.1", "@noble/hashes": "^1.7.1", "borsh": "1.0.0", "secp256k1": "5.0.1" } }, "sha512-Kb+bbnUrfvuzzed9hpLRpcIlCMOaQlw/7BxlZPCq8DggVaK1m0nKR1DHQs2cV0Q0WSKSk2UrFJho1dxeKL5alg=="],
 
