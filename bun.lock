@@ -642,7 +642,7 @@
 
     "@x402/svm": ["@x402/svm@2.30.0", "", { "dependencies": { "@noble/hashes": "^1.8.0", "@solana-program/compute-budget": "^0.18.0", "@solana-program/token": "^0.16.0", "@solana-program/token-2022": "^0.16.0", "@solana/program-client-core": "^8.0.0", "@x402/core": "~2.30.0" }, "peerDependencies": { "@solana/kit": ">=8.0.0" } }, "sha512-Orh66DJYt737ry50m/5i1X6Z8FNcXVhy3g9C0dckVaebmXcUzugScN66E+m+KkogaKbok5mqQRi2ISc12j3mtg=="],
 
-    "@x402/tvm": ["@x402/tvm@2.29.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.29.0" } }, "sha512-ZmKG8rL0gnCyscHOgPSFiefbxiK1hnE0P9u/gOH+4/Dp+Df8r6SYzdT1N+QoHTODPX4Jx1TsQumhRsl+8NqTfw=="],
+    "@x402/tvm": ["@x402/tvm@2.30.0", "", { "dependencies": { "@ton/core": "^0.63.1", "@ton/crypto": "^3.3.0", "@x402/core": "~2.30.0" } }, "sha512-WNLSuRSHuKcSHetuJcwbz7ia9mk/aSdT7xTP/rNSo23jdXOx0hnmTBP/IagKqiFJaQqJG4kfQUIxqS0JLU5LsQ=="],
 
     "@x402/xrpl": ["@x402/xrpl@2.25.0", "", { "dependencies": { "@x402/core": "~2.25.0", "xrpl": "^4.6.0" } }, "sha512-9njNmQQcjBD3ah34iMaUk889xoo46tmLeEUXAwrkG5U++r8Flt598gesQxDYWOQVQ0LfT03Qi5nhtqF4s8+89g=="],
 
@@ -1667,6 +1667,8 @@
     "@x402/stellar/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
     "@x402/svm/@x402/core": ["@x402/core@2.30.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-gvMxCum2QlNI6jI/3NL1jdrmOgtX9sWEWxSIOmeI67/5ndOJvYOtP7JZLSO8o8af+O+A+Vhhjza1NCda0yVppg=="],
+
+    "@x402/tvm/@x402/core": ["@x402/core@2.30.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-gvMxCum2QlNI6jI/3NL1jdrmOgtX9sWEWxSIOmeI67/5ndOJvYOtP7JZLSO8o8af+O+A+Vhhjza1NCda0yVppg=="],
 
     "@x402/xrpl/@x402/core": ["@x402/core@2.25.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-5Ys0XYz3FKutxVKoXC46R/XPT/oaAbuj7ahzrlVHwQxZJPH9u6u91IOh0ztz+7G/zYGsaXR8l3ety205QtEnUw=="],
 
