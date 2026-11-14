@@ -622,7 +622,7 @@
 
     "@x402/aptos": ["@x402/aptos@2.29.0", "", { "dependencies": { "@aptos-labs/ts-sdk": "^5.2.1", "@x402/core": "~2.29.0" } }, "sha512-tEVzMPTKfemK+5OlpEPxguW+yzNi1+auin6B0Q7Gxooynv8dO1CxCqQDNFF6j8dLNmnNig/6Fmpi0mK5EWlxiw=="],
 
-    "@x402/avm": ["@x402/avm@2.26.0", "", { "dependencies": { "@algorandfoundation/algokit-utils": "10.0.0-alpha.46", "@x402/core": "~2.26.0" } }, "sha512-jnBAIziOc3MQ7h/DmaVrE61gWI0ZJemkMP8hp4i+n4q0hnFm/Khaxn2qf42gtiFDQQAij076qp3z6SbP/fy09w=="],
+    "@x402/avm": ["@x402/avm@2.30.0", "", { "dependencies": { "@algorandfoundation/algokit-utils": "10.0.0-alpha.46", "@x402/core": "~2.30.0" } }, "sha512-yePRvMHlqbJgvAEGq+di97EFbdOfSvS5O4jl0wGkL0I75qF6UGQf91enXE5vsdNklugzNeJRE7VCJL/GHYX1fg=="],
 
     "@x402/concordium": ["@x402/concordium@2.28.0", "", { "dependencies": { "@concordium/web-sdk": "^12.0.0", "@x402/core": "~2.28.0" } }, "sha512-EF2Rnu0hbkF698rpcW5+5FpglM34XxD8dCAN/uoF6vvtZDeBGCac5vuw2q4h4BUKS5C/BvIYl52lWiFn3NkLLw=="],
 
@@ -1654,7 +1654,7 @@
 
     "@types/responselike/@types/node": ["@types/node@26.4.0", "", { "dependencies": { "undici-types": "~8.3.0" } }, "sha512-faiGnoIrLH/V8cibOMEAZ8pMw6oXqSukl29ra4mN8GdaB2ZewzeaLj+INpV5N+Z1eKWzY+IzaIZH2EIR6YZRNQ=="],
 
-    "@x402/avm/@x402/core": ["@x402/core@2.26.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-8dlXip9u0JjyELzzFz48vntuMajvUjA8IYpitfaW423m53bR49amZDIn3n4gXRYoNEKzGB9Rtn8at35WHz61cA=="],
+    "@x402/avm/@x402/core": ["@x402/core@2.30.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-gvMxCum2QlNI6jI/3NL1jdrmOgtX9sWEWxSIOmeI67/5ndOJvYOtP7JZLSO8o8af+O+A+Vhhjza1NCda0yVppg=="],
 
     "@x402/concordium/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
@@ -1867,8 +1867,6 @@
     "@types/request/@types/node/undici-types": ["undici-types@8.3.0", "https://registry.npmmirror.com/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
 
     "@types/responselike/@types/node/undici-types": ["undici-types@8.3.0", "https://registry.npmmirror.com/undici-types/-/undici-types-8.3.0.tgz", {}, "sha512-j375ScV60dom+YkPFIfTLcOiPxkN/buHz5GobjLhixFuANaNs3C9l4GmrWqejgXWJ7BbJcFYpTEUkS1Ge8bpZQ=="],
-
-    "@x402/avm/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@x402/concordium/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
