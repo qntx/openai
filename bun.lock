@@ -634,7 +634,7 @@
 
     "@x402/hedera": ["@x402/hedera@2.28.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.28.0" } }, "sha512-zHLBxc961sF6GweL9FFdhrj98faPwdNLv3Ifp5PkVZxu/SaSa+J4slinzPu3GMHxRlYRhVMHFdfv8QmS9l9M+Q=="],
 
-    "@x402/keeta": ["@x402/keeta@2.23.0", "", { "dependencies": { "@keetanetwork/anchor": "^0.0.77", "@keetanetwork/keetanet-client": "^0.18.1", "@x402/core": "~2.23.0" } }, "sha512-cTBZZxmY3XOXiGNc16/1vmm4t7eZL3YxLi5//jdRrBAueRxo/5gosLOm2W05lrelVBbkF/6KFQ+E0tEmGlplzg=="],
+    "@x402/keeta": ["@x402/keeta@2.31.0", "", { "dependencies": { "@keetanetwork/anchor": "^0.0.77", "@keetanetwork/keetanet-client": "^0.18.1", "@x402/core": "~2.31.0" } }, "sha512-rFtfP0umQE1J4diX+X0RPTXJNF3nBv7rR4Q44YyRzpXg7NtGzgcCtPS7cVTWDQy4XEYhdMak49/0OqkzEFI5lA=="],
 
     "@x402/near": ["@x402/near@2.24.0", "", { "dependencies": { "@near-js/crypto": "^2.5.1", "@near-js/providers": "^2.5.1", "@near-js/signers": "^2.5.1", "@near-js/transactions": "^2.5.1", "@near-js/utils": "^2.5.1", "@noble/hashes": "^1.8.0", "@x402/core": "~2.24.0", "borsh": "1.0.0" } }, "sha512-DdCtbPJoQjf1W5xO7ZjY48PPvFa9Ui2tppieDO2NGK9Ll2CCAjKfuVFX5Y7bzEiXKLUyI+LxEghJ6iVFl+GAVA=="],
 
@@ -1660,7 +1660,7 @@
 
     "@x402/hedera/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
-    "@x402/keeta/@x402/core": ["@x402/core@2.23.0", "https://registry.npmmirror.com/@x402/core/-/core-2.23.0.tgz", { "dependencies": { "zod": "^3.24.2" } }, "sha512-EFeV0nXbTPPe5FXaD6y9vMgqc+k/ujLXCrUPrQXkmHjHyjC3Ir5tTL1e2FPSkx2+GUGzfpt1wVZb36639ygkWw=="],
+    "@x402/keeta/@x402/core": ["@x402/core@2.31.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-7ToCOwHfftfFEERW5Mp6Fc5U1+JrtCLTkbQnEVsBl13IutltP9lWIBYi/J+zy8vQWaLUmACq8A2qywzdt/RRIQ=="],
 
     "@x402/near/@x402/core": ["@x402/core@2.24.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-zKFbG+RgUhBXT9RcBQZGPW1cZXL9xpiTv68XSSuO1SMoobudmVvxYgP/bhoxJuAoqJjjEceeAhT4/EcA/wolrQ=="],
 
@@ -1871,8 +1871,6 @@
     "@x402/concordium/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@x402/hedera/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
-
-    "@x402/keeta/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "@x402/near/@x402/core/zod": ["zod@3.25.76", "https://registry.npmmirror.com/zod/-/zod-3.25.76.tgz", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
