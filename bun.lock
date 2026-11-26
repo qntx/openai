@@ -1544,7 +1544,7 @@
 
     "ws": ["ws@8.21.0", "https://registry.npmmirror.com/ws/-/ws-8.21.0.tgz", { "peerDependencies": { "bufferutil": "^4.0.1", "utf-8-validate": ">=5.0.2" }, "optionalPeers": ["bufferutil", "utf-8-validate"] }, "sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g=="],
 
-    "xrpl": ["xrpl@5.2.0", "", { "dependencies": { "@scure/bip32": "^2.0.1", "@scure/bip39": "^2.0.1", "@xrplf/isomorphic": "^1.0.2", "@xrplf/mpt-crypto": "^0.1.1", "@xrplf/secret-numbers": "^3.0.0", "bignumber.js": "^10.0.2", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.1", "ripple-binary-codec": "^2.11.0", "ripple-keypairs": "^3.1.0" } }, "sha512-wkP4BUsplEJVOaoppr4XNE/yNRGV7GO9/UUPPNaOima1wgLLPJGzE9RGfui5zs1zr9WMDIG7ADFSBveNEPPHig=="],
+    "xrpl": ["xrpl@5.3.0", "", { "dependencies": { "@scure/bip32": "^2.0.1", "@scure/bip39": "^2.0.1", "@xrplf/isomorphic": "^1.0.2", "@xrplf/mpt-crypto": "^0.1.1", "@xrplf/secret-numbers": "^3.0.0", "bignumber.js": "^10.0.2", "eventemitter3": "^5.0.1", "fast-json-stable-stringify": "^2.1.0", "ripple-address-codec": "^5.0.1", "ripple-binary-codec": "^2.11.0", "ripple-keypairs": "^3.1.0" } }, "sha512-sdyi7qqJ13U+nMllHgxJTWbQm/Tk8uzhBmeTKwhI9WxkHuekPfbvJ3BDopXO2vMfsty7lBja0ACSHEUKLz3F/w=="],
 
     "y18n": ["y18n@5.0.8", "", {}, "sha512-0pfFzegeDWJHJIAmTLRP2DwHjdF5s7jo9tuztdQxAhINCdvS+3nGINqPd00AphqJR/0LhANUS6/+7SCb98YOfA=="],
 
