@@ -630,7 +630,7 @@
 
     "@x402/evm": ["@x402/evm@2.29.0", "", { "dependencies": { "@x402/core": "~2.29.0", "viem": "^2.48.11", "zod": "^4.6.6" } }, "sha512-Gk4bJ6WoRR3jeT2+vERSPMSkSr1nRL5kjtVh14uoynRm8y+fGFH8xmvlGzuwKT0liA6OLjdr9xjZtN8i0WYk9g=="],
 
-    "@x402/fetch": ["@x402/fetch@2.29.0", "", { "dependencies": { "@x402/core": "~2.29.0" } }, "sha512-ym/+6Cg7uUqScrE/pCV0sfmKecX46KTk5B/VKyJo579Xn1Z6dq2KiLd04rTvvO2xldLKKluU/3SqpDIgkp6T9Q=="],
+    "@x402/fetch": ["@x402/fetch@2.32.0", "", { "dependencies": { "@x402/core": "~2.32.0" } }, "sha512-MxDqmBxQz6I5NWUVu90cQ1XRZayAi8oDpGllDwrwihxfAHloE7eqXkNuFC80IRE3BbMwj8h65aBEaOaiq3EBUQ=="],
 
     "@x402/hedera": ["@x402/hedera@2.28.0", "", { "dependencies": { "@hiero-ledger/proto": "2.31.0", "@hiero-ledger/sdk": "2.85.0", "@x402/core": "~2.28.0" } }, "sha512-zHLBxc961sF6GweL9FFdhrj98faPwdNLv3Ifp5PkVZxu/SaSa+J4slinzPu3GMHxRlYRhVMHFdfv8QmS9l9M+Q=="],
 
@@ -1657,6 +1657,8 @@
     "@x402/avm/@x402/core": ["@x402/core@2.30.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-gvMxCum2QlNI6jI/3NL1jdrmOgtX9sWEWxSIOmeI67/5ndOJvYOtP7JZLSO8o8af+O+A+Vhhjza1NCda0yVppg=="],
 
     "@x402/concordium/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
+
+    "@x402/fetch/@x402/core": ["@x402/core@2.32.0", "", { "dependencies": { "zod": "^4.6.6" } }, "sha512-HyS8vbaR3XP79EIATKGMt8eL0Ql46yrfVDrtv1Inmlx4qJl4NU61cJmTh/pSGOCJIeb7ETNhWR/GQ4XsWZcQIA=="],
 
     "@x402/hedera/@x402/core": ["@x402/core@2.28.0", "", { "dependencies": { "zod": "^3.24.2" } }, "sha512-Da/7zKxCKqpBoB4Msc9tFgkAv7tJTD8nG+DSSm+QdXAyJS4PQsmgVSKe17rDJTtlu0pwNbLcOje6MyQ6kaDkig=="],
 
