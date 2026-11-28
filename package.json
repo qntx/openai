@@ -31,11 +31,13 @@
     "access": "public"
   },
   "scripts": {
+    "lint": "vp check",
+    "typecheck": "tsc --noEmit",
     "build": "vp pack",
     "dev": "vp pack --watch",
     "test": "vp test",
-    "check": "vp check",
-    "prepublishOnly": "vp run build"
+    "prepublishOnly": "vp run build",
+    "prepare": "vp config"
   },
   "dependencies": {
     "@x402/fetch": "^2.23.0",

@@ -6,23 +6,19 @@
 
 import { preferNetwork, preferScheme, X402OpenAI } from "../src/index.ts";
 
-const key = process.env.EVM_PRIVATE_KEY as `0x${string}` | undefined;
-if (!key) throw new Error("EVM_PRIVATE_KEY is required");
+const envKey = process.env.EVM_PRIVATE_KEY as `0x${string}` | undefined;
+if (!envKey) throw new Error("EVM_PRIVATE_KEY is required");
+const key: `0x${string}` = envKey;
 
 const baseURL = process.env.O402_BASE_URL ?? "http://127.0.0.1:8080/v1";
 const chatModel = process.env.MODEL ?? "openrouter/meta-llama/llama-3.1-8b-instruct";
 const networks = ["eip155:143", "eip155:10143"] as const;
 
 function rpcUrl(network: (typeof networks)[number]): string {
-  return network === "eip155:10143"
-    ? "https://testnet-rpc.monad.xyz"
-    : "https://rpc.monad.xyz";
+  return network === "eip155:10143" ? "https://testnet-rpc.monad.xyz" : "https://rpc.monad.xyz";
 }
 
-function client(
-  network: (typeof networks)[number],
-  scheme: "exact" | "upto",
-): X402OpenAI {
+function client(network: (typeof networks)[number], scheme: "exact" | "upto"): X402OpenAI {
   return new X402OpenAI({
     evm: { privateKey: key, rpcUrl: rpcUrl(network) },
     baseURL,

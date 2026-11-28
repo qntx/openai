@@ -11,16 +11,12 @@
 
 import { preferNetwork, preferScheme, X402OpenAI } from "../src/index.ts";
 
-const network = (process.env.NETWORK ?? "eip155:143") as
-  | "eip155:143"
-  | "eip155:10143";
+const network = (process.env.NETWORK ?? "eip155:143") as "eip155:143" | "eip155:10143";
 const key = process.env.EVM_PRIVATE_KEY as `0x${string}` | undefined;
 if (!key) throw new Error("EVM_PRIVATE_KEY is required");
 
 const rpcUrl =
-  network === "eip155:10143"
-    ? "https://testnet-rpc.monad.xyz"
-    : "https://rpc.monad.xyz";
+  network === "eip155:10143" ? "https://testnet-rpc.monad.xyz" : "https://rpc.monad.xyz";
 
 const client = new X402OpenAI({
   evm: { privateKey: key, rpcUrl },
@@ -46,10 +42,16 @@ const image = await client.images.generate({
   size: "256x256",
 });
 
-console.log(JSON.stringify({
-  network,
-  model: "exact-echo",
-  scheme: "exact",
-  created: image.created,
-  url: image.data?.[0]?.url,
-}, null, 2));
+console.log(
+  JSON.stringify(
+    {
+      network,
+      model: "exact-echo",
+      scheme: "exact",
+      created: image.created,
+      url: image.data?.[0]?.url,
+    },
+    null,
+    2,
+  ),
+);
